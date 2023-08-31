@@ -1,0 +1,18 @@
+## For more info, use `swiftgen config doc` to open the full documentation on GitHub.
+## https://github.com/SwiftGen/SwiftGen/tree/6.6.2/Documentation/
+## Generate constants for Assets Catalogs, including constants for images, colors, ARKit resources, etc.
+xcassets:
+  - inputs: Sources/TMDBUIKit/Resources/Images.xcassets
+    outputs:
+     - templateName: swift5
+       output: Sources/TMDBUIKit/Resources/Generated/Images.gen.swift
+       params:
+        enumName: Images
+        publicAccess: true
+  - inputs: Sources/TMDBUIKit/Resources/Colors.xcassets
+    outputs:
+     - templateName: swift5
+       output: Sources/TMDBUIKit/Resources/Generated/Colors.gen.swift
+       params:
+        enumName: Colors
+        publicAccess: true

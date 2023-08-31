@@ -1,0 +1,34 @@
+### Headers settings
+company: InnoTech
+
+### Xcode project settings
+project_name: TMBD
+xcodeproj_path: TMBD.xcodeproj
+
+### Code generation settings section
+# The main project target name
+project_target: TMBD
+
+# The file path for new modules
+project_file_path: TMBD/Modules
+
+# The Xcode group path to new modules
+project_group_path: TMBD/Modules
+
+### Tests generation settings section
+# The tests target name
+test_target: TMBDTests
+
+# The file path for new tests
+test_file_path: TMBDTests/TestPresentation
+
+# The Xcode group path to new tests
+test_group_path: TMBDTests/TestPresentation
+
+### Dependencies settings section
+podfile_path: Podfile
+
+### Templates
+templates:
+- {name: VKC, Templates/TMBD}
+

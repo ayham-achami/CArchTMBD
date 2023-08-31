@@ -1,0 +1,83 @@
+//
+//  {{ prefix }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import CArch
+import CArchSwinject
+
+/// Пространство имен модуля {{ module_info.name }}
+public struct {{ module_info.name }}Module {
+
+    /// Объект содержащий логику создания модуля `{{ module_info.name }}` 
+    /// с чистой иерархии (просто ViewController) 
+    public final class Builder: ClearHierarchyModuleBuilder {
+        
+        public typealias InitialStateType = {{ module_info.name }}ModuleState.InitialStateType
+
+        public init() {}
+
+        public func build(with initialState: InitialStateType) -> CArchModule {
+            let module = build()
+            module.initializer?.set(initialState: initialState)
+            return module
+
+        }
+        
+        public func build() -> CArchModule {
+            LayoutAssemblyFactory
+                .assembly({{ module_info.name }}Assembly.self)
+                .unravel({{ module_info.name }}ViewController.self)
+        }
+    }
+}
+
+/// Объект содержащий логику внедрения зависимости компонентов модула `{{ module_info.name }}`
+final class {{ module_info.name }}Assembly: LayoutModuleAssembly {
+    
+    required init() {
+        print("{{ module_info.name }}ModuleAssembly is beginning assembling")
+    }
+    
+    func registerView(in container: DIContainer) {
+        container.record({{ module_info.name }}ViewController.self) { resolver in
+            let controller = {{ module_info.name }}ViewController()
+            guard
+                let presenter = resolver.unravel({{ module_info.name }}PresentationLogic.self,
+                                                 arguments: controller as {{ module_info.name }}RenderingLogic,
+                                                 controller as {{ module_info.name }}ModuleStateRepresentable)
+            else { preconditionFailure("Could not to build {{ module_info.name }} module, module Presenter is nil") }
+            controller.renderer = resolver.unravel({{ module_info.name }}Renderer.self, argument: controller as {{ module_info.name }}UserInteraction)
+            controller.router = resolver.unravel({{ module_info.name }}RoutingLogic.self, argument: controller as TransitionController)
+            controller.provider = resolver.unravel({{ module_info.name }}ProvisionLogic.self, argument: presenter as {{ module_info.name }}PresentationLogic)
+            return controller
+        }
+    }
+    
+    func registerRenderers(in container: DIContainer) {
+        container.record({{ module_info.name }}Renderer.self) { (_, interaction: {{ module_info.name }}UserInteraction) in
+            {{ module_info.name }}Renderer(interactional: interaction)
+        }
+    }
+
+    func registerPresenter(in container: DIContainer) {
+        container.record({{ module_info.name }}PresentationLogic.self) { (resolver, view: {{ module_info.name }}RenderingLogic, state: {{ module_info.name }}ModuleStateRepresentable) in
+            {{ module_info.name }}Presenter(view: view, state: state)
+        }
+    }
+
+    func registerProvider(in container: DIContainer) {
+        container.record({{ module_info.name }}ProvisionLogic.self) { (resolver, presenter: {{ module_info.name }}PresentationLogic) in
+            {{ module_info.name }}Provider(presenter: presenter)
+        }
+    }
+    
+    func registerRouter(in container: DIContainer) {
+        container.record({{ module_info.name }}RoutingLogic.self) { (resolver, transitionController: TransitionController) in
+            {{ module_info.name }}Router(transitionController: transitionController)
+        }
+    }
+}

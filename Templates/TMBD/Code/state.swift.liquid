@@ -1,0 +1,43 @@
+//
+//  {{ prefix }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import CArch
+
+/// Протокол передающий доступ к некоторым свойствам состояние модуля `{{ module_info.name }}` как только для чтения
+protocol {{ module_info.name }}ModuleReadOnlyState: AnyReadOnlyState {}
+
+/// Протокол передающий доступ к состоянию модуля как только для чтения
+protocol {{ module_info.name }}ModuleStateRepresentable: AnyModuleStateRepresentable {
+    
+    var readOnly: {{ module_info.name }}ModuleReadOnlyState { get }
+}
+
+/// Состояние модуля `{{ module_info.name }}`
+public struct {{ module_info.name }}ModuleState: ModuleState {    
+    
+    public struct InitialState: ModuleInitialState {
+    
+        public init() {}
+    }
+    
+    public struct FinalState: ModuleFinalState {
+    
+        public init() {}
+    }
+    
+    public typealias InitialStateType = InitialState
+    public typealias FinalStateType = FinalState
+    
+    public var initialState: {{ module_info.name }}ModuleState.InitialStateType?
+    public var finalState: {{ module_info.name }}ModuleState.FinalStateType?
+
+    public init() {}
+}
+
+// MARK: - {{ module_info.name }}ModuleState +  ReadOnly
+extension {{ module_info.name }}ModuleState: {{ module_info.name }}ModuleReadOnlyState {}

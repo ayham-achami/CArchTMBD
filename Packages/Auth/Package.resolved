@@ -1,0 +1,59 @@
+{
+  "pins" : [
+    {
+      "identity" : "carch",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CArch.git",
+      "state" : {
+        "branch" : "feature/v-3.0.0",
+        "revision" : "147eaebdd6f06d7e159c495d9cd4b03ed8fcf7d2"
+      }
+    },
+    {
+      "identity" : "carchswinject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CArchSwinject.git",
+      "state" : {
+        "branch" : "feature/v-3.0.0",
+        "revision" : "f970d5d6f98bdd4a944c50824feafda1b7acaa9e"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "2e3c42cf38defd998c87ecfe8df138f925d22736",
+        "version" : "509.0.0-swift-DEVELOPMENT-SNAPSHOT-2023-08-15-a"
+      }
+    },
+    {
+      "identity" : "swiftgenplugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftGen/SwiftGenPlugin",
+      "state" : {
+        "revision" : "879b85a470cacd70c19e22eb7e11a3aed66f4068",
+        "version" : "6.6.2"
+      }
+    },
+    {
+      "identity" : "swinject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swinject/Swinject.git",
+      "state" : {
+        "revision" : "8bc503e60965298984fb58cf47b71c541449fe2a",
+        "version" : "2.8.3"
+      }
+    },
+    {
+      "identity" : "swinjectstoryboard",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swinject/SwinjectStoryboard.git",
+      "state" : {
+        "revision" : "e4498ce2dfe37e1ca9d2d20af06fcc087507561c",
+        "version" : "2.2.3"
+      }
+    }
+  ],
+  "version" : 2
+}

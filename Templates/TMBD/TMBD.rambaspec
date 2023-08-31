@@ -1,0 +1,30 @@
+# Template information section
+name: "TMBD"
+summary: "Swift CArch module template with UIViewController playing as a View."
+author: "Community Arch"
+version: "3.0"
+license: "MIT"
+
+# The declarations for code files
+
+code_files:
+# Renderers
+- {name: Renderers/Renderer.swift , path: Code/renderer.swift.liquid}
+# View
+- {name: View.swift, path: Code/view.swift.liquid}
+# State
+- {name: State.swift, path: Code/state.swift.liquid}
+# Router
+- {name: Router.swift, path: Code/router.swift.liquid}
+# Provider
+- {name: Provider.swift, path: Code/provider.swift.liquid}
+# Presenter
+- {name: Presenter.swift, path: Code/presenter.swift.liquid}
+# Assembly
+- {name: Assembly.swift, path: Code/assembly.swift.liquid}
+
+# The declarations for test files
+
+test_files:
+# Assembly tests
+- {name: Assembly/AssemblyTest.swift, path: Tests/Assembly/AssemblyTest.swift.liquid}
