@@ -29,7 +29,7 @@ final class MoviesProvider: MoviesProvisionLogic {
     }
     
     func obtainMovies(of type: MoviesModuleState.MoviesType, at page: Int) async throws {
-        let movies: Movies
+        let movies: MoviesList
         switch type {
         case .popular:
             movies = try await moviesService.fetchPopular(page)

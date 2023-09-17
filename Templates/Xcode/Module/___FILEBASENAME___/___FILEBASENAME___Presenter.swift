@@ -3,6 +3,7 @@
 import CArch
 
 /// Протокол реализующий логику отображения данных
+@UIContactor
 @MainActor protocol ___VARIABLE_productName___RenderingLogic: RootRenderingLogic {}
 
 /// Объект содержащий логику преобразования объектов модели `Model` в

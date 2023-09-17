@@ -1,23 +1,24 @@
 //
 //  Crew.swift
 
+import CRest
 import Foundation
 
 // MARK: - Crew
-public struct Crew: Codable {
+struct Crew: Response {
     
-    public let id: Int
-    public let gender: Int
+    let id: Int
+    let gender: Int
     
-    public let adult: Bool
+    let adult: Bool
     
-    public let popularity: Double
+    let popularity: Double
     
-    public let job: String
-    public let name: String
-    public let creditId: String
-    public let department: String
-    public let originalName: String
-    public let profilePath: String?
-    public let knownForDepartment: String
+    let job: String
+    let name: String
+    let creditId: String
+    let department: String
+    let originalName: String
+    let profilePath: String?
+    let knownForDepartment: String
 }

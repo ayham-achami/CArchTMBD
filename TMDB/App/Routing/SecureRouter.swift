@@ -32,23 +32,45 @@ import UIKit
     }()
     
     func lock(with module: CArchModule) {
-        mainWindow.rootViewController = nil
-        if let animator, animator.isRunning {
-            animator.stopAnimation(false)
-            animator.finishAnimation(at: .current)
-        }
+        stopAnimationIfNeeded()
         secureWindow.rootViewController = module.node
+        secureWindow.rootViewController?.viewIfLoaded?.alpha = 0
+        secureWindow.isHidden = false
         secureWindow.makeKeyAndVisible()
+        
+        mainWindow.isHidden = true
+        mainWindow.resignKey()
+        
+        animator = UIViewPropertyAnimator.runningPropertyAnimator(withDuration: animateDuration, delay: 0, animations: {
+            self.secureWindow.rootViewController?.viewIfLoaded?.alpha = 1
+        }, completion: { _ in
+            self.mainWindow.rootViewController = nil
+            self.animator = nil
+        })
+        
     }
     
     func unlock(with module: CArchModule) {
+        stopAnimationIfNeeded()
         mainWindow.rootViewController = module.node
+        mainWindow.rootViewController?.viewIfLoaded?.alpha = 0
+        mainWindow.isHidden = false
         mainWindow.makeKeyAndVisible()
+        
+        secureWindow.isHidden = true
+        secureWindow.resignKey()
+        
         animator = UIViewPropertyAnimator.runningPropertyAnimator(withDuration: animateDuration, delay: 0, animations: {
-            self.secureWindow.rootViewController?.viewIfLoaded?.alpha = 0
+            self.mainWindow.rootViewController?.viewIfLoaded?.alpha = 1
         }, completion: { _ in
-            self.secureWindow.isHidden = true
+            self.secureWindow.rootViewController = nil
             self.animator = nil
         })
+    }
+    
+    private func stopAnimationIfNeeded() {
+        guard let animator, animator.isRunning else { return }
+        animator.stopAnimation(false)
+        animator.finishAnimation(at: .current)
     }
 }

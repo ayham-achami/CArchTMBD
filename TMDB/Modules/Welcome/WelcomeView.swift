@@ -4,6 +4,7 @@
 
 import UIKit
 import CArch
+import Movies
 import TMDBUIKit
 import CArchSwinject
 
@@ -42,6 +43,7 @@ final class WelcomeViewController: UIViewController, ModuleLifeCycleOwner {
         moduleDidLoad()
         
         view.addSubview(backgroundRenderer)
+        backgroundRenderer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             backgroundRenderer.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundRenderer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -49,6 +51,7 @@ final class WelcomeViewController: UIViewController, ModuleLifeCycleOwner {
             backgroundRenderer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         view.addSubview(renderer)
+        renderer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             renderer.topAnchor.constraint(equalTo: view.topAnchor),
             renderer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -112,7 +115,7 @@ extension WelcomeViewController: WelcomeRenderingLogic {
 extension WelcomeViewController: WelcomeUserInteraction {
     
     func didRequestDemo() {
-        router.showMain(.init())
+        router.showMain(.init(title: "Demo", icon: UIImage(systemName: "star.square")!, type: .popular))
     }
     
     func didRequestLogin() {

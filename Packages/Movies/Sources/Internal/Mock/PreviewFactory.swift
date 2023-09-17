@@ -1,15 +1,31 @@
 //
 //  PreviewFactory.swift
-//  
 
 #if DEBUG
 import UIKit
 import CArch
+import CRest
 import TMDBCore
 import Foundation
 import CArchSwinject
 
 private let layoutAssemblyFactory: LayoutAssemblyFactory = .init()
+
+private final class MockFactoryProvider: FactoryProvider {
+    
+    var factory: LayoutAssemblyFactory {
+        layoutAssemblyFactory
+    }
+}
+
+private final class MockFactoryProviderAssembly: DIAssembly {
+    
+    func assemble(container: DIContainer) {
+        container.record(FactoryProvider.self, inScope: .autoRelease) { _ in
+            MockFactoryProvider()
+        }
+    }
+}
 
 private final class MockMoviesNavigator: MoviesNavigator {
     
@@ -51,7 +67,9 @@ private final class MockApplicationRouterAssembly: DIAssembly {
 
 private final class MockJWTController: JWTController {
         
-    let token: JWT = ("", "")
+    var token: JWT {
+        ("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NWQ4YTY1MDVkYmU2Y2NhODc5MmEwODJlNmI2ZDU2ZSIsInN1YiI6IjVjODE0NmY3YzNhMzY4NGU4ZmQ2M2E0ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-1fOBevFQKbPvFdbVs4zFDwHUJknj3644PHInA1tWSw", "")
+    }
     let state: TMDBCore.AuthState = .unauthorized
     
     func rest() {
@@ -66,24 +84,57 @@ private final class MockJWTController: JWTController {
 private final class MockJWTControllerAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
+        container.record(JWTProvider.self, inScope: .autoRelease) { _ in
+            MockJWTController()
+        }
         container.record(JWTController.self, inScope: .autoRelease) { _ in
             MockJWTController()
         }
     }
 }
 
-private final class MockFactoryProvider: FactoryProvider {
+final class MockBearerAuthenticator: IOBearerAuthenticator {
     
-    var factroy: LayoutAssemblyFactory {
-        layoutAssemblyFactory
+    final class Provider: BearerCredentialProvider {
+        
+        final class Credential: BearerCredential {
+            
+            let access: String
+            let isValidated: Bool = true
+            
+            init(access: String) {
+                self.access = access
+            }
+        }
+        
+        var credential: BearerCredential
+        
+        func refresh() async throws -> CRest.BearerCredential {
+            fatalError()
+        }
+        
+        init(credential: Credential) {
+            self.credential = credential
+        }
+    }
+    
+    let refreshStatusCodes: [Int] = [401]
+    let provider: BearerCredentialProvider
+    
+    var refreshRequest: Request {
+        fatalError()
+    }
+    
+    init(provider: Provider) {
+        self.provider = provider
     }
 }
 
-private final class MockFactoryProviderAssembly: DIAssembly {
+private final class MockBearerAuthenticatorAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(FactoryProvider.self, inScope: .autoRelease) { _ in
-            MockFactoryProvider()
+        container.record(IOBearerAuthenticator.self, inScope: .autoRelease) { resolver in
+            MockBearerAuthenticator(provider: .init(credential: .init(access: resolver.unravel(JWTController.self)!.token.access)))
         }
     }
 }
@@ -93,7 +144,9 @@ private struct MockServicesAssembly: DIAssemblyCollection {
     var services: [DIAssembly] {
         [MockJWTControllerAssembly(),
          MockMoviesNavigatorAssembly(),
-         MockApplicationRouterAssembly()]
+         MockFactoryProviderAssembly(),
+         MockApplicationRouterAssembly(),
+         MockBearerAuthenticatorAssembly()]
     }
 }
 
@@ -150,4 +203,32 @@ extension MovieDetailsModule {
         }
     }
 }
+
+extension PersonModule {
+    
+    /// Объект содержащий логику создания модуля `MovieDetails`
+    /// с чистой иерархии (просто ViewController)
+    final class PreviewBuilder: ClearHierarchyModuleBuilder {
+        
+        typealias InitialStateType = MovieDetailsModuleState.InitialStateType
+        
+        private let builder: Builder
+        
+        init() {
+            layoutAssemblyFactory.record(MockServicesAssembly())
+            builder = .init(layoutAssemblyFactory)
+        }
+
+        func build(with initialState: InitialStateType) -> CArchModule {
+            let module = build()
+            module.initializer?.set(initialState: initialState)
+            return module
+        }
+        
+        func build() -> CArchModule {
+            builder.build(with: .init(id: 234352))
+        }
+    }
+}
+
 #endif

@@ -10,6 +10,7 @@ final class CoreDICollection: DIAssemblyCollection {
     var services: [DIAssembly] {
         [AppJWTControllerAssembly(),
          AppFactoryProviderAssembly(),
+         BearerAuthenticatorAssembly(),
          ApplicationTMBDRouterAssembly()]
     }
 }

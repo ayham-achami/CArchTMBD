@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "bc268c28fb170f494de9e9927c371b8342979ece",
-        "version" : "5.7.1"
+        "revision" : "b2fa556e4e48cbf06cf8c63def138c98f4b811fa",
+        "version" : "5.8.0"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/AlamofireImage.git",
       "state" : {
-        "revision" : "98cbb00ce0ec5fc8e52a5b50a6bfc08d3e5aee10",
-        "version" : "4.2.0"
+        "revision" : "1eaf3b6c6882bed10f6e7b119665599dd2329aa1",
+        "version" : "4.3.0"
       }
     },
     {
@@ -46,12 +46,21 @@
       }
     },
     {
+      "identity" : "crest",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CRest.git",
+      "state" : {
+        "branch" : "feature/adapt",
+        "revision" : "4b657892c31c824f3c27f1f576fde175237ad598"
+      }
+    },
+    {
       "identity" : "swift-syntax",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "revision" : "057bdfb4632cc758973d46efaf98e43d07ee4bdb",
-        "version" : "509.0.0-swift-DEVELOPMENT-SNAPSHOT-2023-08-28-a"
+        "revision" : "74203046135342e4a4a627476dd6caf8b28fe11b",
+        "version" : "509.0.0"
       }
     },
     {

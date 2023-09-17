@@ -28,9 +28,8 @@ final class MovieDetailsProvider: MovieDetailsProvisionLogic {
     }
     
     func obtainMovieDetails(with id: Int) async throws {
-        async let details = movieDetailsService.fetchDetails(with: id)
-        async let Credits = movieDetailsService.fetchCast(with: id)
-        let response = try await (details: details, credits: Credits)
+        let response = try await (details: movieDetailsService.fetchDetails(with: id),
+                                  credits: movieDetailsService.fetchCast(with: id))
         presenter.didObtain(response)
     }
     

@@ -30,7 +30,7 @@ final class MoviesRouter: MoviesRoutingLogic {
             .with(state: initialState)
             .with(hierarchy: .clear)
             .with(transition: .present)
-            .with(builder: MovieDetailsModule.Builder(factoryProvider.factroy))
+            .with(builder: MovieDetailsModule.Builder(factoryProvider.factory))
             .commit()
         
     }

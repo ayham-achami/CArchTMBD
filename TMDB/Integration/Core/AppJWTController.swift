@@ -3,13 +3,14 @@
 //  TMDB
 
 import CArch
+import CRest
 import TMDBCore
 import Foundation
 
 final class AppJWTController: JWTController {
     
     var token: JWT {
-         fatalError("Get TMBD auth key")
+        ("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NWQ4YTY1MDVkYmU2Y2NhODc5MmEwODJlNmI2ZDU2ZSIsInN1YiI6IjVjODE0NmY3YzNhMzY4NGU4ZmQ2M2E0ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-1fOBevFQKbPvFdbVs4zFDwHUJknj3644PHInA1tWSw", "")
     }
     
     var state: TMDBCore.AuthState {
@@ -21,6 +22,23 @@ final class AppJWTController: JWTController {
     func rest() {}
 }
 
+extension AppJWTController: BearerCredentialProvider {
+    
+    struct Credential: BearerCredential {
+        
+        var access: String
+        var isValidated: Bool
+    }
+    
+    var credential: BearerCredential {
+        Credential(access: token.access, isValidated: true)
+    }
+    
+    func refresh() async throws -> BearerCredential {
+        credential
+    }
+}
+
 final class AppJWTControllerAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
@@ -28,6 +46,9 @@ final class AppJWTControllerAssembly: DIAssembly {
             AppJWTController()
         }
         container.record(JWTController.self, inScope: .autoRelease) { _ in
+            AppJWTController()
+        }
+        container.record(BearerCredentialProvider.self, inScope: .autoRelease) { _ in
             AppJWTController()
         }
     }

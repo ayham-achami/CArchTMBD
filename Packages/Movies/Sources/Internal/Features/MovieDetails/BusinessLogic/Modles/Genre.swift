@@ -1,10 +1,11 @@
 //
 //  Genre.swift
 
+import CRest
 import Foundation
 
-public struct Genre: Codable {
+struct Genre: Response {
     
-    public let id: Int
-    public let name: String
+    let id: Int
+    let name: String
 }

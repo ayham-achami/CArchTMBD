@@ -1,11 +1,12 @@
 //
 //  Credits.swift
 
+import CRest
 import Foundation
 
-public struct Credits: Codable {
+struct Credits: Response {
     
-    public let id: Int
-    public let cast: [Cast]
-    public let crew: [Crew]
+    let id: Int
+    let cast: [Cast]
+    let crew: [Crew]
 }

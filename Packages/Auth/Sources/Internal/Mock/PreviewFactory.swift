@@ -13,7 +13,7 @@ private final class MockAuthNavigator: AuthNavigator {
     
     nonisolated init() {}
     
-    func destination(for bound: AtuhBounds) -> Destination {
+    func destination(for bound: AuthBounds) -> Destination {
         switch bound {
         case .login:
             return .init(LoginModule.Builder(factory).build(), .main)

@@ -1,9 +1,10 @@
 //
-//  Movies.swift
+//  MoviesList.swift
 
+import CRest
 import Foundation
 
-public struct Movies: Codable {
+struct MoviesList: Response {
 
     let page: Int
     let totalPages: Int

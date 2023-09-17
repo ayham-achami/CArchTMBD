@@ -11,27 +11,32 @@ let package = Package(
     products: [
         .library(
             name: "Social",
-            targets: ["Social"]
+            targets: [
+                "Social"
+            ]
         ),
     ],
     dependencies: [
         .package(path: "../TMDBCore"),
         .package(path: "../TMDBUIKit"),
         .package(url: "https://github.com/shimastripe/Texture.git", from: "3.1.1"),
-        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.7.1"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.2.0"),
+        .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/adapt"),
         .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
     ],
     targets: [
         .target(
             name: "Social",
             dependencies: [
+                "CRest",
                 "TMDBCore",
                 "TMDBUIKit",
-                "Alamofire",
                 "CArchSwinject",
                 "AlamofireImage",
                 .product(name: "AsyncDisplayKit", package: "Texture"),
+            ],
+            swiftSettings: [
+                .define("DEBUG", .when(configuration: .debug))
             ]
         ),
         .testTarget(

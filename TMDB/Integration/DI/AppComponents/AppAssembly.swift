@@ -10,6 +10,6 @@ struct AppAssembly: ServicesRecorder {
     
     var records: [any DIAssemblyCollection] {
         [CoreDICollection(),
-         NovigatorsDICollection()]
+         NavigatorsDICollection()]
     }
 }

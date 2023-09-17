@@ -41,6 +41,7 @@ class MoviesViewController: UIViewController, ModuleLifeCycleOwner {
         moduleDidLoad()
         
         view.addSubview(moviesRenderer)
+        moviesRenderer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             moviesRenderer.topAnchor.constraint(equalTo: view.topAnchor),
             moviesRenderer.bottomAnchor.constraint(equalTo: view.bottomAnchor),

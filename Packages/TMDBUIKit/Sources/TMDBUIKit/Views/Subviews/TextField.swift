@@ -377,11 +377,11 @@ private extension TextField {
     }
     
     func setupPlaceholder() {
-        if let placeholder = placeholder {
-            attributedPlaceholder = .init(string: placeholder, attributes: [.foregroundColor: Colors.tertiaryText.color])
-        } else {
-            attributedPlaceholder = nil
-        }
+//        attributedPlaceholder = if let placeholder {
+//            .init(string: placeholder, attributes: [.foregroundColor: Colors.tertiaryText.color])
+//        } else {
+//            .init()
+//        }
     }
     
     func setupInputColors() {
@@ -466,10 +466,9 @@ private extension TextField {
 // MARK: - Preview
 #Preview(String(describing: TextField.self), traits: .fixedLayout(width: 300, height: 300)) {
     let preview = TextField(frame: .zero)
-    preview.borderStyle = .none
     preview.title = "Title"
-    preview.text = "abc@abc.abc"
-    //preview.placeholder = "placeholder"
+//    preview.text = "abc@abc.abc"
+    preview.placeholder = "placeholder"
     preview.additionalTitle = "Additional title"
     preview.hint = "Hint"
     preview.rightViewType = .reveal

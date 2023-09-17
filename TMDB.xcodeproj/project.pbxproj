@@ -13,12 +13,14 @@
 		DF059A3E2A8927FA00A77FA8 /* AuthNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF059A3D2A8927FA00A77FA8 /* AuthNavigator.swift */; };
 		DF679AF32A9DC19B005074F3 /* AppJWTController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF679AF22A9DC19B005074F3 /* AppJWTController.swift */; };
 		DF679AF52A9DC966005074F3 /* MoviesNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF679AF42A9DC966005074F3 /* MoviesNavigator.swift */; };
-		DF679AFB2A9DE61C005074F3 /* NovigatorsDICollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF679AFA2A9DE61C005074F3 /* NovigatorsDICollection.swift */; };
+		DF679AFB2A9DE61C005074F3 /* NavigatorsDICollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF679AFA2A9DE61C005074F3 /* NavigatorsDICollection.swift */; };
 		DF679AFD2A9DE684005074F3 /* FactoryProvider .swift in Sources */ = {isa = PBXBuildFile; fileRef = DF679AFC2A9DE684005074F3 /* FactoryProvider .swift */; };
 		DF679AFF2A9DE6E6005074F3 /* CoreDICollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF679AFE2A9DE6E6005074F3 /* CoreDICollection.swift */; };
 		DF679B032A9DF89C005074F3 /* PreviewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF679B022A9DF89C005074F3 /* PreviewFactory.swift */; };
 		DF6FEAB42A85405E006E2261 /* TMDBCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF6FEAB32A85405E006E2261 /* TMDBCore */; };
 		DF9A76832A9E4058005916B4 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A76822A9E4058005916B4 /* AppAssembly.swift */; };
+		DFAB11DA2AB0478D0005BC45 /* BearerAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAB11D92AB0478D0005BC45 /* BearerAuthenticator.swift */; };
+		DFAB11DD2AB047EB0005BC45 /* CRest in Frameworks */ = {isa = PBXBuildFile; productRef = DFAB11DC2AB047EB0005BC45 /* CRest */; };
 		DFDE71752A753FAA007F0AAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFDE71742A753FAA007F0AAD /* Assets.xcassets */; };
 		DFDE71782A753FAA007F0AAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFDE71762A753FAA007F0AAD /* LaunchScreen.storyboard */; };
 		DFDE718B2A7541D8007F0AAD /* ApplicationTMBDRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDE71862A7541D8007F0AAD /* ApplicationTMBDRouter.swift */; };
@@ -54,12 +56,13 @@
 		DF059A3D2A8927FA00A77FA8 /* AuthNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigator.swift; sourceTree = "<group>"; };
 		DF679AF22A9DC19B005074F3 /* AppJWTController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppJWTController.swift; sourceTree = "<group>"; };
 		DF679AF42A9DC966005074F3 /* MoviesNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesNavigator.swift; sourceTree = "<group>"; };
-		DF679AFA2A9DE61C005074F3 /* NovigatorsDICollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NovigatorsDICollection.swift; sourceTree = "<group>"; };
+		DF679AFA2A9DE61C005074F3 /* NavigatorsDICollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorsDICollection.swift; sourceTree = "<group>"; };
 		DF679AFC2A9DE684005074F3 /* FactoryProvider .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactoryProvider .swift"; sourceTree = "<group>"; };
 		DF679AFE2A9DE6E6005074F3 /* CoreDICollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDICollection.swift; sourceTree = "<group>"; };
 		DF679B022A9DF89C005074F3 /* PreviewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewFactory.swift; sourceTree = "<group>"; };
 		DF6FEAB12A854042006E2261 /* TMDBCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = TMDBCore; sourceTree = "<group>"; };
 		DF9A76822A9E4058005916B4 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
+		DFAB11D92AB0478D0005BC45 /* BearerAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearerAuthenticator.swift; sourceTree = "<group>"; };
 		DFDE71682A753FA8007F0AAD /* TMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFDE71742A753FAA007F0AAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFDE71772A753FAA007F0AAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -122,6 +125,7 @@
 				DFDE71B32A7543BB007F0AAD /* Movies in Frameworks */,
 				DFDE71B62A7543C6007F0AAD /* (null) in Frameworks */,
 				DF6FEAB42A85405E006E2261 /* TMDBCore in Frameworks */,
+				DFAB11DD2AB047EB0005BC45 /* CRest in Frameworks */,
 				DFDE71AD2A7543A4007F0AAD /* TMDBUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,7 +164,7 @@
 			children = (
 				DF059A3D2A8927FA00A77FA8 /* AuthNavigator.swift */,
 				DF679AF42A9DC966005074F3 /* MoviesNavigator.swift */,
-				DF679AFA2A9DE61C005074F3 /* NovigatorsDICollection.swift */,
+				DF679AFA2A9DE61C005074F3 /* NavigatorsDICollection.swift */,
 			);
 			path = Novigators;
 			sourceTree = "<group>";
@@ -189,6 +193,7 @@
 			children = (
 				DF679AFC2A9DE684005074F3 /* FactoryProvider .swift */,
 				DF679AF22A9DC19B005074F3 /* AppJWTController.swift */,
+				DFAB11D92AB0478D0005BC45 /* BearerAuthenticator.swift */,
 				DFDE71862A7541D8007F0AAD /* ApplicationTMBDRouter.swift */,
 				DF679AFE2A9DE6E6005074F3 /* CoreDICollection.swift */,
 			);
@@ -458,6 +463,7 @@
 				DFEF1A9A2A7A842E00F0BC63 /* Social */,
 				DF6FEAB32A85405E006E2261 /* TMDBCore */,
 				DF059A372A8919F700A77FA8 /* CFoundation */,
+				DFAB11DC2AB047EB0005BC45 /* CRest */,
 			);
 			productName = TMDB;
 			productReference = DFDE71682A753FA8007F0AAD /* TMDB.app */;
@@ -494,6 +500,7 @@
 				DFEF1A992A7A842E00F0BC63 /* XCLocalSwiftPackageReference "Packages/Social" */,
 				DF6FEAB22A85405E006E2261 /* XCLocalSwiftPackageReference "Packages/TMDBCore" */,
 				DF059A362A8919F700A77FA8 /* XCRemoteSwiftPackageReference "CFoundation" */,
+				DFAB11DB2AB047EB0005BC45 /* XCRemoteSwiftPackageReference "CRest" */,
 			);
 			productRefGroup = DFDE71692A753FA8007F0AAD /* Products */;
 			projectDirPath = "";
@@ -521,6 +528,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFAB11DA2AB0478D0005BC45 /* BearerAuthenticator.swift in Sources */,
 				DFE93ED12A80217C00015E5C /* WelcomeCell.swift in Sources */,
 				DFDE71D62A754430007F0AAD /* MainView.swift in Sources */,
 				DFDE71D42A754430007F0AAD /* MainRouter.swift in Sources */,
@@ -542,7 +550,7 @@
 				DFE93ECD2A801D4100015E5C /* WelcomeBackgroundRenderer.swift in Sources */,
 				DFDE71D22A754430007F0AAD /* MainPresenter.swift in Sources */,
 				DFDE718E2A7541D8007F0AAD /* SecureRouter.swift in Sources */,
-				DF679AFB2A9DE61C005074F3 /* NovigatorsDICollection.swift in Sources */,
+				DF679AFB2A9DE61C005074F3 /* NavigatorsDICollection.swift in Sources */,
 				DFDE71D12A754430007F0AAD /* MainRenderer.swift in Sources */,
 				DFDE71CE2A754430007F0AAD /* WelcomeView.swift in Sources */,
 				DFDE718B2A7541D8007F0AAD /* ApplicationTMBDRouter.swift in Sources */,
@@ -694,7 +702,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9XVT6R2MZ7;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
@@ -707,7 +715,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = inno.tech.TMDB;
+				PRODUCT_BUNDLE_IDENTIFIER = arch.carch.TMDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -722,7 +730,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9XVT6R2MZ7;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
@@ -735,7 +743,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = inno.tech.TMDB;
+				PRODUCT_BUNDLE_IDENTIFIER = arch.carch.TMDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -798,6 +806,14 @@
 				kind = branch;
 			};
 		};
+		DFAB11DB2AB047EB0005BC45 /* XCRemoteSwiftPackageReference "CRest" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ayham-achami/CRest.git";
+			requirement = {
+				branch = feature/adapt;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -809,6 +825,11 @@
 		DF6FEAB32A85405E006E2261 /* TMDBCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TMDBCore;
+		};
+		DFAB11DC2AB047EB0005BC45 /* CRest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFAB11DB2AB047EB0005BC45 /* XCRemoteSwiftPackageReference "CRest" */;
+			productName = CRest;
 		};
 		DFDE71AC2A7543A4007F0AAD /* TMDBUIKit */ = {
 			isa = XCSwiftPackageProductDependency;

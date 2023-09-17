@@ -56,6 +56,7 @@ public struct WelcomeModule {
         
         public func embedIntoNavigationController(_ module: CArchModule) -> CArchModule {
             let navigationController = UINavigationController(rootViewController: module.node)
+            navigationController.navigationBar.tintColor = .white
             navigationController.navigationBar.prefersLargeTitles = true
             return navigationController
         }

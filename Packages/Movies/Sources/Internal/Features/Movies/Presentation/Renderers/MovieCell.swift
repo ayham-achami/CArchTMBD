@@ -77,15 +77,15 @@ final class MovieCell: UICollectionViewCell {
     
     private let effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-        
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
+        vibrancyView.clipsToBounds = false
         vibrancyView.translatesAutoresizingMaskIntoConstraints = false
         
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.contentView.addSubview(vibrancyView)
-        
+        blurEffectView.clipsToBounds = false
         return (blurEffectView, vibrancyView)
     }()
     

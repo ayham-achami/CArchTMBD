@@ -112,7 +112,6 @@ final class WelcomeRenderer: UIView, UIRenderer {
     
     // MARK: - Lifecycle
     func moduleDidLoad() {
-        translatesAutoresizingMaskIntoConstraints = false
         rendering()
     }
     

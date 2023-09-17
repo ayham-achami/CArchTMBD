@@ -1,5 +1,5 @@
 //
-//  JSONDecoder+Movies.swift
+//  JSON.swift
 
 import Foundation
 
@@ -31,5 +31,23 @@ extension JSONDecoder {
             throw Error.parsing
         }
         return decoder
+    }()
+}
+
+
+extension JSONEncoder {
+    
+    static let `default`: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        let formatter = ISO8601DateFormatter()
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+        encoder.dateEncodingStrategy = .custom { date, encoder -> Void in
+            var container = encoder.singleValueContainer()
+            let dateString = formatter.string(from: date)
+            try container.encode(dateString)
+        }
+        return encoder
     }()
 }

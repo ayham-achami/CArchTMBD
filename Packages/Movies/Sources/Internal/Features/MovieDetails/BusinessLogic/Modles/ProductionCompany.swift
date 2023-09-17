@@ -1,12 +1,13 @@
 //
 //  ProductionCompany.swift
 
+import CRest
 import Foundation
 
-public struct ProductionCompany: Codable {
+struct ProductionCompany: Response {
     
-    public let id: Int
-    public let name: String
-    public let logoPath: String?
-    public let originCountry: String
+    let id: Int
+    let name: String
+    let logoPath: String?
+    let originCountry: String
 }

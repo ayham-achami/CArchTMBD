@@ -4,13 +4,14 @@
 
 import Auth
 import CArch
+import Movies
 import TMDBCore
 import CArchSwinject
 
 /// Протокол организующий логику переходов от модуля `Welcome` в другие модули
 protocol WelcomeRoutingLogic: RootRoutingLogic {
     
-    func showMain(_ initialState: MainModuleState.InitialState)
+    func showMain(_ initialState: MoviesModuleState.InitialState)
     
     func showLogin(_ initialState: LoginModuleState.InitialState)
 }
@@ -27,13 +28,15 @@ final class WelcomeRouter: WelcomeRoutingLogic {
         self.factoryProvider = factoryProvider
     }
     
-    func showMain(_ initialState: MainModuleState.InitialState) {
+    func showMain(_ initialState: MoviesModuleState.InitialState) {
         TransitionBuilder
             .with(transitionController)
             .with(hierarchy: .clear)
             .with(transition: .push)
-            .with(state: initialState)
-            .with(module: MainModule.Builder(factoryProvider.factroy).build())
+            .with(module: PackageStarterBuilder
+                .with(factory: LayoutAssemblyFactory.self)
+                .build(starter: MoviesPackageStarter.self)
+                .clearMovies(initialState))
             .commit()
     }
     
@@ -42,7 +45,10 @@ final class WelcomeRouter: WelcomeRoutingLogic {
             .with(transitionController)
             .with(hierarchy: .clear)
             .with(transition: .push)
-            .with(module: PackegeStarterBuilder.with(factory: LayoutAssemblyFactory.self).build(starter: AuthPackegeStarter.self).login())
+            .with(module: PackageStarterBuilder
+                .with(factory: LayoutAssemblyFactory.self)
+                .build(starter: AuthPackageStarter.self)
+                .login())
             .commit()
     }
 }

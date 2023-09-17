@@ -16,27 +16,15 @@ import CArchSwinject
     private var secureQueue = Queue<CArchModule>()
     
     nonisolated init(_ provider: FactoryProvider) {
-        self.factory = provider.factroy
-    }
-    
-    nonisolated init() {
-        self.factory = .init()
+        self.factory = provider.factory
     }
     
     func show(_ destination: TMDBCore.Destination) {
         switch destination.level {
         case .main:
-            if let module = secureQueue.dequeue() {
-                secureRouter.unlock(with: module)
-            } else {
-                secureRouter.unlock(with: destination.module)
-            }
+            secureRouter.unlock(with: destination.module)
         case .secure:
-            if secureRouter.isLocked {
-                secureQueue.enqueue(destination.module)
-            } else {
-                secureRouter.unlock(with: destination.module)
-            }
+            secureRouter.lock(with: destination.module)
         }
     }
     
@@ -52,8 +40,11 @@ import CArchSwinject
 final class ApplicationTMBDRouterAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(ApplicationRouter.self, inScope: .autoRelease) { resolver in
+        container.record(ApplicationTMBDRouter.self, inScope: .autoRelease) { resolver in
             ApplicationTMBDRouter(resolver.unravel(FactoryProvider.self)!)
+        }
+        container.record(ApplicationRouter.self, inScope: .autoRelease) { resolver in
+            resolver.unravel(ApplicationTMBDRouter.self)!
         }
     }
 }

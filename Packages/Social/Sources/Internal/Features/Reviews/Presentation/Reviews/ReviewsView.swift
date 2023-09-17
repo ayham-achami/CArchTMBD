@@ -38,8 +38,8 @@ final class ReviewsViewController: UIViewController, ModuleLifeCycleOwner {
     override func viewDidLoad() {
         super.viewDidLoad()
         moduleDidLoad()
-        renderer.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(renderer.view)
+        renderer.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             renderer.view.topAnchor.constraint(equalTo: view.topAnchor),
             renderer.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),

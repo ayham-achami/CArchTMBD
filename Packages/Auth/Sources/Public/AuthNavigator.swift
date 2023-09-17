@@ -4,12 +4,12 @@
 import TMDBCore
 import Foundation
 
-public enum AtuhBounds {
+public enum AuthBounds {
     
     case login
 }
 
 @MainActor public protocol AuthNavigator: Navigator {
     
-    func destination(for bound: AtuhBounds) -> Destination
+    func destination(for bound: AuthBounds) -> Destination
 }

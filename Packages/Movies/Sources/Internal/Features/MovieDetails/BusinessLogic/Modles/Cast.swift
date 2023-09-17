@@ -1,23 +1,24 @@
 //
 //  Cast.swift
 
+import CRest
 import Foundation
 
-public struct Cast: Codable {
+struct Cast: Response {
     
-    public let id: Int
-    public let order: Int
-    public let castId: Int
-    public let gender: Int
+    let id: Int
+    let order: Int
+    let castId: Int
+    let gender: Int
     
-    public let adult: Bool
+    let adult: Bool
     
-    public let popularity: Double
+    let popularity: Double
     
-    public let name: String
-    public let creditId: String
-    public let character: String
-    public let originalName: String
-    public let profilePath: String?
-    public let knownForDepartment: String
+    let name: String
+    let creditId: String
+    let character: String
+    let originalName: String
+    let profilePath: String?
+    let knownForDepartment: String
 }

@@ -1,11 +1,11 @@
 //
-//  NovigatorsDICollection.swift
+//  NavigatorsDICollection.swift
 //  TMDB
 
 import CArch
 import Foundation
 
-struct NovigatorsDICollection: DIAssemblyCollection {
+struct NavigatorsDICollection: DIAssemblyCollection {
     
     var services: [DIAssembly] {
         [AuthNavigatorAssembly(),

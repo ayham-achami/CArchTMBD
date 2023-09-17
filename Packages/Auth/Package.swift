@@ -19,6 +19,7 @@ let package = Package(
     dependencies: [
         .package(path: "../TMDBCore"),
         .package(path: "../TMDBUIKit"),
+        .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/adapt"),
         .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
         
     ],
@@ -26,9 +27,13 @@ let package = Package(
         .target(
             name: "Auth",
             dependencies: [
+                "CRest",
                 "TMDBCore",
                 "TMDBUIKit",
                 "CArchSwinject"
+            ],
+            swiftSettings: [
+                .define("DEBUG", .when(configuration: .debug))
             ]
         ),
         .testTarget(

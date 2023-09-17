@@ -2,8 +2,8 @@
 //  MovieDetailsService.swift
 
 import CArch
+import CRest
 import TMDBCore
-import Alamofire
 import Foundation
 
 // MAR: - DI
@@ -11,13 +11,45 @@ final class MovieDetailsServiceAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
         container.record(MovieDetailsService.self, inScope: .autoRelease) { resolver in
-            MovieDetailsServiceImplementation(resolver.unravel(JWTProvider.self)!)
+            MovieDetailsServiceImplementation(io: resolver.unravel(ConcurrencyIO.self)!)
         }
     }
 }
 
+private extension Request {
+    
+    static func details(id: Int, language: String? = nil) -> Self {
+        enum Keys: String, URLQueryKeys {
+            
+            case language
+        }
+        let url = DynamicURL
+            .keyed(by: Keys.self)
+            .with(endPoint: .movie)
+            .with(pathComponent: id)
+            .with(value: language, key: .language)
+            .build()
+        return .init(url)
+    }
+    
+    static func cast(id: Int, language: String? = nil) -> Self {
+        enum Keys: String, URLQueryKeys {
+            
+            case language
+        }
+        let url = DynamicURL
+            .keyed(by: Keys.self)
+            .with(endPoint: .movie)
+            .with(pathComponent: "\(id)")
+            .with(pathComponent: "credits")
+            .with(value: language, key: .language)
+            .build()
+        return .init(url)
+    }
+}
+
 // MARK: - Public
-@MaintenanceActor public protocol MovieDetailsService: BusinessLogicService {
+@MaintenanceActor protocol MovieDetailsService: BusinessLogicService {
     
     /// <#Description#>
     /// - Parameter id: <#id description#>
@@ -33,58 +65,17 @@ final class MovieDetailsServiceAssembly: DIAssembly {
 // MARK: - Private
 private final class MovieDetailsServiceImplementation: MovieDetailsService {
     
-    private let tokenProvider: JWTProvider
-    private let io: Session = { Session.default }()
-    private let baseURL = URL(string: "https://api.themoviedb.org/3/movie")!
-    private lazy var headers = ["accept": "application/json", "Authorization": "Bearer \(tokenProvider.token.access)"]
+    private let io: ConcurrencyIO
     
-    nonisolated init(_ tokenProvider: JWTProvider) {
-        self.tokenProvider = tokenProvider
+    nonisolated init(io: ConcurrencyIO) {
+        self.io = io
     }
     
     func fetchDetails(with id: Int) async throws -> MovieDetails {
-        let url = baseURL
-            .appending(path: "\(id)")
-        var request = URLRequest(url: url,
-                                 cachePolicy: .useProtocolCachePolicy,
-                                 timeoutInterval: 10.0)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = headers
-        
-        let result = await io.request(request)
-            .response(completionHandler: { print($0.debugDescription) })
-            .validate(statusCode: 200...299)
-            .serializingDecodable(MovieDetails.self, decoder: JSONDecoder.default)
-            .result
-        switch result {
-        case .success(let response):
-            return response
-        case .failure(let error):
-            print(error)
-            throw error
-        }
+        try await io.fetch(for: .details(id: id), response: MovieDetails.self, encoding: .URL(.default))
     }
     
     func fetchCast(with id: Int) async throws -> Credits {
-        let url = baseURL
-            .appending(path: "\(id)")
-            .appending(path: "credits")
-            .appending(queryItems: [.init(name: "language", value: "ru")])
-        var request = URLRequest(url: url,
-                                 cachePolicy: .useProtocolCachePolicy,
-                                 timeoutInterval: 10.0)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = headers
-        
-        let result = await io.request(request)
-            .validate(statusCode: 200...299)
-            .serializingDecodable(Credits.self, decoder: JSONDecoder.default)
-            .result
-        switch result {
-        case .success(let response):
-            return response
-        case .failure(let error):
-            throw error
-        }
+        try await io.fetch(for: .cast(id: id), response: Credits.self, encoding: .URL(.default))
     }
 }

@@ -40,6 +40,7 @@ final class MovieDetailsViewController: UIViewController, ModuleLifeCycleOwner {
         moduleDidLoad()
         
         view.addSubview(renderer)
+        renderer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             renderer.topAnchor.constraint(equalTo: view.topAnchor),
             renderer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -48,6 +49,7 @@ final class MovieDetailsViewController: UIViewController, ModuleLifeCycleOwner {
         ])
         
         view.addSubview(navigationRenderer)
+        navigationRenderer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             navigationRenderer.widthAnchor.constraint(equalToConstant: 30),
             navigationRenderer.heightAnchor.constraint(equalToConstant: 30),
@@ -100,6 +102,10 @@ extension MovieDetailsViewController: MovieDetailsRenderingLogic {
 
 // MARK: - MovieDetails + UserInteraction
 extension MovieDetailsViewController: MovieDetailsUserInteraction {
+    
+    func didRequestPersonDetails(with id: Int) {
+        router.showPersoneDetailes(.init(id: id))
+    }
     
     func didRequestClose() {
         router.closeModule()

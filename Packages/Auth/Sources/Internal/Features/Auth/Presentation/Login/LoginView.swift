@@ -25,6 +25,7 @@ final class LoginViewController: UIViewController, ModuleLifeCycleOwner {
 
     /// состояние модуля `Login`
     private var state = LoginModuleState()
+    private var keyboardHider: HideKeyboardWhenTappedAroundDelegate?
 
     // MARK: - Lifecycle
     var lifeCycle: [ModuleLifeCycle] { [renderer] }
@@ -42,6 +43,8 @@ final class LoginViewController: UIViewController, ModuleLifeCycleOwner {
             renderer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             renderer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        keyboardHider = hideKeyboardWhenTappedAround(exceptTypes: [UIButton.self, UITextField.self])
     }
     
     override func viewDidLayoutSubviews() {

@@ -5,6 +5,11 @@ import UIKit
 import CArch
 import TMDBUIKit
 
+protocol CreditsViewDelegate: AnyObject {
+    
+    func creditsView(_ creditsView: CreditsView, didSelectedPersone id: Int)
+}
+
 final class CreditsView: UIView {
     
     private let cellId = "\(String(describing: CreditsView.self)).\(String(describing: CreditCell.self))"
@@ -22,6 +27,8 @@ final class CreditsView: UIView {
     }()
     
     private var content: [CreditCell.Model] = []
+    
+    weak var delegate: CreditsViewDelegate?
     
     var contentInset: UIEdgeInsets {
         get {
@@ -89,6 +96,7 @@ extension CreditsView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        delegate?.creditsView(self, didSelectedPersone: content[indexPath.row].id)
     }
 }
 

@@ -9,7 +9,7 @@ import CArchSwinject
 
 final class AppFactoryProvider: FactoryProvider {
     
-    var factroy: LayoutAssemblyFactory {
+    var factory: LayoutAssemblyFactory {
         LayoutAssemblyFactory()
     }
 }

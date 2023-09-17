@@ -3,7 +3,7 @@
 
 import Foundation
 
-public struct Movie: Codable {
+struct Movie: Codable {
 
     let id: Int
     let voteCount: Int

@@ -7,12 +7,13 @@ import CArchSwinject
 
 class SecureAppDelegate: UIResponder, UIApplicationDelegate {
     
-    private var router: ApplicationTMBDRouter = .init()
+    @UnsafeInjectable(LayoutAssemblyFactory.self)
+    private var router: ApplicationTMBDRouter
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        let auther = AppJWTController()
-        switch auther.state {
+        let authenticator = AppJWTController()
+        switch authenticator.state {
         case .guest, .unauthorized:
             router.showWelcome()
         case .authorized:

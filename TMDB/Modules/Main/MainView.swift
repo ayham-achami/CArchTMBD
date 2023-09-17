@@ -36,9 +36,9 @@ final class MainViewController: UIViewController, ModuleLifeCycleOwner {
         super.viewDidLoad()
         view.backgroundColor = Colors.primaryBack.color
         
-        let starter = PackegeStarterBuilder
+        let starter = PackageStarterBuilder
             .with(factory: LayoutAssemblyFactory.self)
-            .build(starter: MoviesPackegeStarter.self)
+            .build(starter: MoviesPackageStarter.self)
         
         let content = [
             starter.movies(.init(title: "Popular", icon: UIImage(systemName: "star.square")!, type: .popular)),

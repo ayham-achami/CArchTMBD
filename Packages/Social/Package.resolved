@@ -1,0 +1,104 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "b2fa556e4e48cbf06cf8c63def138c98f4b811fa",
+        "version" : "5.8.0"
+      }
+    },
+    {
+      "identity" : "alamofireimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/AlamofireImage.git",
+      "state" : {
+        "revision" : "1eaf3b6c6882bed10f6e7b119665599dd2329aa1",
+        "version" : "4.3.0"
+      }
+    },
+    {
+      "identity" : "carch",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CArch.git",
+      "state" : {
+        "branch" : "feature/v-3.0.0",
+        "revision" : "514ed57a69d6ba42e04e68c408243e9e59998116"
+      }
+    },
+    {
+      "identity" : "carchswinject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CArchSwinject.git",
+      "state" : {
+        "branch" : "feature/v-3.0.0",
+        "revision" : "abf477cc1e9dccfeca55292bb2a07599c6a1171b"
+      }
+    },
+    {
+      "identity" : "cfoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CFoundation.git",
+      "state" : {
+        "branch" : "mainline",
+        "revision" : "1f2b721a29c9cba5202a3c4389a702033f7f7373"
+      }
+    },
+    {
+      "identity" : "crest",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CRest.git",
+      "state" : {
+        "branch" : "feature/adapt",
+        "revision" : "891543ebe9d87478d6f59902405dce0774c6dd09"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "74203046135342e4a4a627476dd6caf8b28fe11b",
+        "version" : "509.0.0"
+      }
+    },
+    {
+      "identity" : "swiftgenplugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftGen/SwiftGenPlugin",
+      "state" : {
+        "revision" : "879b85a470cacd70c19e22eb7e11a3aed66f4068",
+        "version" : "6.6.2"
+      }
+    },
+    {
+      "identity" : "swinject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swinject/Swinject.git",
+      "state" : {
+        "revision" : "8bc503e60965298984fb58cf47b71c541449fe2a",
+        "version" : "2.8.3"
+      }
+    },
+    {
+      "identity" : "swinjectstoryboard",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swinject/SwinjectStoryboard.git",
+      "state" : {
+        "revision" : "e4498ce2dfe37e1ca9d2d20af06fcc087507561c",
+        "version" : "2.2.3"
+      }
+    },
+    {
+      "identity" : "texture",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/shimastripe/Texture.git",
+      "state" : {
+        "revision" : "ef22942d014ed0f7d0cca9d708e335e06fb1dddb",
+        "version" : "3.1.1"
+      }
+    }
+  ],
+  "version" : 2
+}

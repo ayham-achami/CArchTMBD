@@ -13,7 +13,8 @@ let package = Package(
             name: "TMDBUIKit",
             targets: [
                 "TMDBUIKit"
-            ]),
+            ]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2")
@@ -25,7 +26,9 @@ let package = Package(
                 .process("Resources/Images.xcassets"),
                 .process("Resources/Colors.xcassets")
             ],
-            plugins: [
+            swiftSettings: [
+                .define("DEBUG", .when(configuration: .debug))
+            ], plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
             ]
         ),
@@ -33,6 +36,7 @@ let package = Package(
             name: "TMDBUIKitTests",
             dependencies: [
                 "TMDBUIKit"
-            ]),
+            ]
+        ),
     ]
 )

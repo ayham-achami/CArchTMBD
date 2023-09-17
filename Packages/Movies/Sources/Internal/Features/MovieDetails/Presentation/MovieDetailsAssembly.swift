@@ -3,6 +3,7 @@
 
 import UIKit
 import CArch
+import TMDBCore
 import CArchSwinject
 
 /// Пространство имен модуля MovieDetails
@@ -106,7 +107,8 @@ final class MovieDetailsAssembly: LayoutModuleAssembly {
     
     func registerRouter(in container: DIContainer) {
         container.record(MovieDetailsRoutingLogic.self) { (resolver, transitionController: TransitionController) in
-            MovieDetailsRouter(transitionController: transitionController)
+            MovieDetailsRouter(transitionController: transitionController,
+                               factoryProvider: resolver.unravel(FactoryProvider.self)!)
         }
     }
 }

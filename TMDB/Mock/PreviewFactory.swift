@@ -23,7 +23,7 @@ extension WelcomeModule {
         
         init() {
             factory.record(CoreDICollection())
-            factory.record(NovigatorsDICollection())
+            factory.record(NavigatorsDICollection())
             buidler = .init(factory)
         }
 
@@ -51,7 +51,7 @@ extension MainModule {
         
         init() {
             factory.record(CoreDICollection())
-            factory.record(NovigatorsDICollection())
+            factory.record(NavigatorsDICollection())
             buidler = .init(factory)
         }
 

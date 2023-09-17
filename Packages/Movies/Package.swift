@@ -19,19 +19,22 @@ let package = Package(
     dependencies: [
         .package(path: "../TMDBCore"),
         .package(path: "../TMDBUIKit"),
-        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.7.1"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.2.0"),
+        .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/adapt"),
         .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
     ],
     targets: [
         .target(
             name: "Movies",
             dependencies: [
+                "CRest",
                 "TMDBCore",
                 "TMDBUIKit",
-                "Alamofire",
                 "CArchSwinject",
                 "AlamofireImage"
+            ],
+            swiftSettings: [
+                .define("DEBUG", .when(configuration: .debug))
             ]
         ),
         .testTarget(

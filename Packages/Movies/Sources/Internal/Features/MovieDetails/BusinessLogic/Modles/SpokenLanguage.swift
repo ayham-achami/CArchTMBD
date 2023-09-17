@@ -1,9 +1,10 @@
 //
 //  SpokenLanguage.swift
 
+import CRest
 import Foundation
 
-public struct SpokenLanguage: Codable {
+struct SpokenLanguage: Response {
     
     enum CodingKeys: String, CodingKey {
         
@@ -12,7 +13,7 @@ public struct SpokenLanguage: Codable {
         //case code = "iso6391"
     }
     
-    public let englishName: String
-    //public let code: String
-    public let name: String
+    let englishName: String
+    //let code: String
+    let name: String
 }

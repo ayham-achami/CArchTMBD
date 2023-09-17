@@ -13,7 +13,7 @@ import CArchSwinject
     private let factory: LayoutAssemblyFactory
     
     nonisolated init(_ provider: FactoryProvider) {
-        self.factory = provider.factroy
+        self.factory = provider.factory
     }
     
     func destination(for bound: MoviesBounds) -> Destination {

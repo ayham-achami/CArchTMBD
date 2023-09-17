@@ -1,16 +1,17 @@
 //
 //  ProductionCountry.swift
 
+import CRest
 import Foundation
 
-public struct ProductionCountry: Codable {
+struct ProductionCountry: Response {
     
     enum CodingKeys: String, CodingKey {
         
-//        case code = "iso3166_1"
+        //case code = "iso3166_1"
         case name
     }
     
-//    public let code: String
-    public let name: String
+    //let code: String
+    let name: String
 }

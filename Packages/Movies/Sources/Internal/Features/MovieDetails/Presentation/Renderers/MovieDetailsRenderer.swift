@@ -8,7 +8,10 @@ import CoreImage
 import AlamofireImage
 
 /// Протокол взаимодействия пользователя с модулем
-protocol MovieDetailsRendererUserInteraction: AnyUserInteraction {}
+protocol MovieDetailsRendererUserInteraction: AnyUserInteraction {
+    
+    func didRequestPersonDetails(with id: Int)
+}
 
 /// Объект содержащий логику отображения данных
 final class MovieDetailsRenderer: UIScrollView, UIRenderer {
@@ -50,7 +53,6 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
     
     private let effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-        
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
         vibrancyView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +60,7 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.contentView.addSubview(vibrancyView)
+        blurEffectView.alpha = 0.8
         return (blurEffectView, vibrancyView)
     }()
     
@@ -106,6 +109,7 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
     
     // MARK: - Lifecycle
     func moduleDidLoad() {
+        creditsView.delegate = self
         rendering()
     }
     
@@ -127,7 +131,6 @@ private extension MovieDetailsRenderer {
     
     func rendering() {
         backgroundColor = Colors.primaryBack.color
-        translatesAutoresizingMaskIntoConstraints = false
         renderingContentView()
         renderingBackgroundImageView()
         renderingEffectView()
@@ -231,8 +234,8 @@ extension MovieDetailsRenderer: UIRendererPreview {
     
     final class InteractionalPreview: MovieDetailsRendererUserInteraction {
         
-        func didRequestClose() {
-            print(#function)
+        func didRequestPersonDetails(with id: Int) {
+            print(id)
         }
     }
     
@@ -266,6 +269,13 @@ extension MovieDetailsRenderer: UIRendererPreview {
         }))
         preview.moduleLayoutSubviews()
         return preview
+    }
+}
+
+extension MovieDetailsRenderer: CreditsViewDelegate {
+    
+    func creditsView(_ creditsView: CreditsView, didSelectedPersone id: Int) {
+        interactional?.didRequestPersonDetails(with: id)
     }
 }
 

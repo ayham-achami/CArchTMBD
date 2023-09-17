@@ -73,7 +73,7 @@ private final class MockJWTControllerAssembly: DIAssembly {
 
 private final class MockFactoryProvider: FactoryProvider {
     
-    var factroy: LayoutAssemblyFactory {
+    var factory: LayoutAssemblyFactory {
         layoutAssemblyFactory
     }
 }

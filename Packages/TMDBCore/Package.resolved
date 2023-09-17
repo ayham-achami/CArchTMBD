@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "b2fa556e4e48cbf06cf8c63def138c98f4b811fa",
+        "version" : "5.8.0"
+      }
+    },
+    {
       "identity" : "carch",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CArch.git",
       "state" : {
         "branch" : "feature/v-3.0.0",
-        "revision" : "147eaebdd6f06d7e159c495d9cd4b03ed8fcf7d2"
+        "revision" : "514ed57a69d6ba42e04e68c408243e9e59998116"
       }
     },
     {
@@ -15,7 +24,25 @@
       "location" : "https://github.com/ayham-achami/CArchSwinject.git",
       "state" : {
         "branch" : "feature/v-3.0.0",
-        "revision" : "f970d5d6f98bdd4a944c50824feafda1b7acaa9e"
+        "revision" : "abf477cc1e9dccfeca55292bb2a07599c6a1171b"
+      }
+    },
+    {
+      "identity" : "cfoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CFoundation.git",
+      "state" : {
+        "branch" : "mainline",
+        "revision" : "1f2b721a29c9cba5202a3c4389a702033f7f7373"
+      }
+    },
+    {
+      "identity" : "crest",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CRest.git",
+      "state" : {
+        "branch" : "feature/adapt",
+        "revision" : "891543ebe9d87478d6f59902405dce0774c6dd09"
       }
     },
     {
@@ -23,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "revision" : "057bdfb4632cc758973d46efaf98e43d07ee4bdb",
-        "version" : "509.0.0-swift-DEVELOPMENT-SNAPSHOT-2023-08-28-a"
+        "revision" : "74203046135342e4a4a627476dd6caf8b28fe11b",
+        "version" : "509.0.0"
       }
     },
     {

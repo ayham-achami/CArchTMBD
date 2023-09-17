@@ -32,6 +32,14 @@ final class LoginRenderer: UIScrollView, UIRenderer {
         return view
     }()
     
+    private let backgroundImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
+        view.image = Images.background.image
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let logoImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -42,11 +50,36 @@ final class LoginRenderer: UIScrollView, UIRenderer {
         return view
     }()
     
-    private lazy var loginView: CredentialsView = {
+    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
+    
+    private let effectView: PosterEffectView = {
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+        let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
+        vibrancyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectView.contentView.addSubview(vibrancyView)
+        return (blurEffectView, vibrancyView)
+    }()
+    
+    private lazy var credentialsView: CredentialsView = {
         let view = CredentialsView()
-        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private lazy var loginButton: UIButton = {
+        var configuration = UIButton.Configuration.bordered()
+        configuration.title = "Login"
+        var background = configuration.background
+        background.cornerRadius = 5
+        configuration.background = background
+        let button = UIButton(configuration: configuration)
+        button.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     // MARK: - Inits
@@ -69,15 +102,24 @@ final class LoginRenderer: UIScrollView, UIRenderer {
 }
 
 // MARK: - Renderer + IBAction
-private extension LoginRenderer {}
+private extension LoginRenderer {
+    
+    @objc private func didTapLogin() {
+        let credentials = credentialsView.credentials
+        interactional?.didRequestLogin(credentials.login, password: credentials.password)
+    }
+}
 
 // MARK: - Private methods
 private extension LoginRenderer {
 
     func rendering() {
         renderingContentView()
+        renderingBackgroundImageView()
+        renderingEffectView()
         renderingLogoImageView()
-        renderingLoginView()
+        renderingCredentialsView()
+        renderingLoginButton()
     }
     
     func renderingContentView() {
@@ -94,31 +136,72 @@ private extension LoginRenderer {
         ])
     }
     
+    func renderingBackgroundImageView() {
+        insertSubview(backgroundImageView, belowSubview: contentView)
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo:  frameLayoutGuide.topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: frameLayoutGuide.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: frameLayoutGuide.trailingAnchor)
+        ])
+    }
+    
+    func renderingEffectView() {
+        NSLayoutConstraint.activate([
+            effectView.vibrancy.topAnchor.constraint(equalTo: effectView.blur.topAnchor),
+            effectView.vibrancy.bottomAnchor.constraint(equalTo: effectView.blur.bottomAnchor),
+            effectView.vibrancy.leadingAnchor.constraint(equalTo: effectView.blur.leadingAnchor),
+            effectView.vibrancy.trailingAnchor.constraint(equalTo: effectView.blur.trailingAnchor)
+        ])
+        
+        contentView.addSubview(effectView.blur)
+        NSLayoutConstraint.activate([
+            effectView.blur.topAnchor.constraint(equalTo: frameLayoutGuide.topAnchor),
+            effectView.blur.bottomAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor),
+            effectView.blur.leadingAnchor.constraint(equalTo: frameLayoutGuide.leadingAnchor),
+            effectView.blur.trailingAnchor.constraint(equalTo: frameLayoutGuide.trailingAnchor)
+        ])
+        
+        effectView.blur.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    }
+    
     func renderingLogoImageView() {
-        contentView.addSubview(logoImageView)
+        effectView.vibrancy.contentView.addSubview(logoImageView)
         NSLayoutConstraint.activate([
             logoImageView.widthAnchor.constraint(equalToConstant: 150),
             logoImageView.heightAnchor.constraint(equalToConstant: 150),
-            logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            logoImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            logoImageView.centerXAnchor.constraint(equalTo: effectView.vibrancy.contentView.centerXAnchor),
+            logoImageView.topAnchor.constraint(equalTo: contentLayoutGuide.topAnchor, constant: 32),
         ])
     }
     
-    func renderingLoginView() {
-        contentView.addSubview(loginView)
+    func renderingCredentialsView() {
+        contentView.addSubview(credentialsView)
+        let leadingConstraint = credentialsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
+        leadingConstraint.priority = .defaultHigh
+        let trailingConstraint =  credentialsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+        trailingConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            loginView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 16),
-            loginView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            loginView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            loginView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            leadingConstraint,
+            trailingConstraint,
+            credentialsView.heightAnchor.constraint(equalToConstant: 230),
+            credentialsView.widthAnchor.constraint(lessThanOrEqualToConstant: 472),
+            credentialsView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            credentialsView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 32)
         ])
     }
-}
-
-extension LoginRenderer: CredentialsViewDelegate {
     
-    func credentialsView(_ credentialsView: CredentialsView, didTapLoginWith login: String, and password: String) {
-        interactional?.didRequestLogin(login, password: password)
+    func renderingLoginButton() {
+        effectView.vibrancy.contentView.addSubview(loginButton)
+        let bottomConstraint = loginButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -32)
+        bottomConstraint.priority = .defaultLow
+        NSLayoutConstraint.activate([
+            bottomConstraint,
+            loginButton.heightAnchor.constraint(equalToConstant: 48),
+            loginButton.leadingAnchor.constraint(equalTo: credentialsView.leadingAnchor),
+            loginButton.trailingAnchor.constraint(equalTo: credentialsView.trailingAnchor),
+            loginButton.topAnchor.constraint(equalTo: credentialsView.bottomAnchor, constant: 16)
+        ])
     }
 }
 

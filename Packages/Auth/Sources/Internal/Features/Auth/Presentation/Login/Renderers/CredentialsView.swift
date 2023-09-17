@@ -5,17 +5,24 @@ import UIKit
 import CArch
 import TMDBUIKit
 
-protocol CredentialsViewDelegate: AnyObject {
-    
-    func credentialsView(_ credentialsView: CredentialsView, didTapLoginWith login: String, and password: String)
-}
+final class CredentialsView: CardView {
 
-final class CredentialsView: UIView {
+    struct Credentials {
+        
+        let login: String
+        let password: String
+    }
+    
+    var credentials: Credentials {
+        .init(login: loginTextField.text ?? "",
+              password: passwordTextField.text ?? "")
+    }
     
     private let loginTextField: TextField = {
-        let field = TextField(frame: .infinite)
+        let field = TextField(frame: .zero)
         field.title = "Login"
-//        field.placeholder = "Enter login"
+        field.placeholder = "Enter login"
+        field.tintColor = .white
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -23,21 +30,12 @@ final class CredentialsView: UIView {
     private let passwordTextField: TextField = {
         let field = TextField(frame: .zero)
         field.title = "Password"
-//        field.placeholder = "Enter password"
+        field.placeholder = "Enter password"
+        field.isSecureTextEntry = true
+        field.tintColor = .white
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
-    
-    private lazy var loginButton: UIButton = {
-        var configs = UIButton.Configuration.filled()
-        configs.title = "Login"
-        let button = UIButton(configuration: configs)
-        button.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    weak var delegate: CredentialsViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,19 +47,19 @@ final class CredentialsView: UIView {
         rendering()
     }
     
-    private func rendering() {
+    override func rendering() {
+        super.rendering()
         renderingLoginTextField()
         renderingPasswordTextField()
-        renderingLoginButton()
     }
     
     private func renderingLoginTextField() {
         addSubview(loginTextField)
         NSLayoutConstraint.activate([
             loginTextField.heightAnchor.constraint(equalToConstant: 48),
-            loginTextField.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             loginTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            loginTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+            loginTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            loginTextField.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 32),
         ])
     }
     
@@ -71,22 +69,8 @@ final class CredentialsView: UIView {
             passwordTextField.heightAnchor.constraint(equalToConstant: 48),
             passwordTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            passwordTextField.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 55)
+            passwordTextField.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 64)
         ])
-    }
-    
-    private func renderingLoginButton() {
-        addSubview(loginButton)
-        NSLayoutConstraint.activate([
-            loginButton.heightAnchor.constraint(equalToConstant: 44),
-            loginButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            loginButton.widthAnchor.constraint(equalTo: passwordTextField.widthAnchor),
-            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 32)
-        ])
-    }
-    
-    @objc private func didTapLogin() {
-        delegate?.credentialsView(self, didTapLoginWith: loginTextField.text!, and: passwordTextField.text!)
     }
 }
 

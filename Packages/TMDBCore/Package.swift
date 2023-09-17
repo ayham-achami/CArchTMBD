@@ -17,13 +17,18 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/adapt"),
         .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
     ],
     targets: [
         .target(
             name: "TMDBCore",
             dependencies: [
+                "CRest",
                 "CArchSwinject"
+            ],
+            swiftSettings: [
+                .define("DEBUG", .when(configuration: .debug))
             ]
         ),
         .testTarget(

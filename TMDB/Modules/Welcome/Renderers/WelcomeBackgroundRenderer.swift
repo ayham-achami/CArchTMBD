@@ -36,7 +36,6 @@ final class WelcomeBackgroundRenderer: UICollectionView, UIRenderer {
         let layout = RandomCellSizeLayout()
         super.init(frame: .zero, collectionViewLayout: layout)
         self.interactional = interactional
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
 
     required init?(coder: NSCoder) {
