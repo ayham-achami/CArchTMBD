@@ -68,7 +68,7 @@ private final class MockApplicationRouterAssembly: DIAssembly {
 private final class MockJWTController: JWTController {
         
     var token: JWT {
-        ("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NWQ4YTY1MDVkYmU2Y2NhODc5MmEwODJlNmI2ZDU2ZSIsInN1YiI6IjVjODE0NmY3YzNhMzY4NGU4ZmQ2M2E0ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-1fOBevFQKbPvFdbVs4zFDwHUJknj3644PHInA1tWSw", "")
+        ("", "")
     }
     let state: TMDBCore.AuthState = .unauthorized
     
