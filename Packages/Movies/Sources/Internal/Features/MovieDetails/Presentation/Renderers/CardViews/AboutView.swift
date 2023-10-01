@@ -145,6 +145,8 @@ final class AboutView: CardView {
     }
 }
 
+#if DEBUG
+// MARK: - Preview
 #Preview(String(describing: CardView.self)) {
     let preview = AboutView(frame: .zero)
     preview.set(content: .init(date: "30.07.23",
@@ -160,6 +162,6 @@ final class AboutView: CardView {
     NSLayoutConstraint.activate([preview.widthAnchor.constraint(equalToConstant: 300),
                                  preview.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
-    
     return vc
 }
+#endif

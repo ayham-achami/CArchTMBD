@@ -63,9 +63,12 @@ final class TitleView: CardView {
         taglineLabel.text = content.tagline
         
         switch content.rating {
-        case 0..<0.499:
+        case 0..<0.199:
             ratingView.startColor = Colors.red.color
             ratingView.endColor = Colors.red.color
+        case 0.200..<0.499:
+            ratingView.startColor = Colors.warn.color
+            ratingView.endColor = Colors.warn.color
         default:
             ratingView.startColor = Colors.success.color
             ratingView.endColor = Colors.success.color
@@ -105,6 +108,8 @@ final class TitleView: CardView {
     }
 }
 
+#if DEBUG
+// MARK: - Preview
 #Preview(String(describing: TitleView.self)) {
     let preview = TitleView(frame: .zero)
     preview.set(content: .init(rating: 0.7,
@@ -118,7 +123,6 @@ final class TitleView: CardView {
                                  preview.heightAnchor.constraint(equalToConstant: 100),
                                  preview.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
-    
     return vc
 }
-
+#endif

@@ -1,16 +1,16 @@
 //  
 //  PersonProvider.swift
-//  
-//
-//  Created by Ayham Hylam on 12.09.2023.
-//
 
 import CArch
 
 /// Протокол взаимодействия с PersonPresenter
 protocol PersonPresentationLogic: RootPresentationLogic {
     
-    func didObtain(_ person: Person)
+    typealias PersonData = (data: Person, images: ProfileImages, movies: ProfileMovies)
+    
+    /// Вызывается при получении данных о актере
+    /// - Parameter person: `PersonData`
+    func didObtain(_ person: PersonData)
 }
 
 /// Объект содержаний логику получения данных из слоя бизнес логики 
@@ -29,7 +29,9 @@ final class PersonProvider: PersonProvisionLogic {
     }
     
     func obtainPerson(with id: Int) async throws {
-        let person = try await personService.fetchPerson(with: id)
+        let person = try await (personService.fetchPerson(with: id),
+                                personService.fetchImages(with: id),
+                                personService.fetchMovies(with: id))
         presenter.didObtain(person)
     }
     

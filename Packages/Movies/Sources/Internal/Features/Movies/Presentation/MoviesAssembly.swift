@@ -4,6 +4,7 @@
 import UIKit
 import CArch
 import TMDBCore
+import TMDBUIKit
 import CArchSwinject
 
 /// Пространство имен модуля Movies
@@ -101,6 +102,7 @@ final class MoviesAssembly: LayoutModuleAssembly {
             else { preconditionFailure("Could not to build Movies module, module Presenter is nil") }
             controller.provider = resolver.unravel(MoviesProvisionLogic.self, argument: presenter as MoviesPresentationLogic)
             controller.router = resolver.unravel(MoviesRoutingLogic.self, argument: controller as TransitionController)
+            controller.stateRenderer = resolver.unravel(StateRenderer.self, argument: controller as MoviesUserInteraction)
             controller.moviesRenderer = resolver.unravel(MoviesRenderer.self, argument: controller as MoviesUserInteraction)
             return controller
         }
@@ -109,6 +111,9 @@ final class MoviesAssembly: LayoutModuleAssembly {
     func registerRenderers(in container: CArch.DIContainer) {
         container.record(MoviesRenderer.self) { (_, interaction: MoviesUserInteraction) in
             MoviesRenderer(interactional: interaction)
+        }
+        container.record(StateRenderer.self) { (_, interaction: MoviesUserInteraction) in
+            StateRenderer(interactional: interaction)
         }
     }
     

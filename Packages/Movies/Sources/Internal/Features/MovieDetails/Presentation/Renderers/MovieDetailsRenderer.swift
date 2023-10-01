@@ -10,6 +10,8 @@ import AlamofireImage
 /// Протокол взаимодействия пользователя с модулем
 protocol MovieDetailsRendererUserInteraction: AnyUserInteraction {
     
+    /// Вызывается при выборе актера из списка
+    /// - Parameter id: Идентификатор актера
     func didRequestPersonDetails(with id: Int)
 }
 
@@ -36,13 +38,13 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         .init(string: "https://image.tmdb.org/t/p/w1280")!
     }()
     
-    private let contentView: UIView = {
+    private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let backgroundImageView: UIImageView = {
+    private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +53,7 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
     
     private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
-    private let effectView: PosterEffectView = {
+    private lazy var effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
@@ -64,7 +66,7 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         return (blurEffectView, vibrancyView)
     }()
     
-    private let gradientLayer: CAGradientLayer = {
+    private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
         gradientLayer.frame = .init(origin: .zero, size: .init(width: 2000, height: 2000))
@@ -73,25 +75,25 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         return gradientLayer
     }()
     
-    private let titleView: TitleView = {
+    private lazy var titleView: TitleView = {
         let view = TitleView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let overviewView: OverviewView = {
+    private lazy var overviewView: OverviewView = {
         let view = OverviewView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let aboutView: AboutView = {
+    private lazy var aboutView: AboutView = {
         let view = AboutView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let creditsView: CreditsView = {
+    private lazy var creditsView: CreditsView = {
         let view = CreditsView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -191,8 +193,8 @@ private extension MovieDetailsRenderer {
         NSLayoutConstraint.activate([
             topConstraint,
             titleView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
-            titleView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            titleView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            titleView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            titleView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
         ])
     }
     
@@ -201,8 +203,8 @@ private extension MovieDetailsRenderer {
         NSLayoutConstraint.activate([
             overviewView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
             overviewView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 16),
-            overviewView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            overviewView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            overviewView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            overviewView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
         ])
     }
     
@@ -211,24 +213,25 @@ private extension MovieDetailsRenderer {
         NSLayoutConstraint.activate([
             aboutView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
             aboutView.topAnchor.constraint(equalTo: overviewView.bottomAnchor, constant: 16),
-            aboutView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            aboutView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -32)
+            aboutView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            aboutView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -9)
         ])
     }
     
     func renderingCreditsView() {
-        creditsView.contentInset = .init(top: 0, left: 32, bottom: 0, right: 32)
+        creditsView.contentInset = .init(top: 0, left: 8, bottom: 0, right: 8)
         contentView.addSubview(creditsView)
         NSLayoutConstraint.activate([
             creditsView.heightAnchor.constraint(equalToConstant: 250),
             creditsView.topAnchor.constraint(equalTo: aboutView.bottomAnchor, constant: 16),
-            creditsView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             creditsView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            creditsView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor)
+            creditsView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
+            creditsView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 extension MovieDetailsRenderer: UIRendererPreview {
     
@@ -292,3 +295,4 @@ extension MovieDetailsRenderer: CreditsViewDelegate {
     ])
     return vc
 }
+#endif

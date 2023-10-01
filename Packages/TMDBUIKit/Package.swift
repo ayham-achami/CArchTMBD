@@ -17,11 +17,15 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2")
+        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
+        .package(url: "https://github.com/ayham-achami/CArch.git", branch: "feature/v-3.0.0")
     ],
     targets: [
         .target(
             name: "TMDBUIKit",
+            dependencies: [
+                "CArch"
+            ],
             resources: [
                 .process("Resources/Images.xcassets"),
                 .process("Resources/Colors.xcassets")

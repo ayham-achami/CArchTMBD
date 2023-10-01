@@ -4,6 +4,7 @@
 import UIKit
 import CArch
 import TMDBCore
+import TMDBUIKit
 import CArchSwinject
 
 /// Пространство имен модуля MovieDetails
@@ -36,7 +37,7 @@ public struct MovieDetailsModule {
     /// Объект содержащий логику создания модуля `MovieDetails` c `UINavigationBuilder`
     public final class NavigationBuilder: NavigationHierarchyModuleBuilder {
 
-        public typealias InitialStateType = MoviesModuleState.InitialStateType
+        public typealias InitialStateType = MovieDetailsModuleState.InitialStateType
 
         private let factory: LayoutAssemblyFactory
         
@@ -54,7 +55,11 @@ public struct MovieDetailsModule {
         
         public func embedIntoNavigationController(_ module: CArchModule) -> CArchModule {
             let navigationController = UINavigationController(rootViewController: module.node)
-            navigationController.navigationBar.prefersLargeTitles = true
+            navigationController.navigationBar.tintColor = .white
+            navigationController.navigationBar.shadowImage = .init()
+            navigationController.navigationBar.backgroundColor = .clear
+            navigationController.navigationBar.prefersLargeTitles = false
+            navigationController.navigationBar.setBackgroundImage(.init(), for: .default)
             return navigationController
         }
     }
@@ -75,8 +80,8 @@ final class MovieDetailsAssembly: LayoutModuleAssembly {
                                                  arguments: controller as MovieDetailsRenderingLogic,
                                                  controller as MovieDetailsModuleStateRepresentable)
             else { preconditionFailure("Could not to build MovieDetails module, module Presenter is nil") }
-            controller.renderer = resolver.unravel(MovieDetailsRenderer.self, argument: controller as MovieDetailsUserInteraction)
-            controller.navigationRenderer = resolver.unravel(MovieDetailsNavigationRenderer.self, argument: controller as MovieDetailsUserInteraction)
+            controller.detailsRenderer = resolver.unravel(MovieDetailsRenderer.self, argument: controller as MovieDetailsUserInteraction)
+            controller.stateRenderer = resolver.unravel(StateRenderer.self, argument: controller as MovieDetailsUserInteraction)
             controller.router = resolver.unravel(MovieDetailsRoutingLogic.self, argument: controller as TransitionController)
             controller.provider = resolver.unravel(MovieDetailsProvisionLogic.self, argument: presenter as MovieDetailsPresentationLogic)
             return controller
@@ -87,8 +92,8 @@ final class MovieDetailsAssembly: LayoutModuleAssembly {
         container.record(MovieDetailsRenderer.self) { (_, interaction: MovieDetailsUserInteraction) in
             MovieDetailsRenderer(interactional: interaction)
         }
-        container.record(MovieDetailsNavigationRenderer.self) { (_, interaction: MovieDetailsUserInteraction) in
-            MovieDetailsNavigationRenderer(interactional: interaction)
+        container.record(StateRenderer.self) { (_, interaction: MovieDetailsUserInteraction) in
+            StateRenderer(interactional: interaction)
         }
     }
     

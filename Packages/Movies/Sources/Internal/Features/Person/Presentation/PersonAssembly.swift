@@ -1,11 +1,10 @@
 //  
 //  PersonAssembly.swift
 //  
-//
-//  Created by Ayham Hylam on 12.09.2023.
-//
 
+import UIKit
 import CArch
+import TMDBUIKit
 import CArchSwinject
 
 /// Пространство имен модуля Person
@@ -34,6 +33,36 @@ public struct PersonModule {
             factory.assembly(PersonAssembly.self).unravel(PersonViewController.self)
         }
     }
+    
+    /// Объект содержащий логику создания модуля `Person` c `UINavigationBuilder`
+    public final class NavigationBuilder: NavigationHierarchyModuleBuilder {
+
+        public typealias InitialStateType = PersonModuleState.InitialStateType
+
+        private let factory: LayoutAssemblyFactory
+        
+        init(_ factory: LayoutAssemblyFactory) {
+            self.factory = factory
+        }
+        
+        public func build(with initialState: InitialStateType) -> CArchModule {
+            embedIntoNavigationController(Builder(factory).build(with: initialState))
+        }
+
+        public func build() -> CArchModule {
+            embedIntoNavigationController(Builder(factory).build())
+        }
+        
+        public func embedIntoNavigationController(_ module: CArchModule) -> CArchModule {
+            let navigationController = UINavigationController(rootViewController: module.node)
+            navigationController.navigationBar.tintColor = .white
+            navigationController.navigationBar.shadowImage = .init()
+            navigationController.navigationBar.backgroundColor = .clear
+            navigationController.navigationBar.prefersLargeTitles = false
+            navigationController.navigationBar.setBackgroundImage(.init(), for: .default)
+            return navigationController
+        }
+    }
 }
 
 /// Объект содержащий логику внедрения зависимости компонентов модула `Person`
@@ -52,6 +81,7 @@ final class PersonAssembly: LayoutModuleAssembly {
                                                  controller as PersonModuleStateRepresentable)
             else { preconditionFailure("Could not to build Person module, module Presenter is nil") }
             controller.renderer = resolver.unravel(PersonRenderer.self, argument: controller as PersonUserInteraction)
+            controller.stateRenderer = resolver.unravel(StateRenderer.self, argument: controller as PersonUserInteraction)
             controller.router = resolver.unravel(PersonRoutingLogic.self, argument: controller as TransitionController)
             controller.provider = resolver.unravel(PersonProvisionLogic.self, argument: presenter as PersonPresentationLogic)
             return controller
@@ -61,6 +91,9 @@ final class PersonAssembly: LayoutModuleAssembly {
     func registerRenderers(in container: DIContainer) {
         container.record(PersonRenderer.self) { (_, interaction: PersonUserInteraction) in
             PersonRenderer(interactional: interaction)
+        }
+        container.record(StateRenderer.self) { (_, interaction: PersonUserInteraction) in
+            StateRenderer(interactional: interaction)
         }
     }
 

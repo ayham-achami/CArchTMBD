@@ -2,15 +2,20 @@
 //  MovieDetailsPresenter.swift
 
 import CArch
+import CRest
 import Foundation
 
 /// Протокол реализующий логику отображения данных
 @UIContactor
 @MainActor protocol MovieDetailsRenderingLogic: RootRenderingLogic {
     
-    /// <#Description#>
-    /// - Parameter details: <#details description#>
+    /// Показать детали фильма
+    /// - Parameter details: Детали фильма
     func display(_ details: MovieDetailsRenderer.ModelType)
+    
+    /// Показать ошибку загрузки
+    /// - Parameter errorDescription: Ошибку загрузки
+    func display(errorDescription: String)
 }
 
 /// Объект содержащий логику преобразования объектов модели `Model` в
@@ -20,20 +25,20 @@ final class MovieDetailsPresenter: MovieDetailsPresentationLogic {
     private weak var view: MovieDetailsRenderingLogic?
     private weak var state: MovieDetailsModuleStateRepresentable?
     
-    private let dateFormatter: DateFormatter = {
+    private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy"
         return formatter
     }()
     
-    private let timeFormatter: DateComponentsFormatter = {
+    private lazy var timeFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .abbreviated
         formatter.allowedUnits = [.hour, .minute]
         return formatter
     }()
     
-    private let currencyFormatter: NumberFormatter = {
+    private lazy var currencyFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.locale = Locale.current
@@ -52,8 +57,10 @@ final class MovieDetailsPresenter: MovieDetailsPresentationLogic {
     }
 
     func encountered(_ error: Error) {
-        Task {
-            await view?.displayErrorAlert(with: error)
+        if let error = error as? NetworkError {
+            view?.nonisolatedDisplay(errorDescription: error.errorDescription)
+        } else {
+            view?.nonisolatedDisplay(errorDescription: error.localizedDescription)
         }
     }
 }
@@ -61,6 +68,7 @@ final class MovieDetailsPresenter: MovieDetailsPresentationLogic {
 // MARK: - Private methods
 private extension MovieDetailsPresenter {}
 
+// MARK: - MovieDetailsRenderer.ModelType + Init
 private extension MovieDetailsRenderer.ModelType {
     
     init(_ details: MovieDetails,
@@ -77,6 +85,7 @@ private extension MovieDetailsRenderer.ModelType {
     }
 }
 
+// MARK: - TitleView.Model + Init
 private extension TitleView.Model {
     
     init(_ details: MovieDetails) {
@@ -87,6 +96,7 @@ private extension TitleView.Model {
     }
 }
 
+// MARK: - OverviewView.Model + Init
 private extension OverviewView.Model {
     
     init(_ details: MovieDetails) {
@@ -94,6 +104,7 @@ private extension OverviewView.Model {
     }
 }
 
+// MARK: - AboutView.Model + Init
 private extension AboutView.Model {
     
     init(_ details: MovieDetails,
@@ -110,6 +121,7 @@ private extension AboutView.Model {
     }
 }
 
+// MARK: - CreditCell.Model + Init
 private extension CreditCell.Model {
     
     init(_ cast: Cast) {

@@ -7,6 +7,7 @@ import TMDBCore
 /// Протокол организующий логику переходов от модуля `Login` в другие модули
 protocol LoginRoutingLogic: RootRoutingLogic {
     
+    /// Показать основной модуль
     func showMain()
 }
 

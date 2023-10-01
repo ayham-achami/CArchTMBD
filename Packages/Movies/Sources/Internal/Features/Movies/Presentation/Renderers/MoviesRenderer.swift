@@ -31,7 +31,6 @@ final class MoviesRenderer: UICollectionView, UIRenderer {
     init(interactional: MoviesRendererUserInteraction) {
         super.init(frame: .zero, collectionViewLayout: MoviesLayout())
         self.interactional = interactional
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
@@ -129,6 +128,8 @@ extension MoviesRenderer: UIRendererPreview {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: MoviesRenderer.self)) {
     MoviesRenderer.preview()
 }
+#endif

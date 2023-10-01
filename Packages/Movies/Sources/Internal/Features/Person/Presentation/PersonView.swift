@@ -1,23 +1,23 @@
 //  
 //  PersonView.swift
-//  
-//
-//  Created by Ayham Hylam on 12.09.2023.
-//
 
 import UIKit
 import CArch
+import CRest
+import TMDBUIKit
 import CArchSwinject
 
 /// Протокол реализующий логику получения данных из слоя бизнес логики
 @SyncAlias
 protocol PersonProvisionLogic: RootProvisionLogic, ErrorAsyncHandler {
     
+    /// Получить данные о персоне
+    /// - Parameter id: Идентификатор персона
     func obtainPerson(with id: Int) async throws
 }
 
 /// Все взаимодействия пользователя с модулем
-typealias PersonUserInteraction = PersonRendererUserInteraction
+typealias PersonUserInteraction = PersonRendererUserInteraction & StateRendererUserInteraction
 
 /// Объект содержаний логику отображения данных
 final class PersonViewController: UIViewController, ModuleLifeCycleOwner {
@@ -28,6 +28,7 @@ final class PersonViewController: UIViewController, ModuleLifeCycleOwner {
 
     // MARK: - Injected Renderers
     var renderer: PersonRenderer!
+    var stateRenderer: StateRenderer!
 
     /// состояние модуля `Person`
     private var state = PersonModuleState()
@@ -39,6 +40,12 @@ final class PersonViewController: UIViewController, ModuleLifeCycleOwner {
         super.viewDidLoad()
         
         moduleDidLoad()
+        if presentingViewController != nil &&
+            navigationController?.viewControllers.first === self {
+            navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .close,
+                                                      target: self,
+                                                      action: #selector(didRequestClose))
+        }
         
         view.addSubview(renderer)
         renderer.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +56,8 @@ final class PersonViewController: UIViewController, ModuleLifeCycleOwner {
             renderer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
+        stateRenderer.set(content: .init(state: .loading))
+        contentUnavailableConfiguration = stateRenderer
         provider.obtainPerson(with: state.initial.id)
     }
     
@@ -86,16 +95,39 @@ extension PersonViewController: PersonModuleStateRepresentable {
 
 // MARK: - Person + RenderingLogic
 extension PersonViewController: PersonRenderingLogic {
-    
+
     func display(_ model: PersonRenderer.ModelType) {
         renderer.set(content: model)
+        contentUnavailableConfiguration = nil
+    }
+    
+    func display(errorDescription: String) {
+        stateRenderer.set(content: .init(state: .error,
+                                         image: .init(systemName: "exclamationmark.arrow.triangle.2.circlepath"),
+                                         action: "Retry request",
+                                         message: errorDescription))
+        contentUnavailableConfiguration = stateRenderer
     }
 }
 
 // MARK: - Person + UserInteraction
-extension PersonViewController: PersonUserInteraction {}
+extension PersonViewController: PersonUserInteraction {
+    
+    @objc
+    func didRequestClose() {
+        router.closeModule()
+    }
+    
+    func didAction(for state: StateRenderer.State) {
+        guard case .error = state else { return }
+        contentUnavailableConfiguration = stateRenderer
+        provider.obtainPerson(with: self.state.initial.id)
+    }
+}
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: PersonModule.self)) {
     PersonModule.PreviewBuilder().build().node
 }
+#endif

@@ -29,8 +29,8 @@ struct Person: Response {
     let knownForDepartment: String
     
     let imdbId: String?
-    let birthday: String?
-    let deathday: String?
+    let birthday: Date?
+    let deathday: Date?
     let homepage: String?
     let placeOfBirth: String?
     

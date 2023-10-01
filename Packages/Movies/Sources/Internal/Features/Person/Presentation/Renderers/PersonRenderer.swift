@@ -1,14 +1,8 @@
-//  
+//
 //  PersonRenderer.swift
-//  
-//
-//  Created by Ayham Hylam on 12.09.2023.
-//
 
 import UIKit
 import CArch
-import Vision
-import VisionKit
 import TMDBUIKit
 import AlamofireImage
 
@@ -23,25 +17,26 @@ final class PersonRenderer: UIScrollView, UIRenderer {
     
     struct Model: UIModel {
         
-        let portraitPath: String
+        let biography: BiographyView.Model
+        let portraits: ProfileImagesView.Model
+        let personality: PersonalityView.Model
+        let personalInfo: PersonalInfoView.Model
     }
     
     private let personBaseURL: URL = {
-        .init(string: "https://image.tmdb.org/t/p/w1280")!
+        .init(string: "https://www.themoviedb.org/t/p/original")!
     }()
-
+    
     // MARK: - Private properties
     private weak var interactional: PersonRendererUserInteraction?
     
-    private let interaction = ImageAnalysisInteraction()
-    
-    private let contentView: UIView = {
+    private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var backgroundImageView: UIImageView = {
+    private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +45,7 @@ final class PersonRenderer: UIScrollView, UIRenderer {
     
     private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
-    private let effectView: PosterEffectView = {
+    private lazy var effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
@@ -62,11 +57,28 @@ final class PersonRenderer: UIScrollView, UIRenderer {
         return (blurEffectView, vibrancyView)
     }()
     
-    private var portraitImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+    private lazy var profileImagesView: ProfileImagesView = {
+        let view = ProfileImagesView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var personalityView: PersonalityView = {
+        let view = PersonalityView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var personalInfoView: PersonalInfoView = {
+        let view = PersonalInfoView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var biographyView: BiographyView = {
+        let view = BiographyView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     // MARK: - Inits
@@ -74,7 +86,7 @@ final class PersonRenderer: UIScrollView, UIRenderer {
         super.init(frame: .zero)
         self.interactional = interactional
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -82,34 +94,17 @@ final class PersonRenderer: UIScrollView, UIRenderer {
     // MARK: - Lifecycle
     func moduleDidLoad() {
         rendering()
-        portraitImageView.addInteraction(interaction)
     }
     
     // MARK: - Public methods
     func set(content: PersonRenderer.ModelType) {
-        backgroundImageView.af.setImage(withURL: personBaseURL.appending(path: content.portraitPath))
-        portraitImageView.af.setImage(withURL: personBaseURL.appending(path: content.portraitPath), completion:  { [weak self] response in
-            guard case let .success(image) = response.result else { return }
-            self?.lookupPortrait(image)
-        })
-    }
-    
-    private func lookupPortrait(_ image: UIImage) {
-        Task {
-            do {
-                guard ImageAnalyzer.isSupported else { return }
-                let configuration = ImageAnalyzer.Configuration([.visualLookUp])
-                let analyzer = ImageAnalyzer()
-                let analysis = try await analyzer.analyze(image, configuration: configuration)
-                interaction.analysis = analysis
-                interaction.preferredInteractionTypes = .imageSubject
-                let subjects = await interaction.subjects
-                portraitImageView.image = try await interaction.image(for: subjects)
-                    .withShadow(offset: .init(width: 20, height: 20), color: .black)
-            } catch {
-                print("\(#file) Error: \(error)")
-            }
+        if let portrait = content.portraits.randomElement() {
+            backgroundImageView.setImage(with: personBaseURL, path: portrait.path)
         }
+        profileImagesView.set(content: content.portraits)
+        biographyView.set(content: content.biography)
+        personalityView.set(content: content.personality)
+        personalInfoView.set(content: content.personalInfo)
     }
 }
 
@@ -118,13 +113,16 @@ private extension PersonRenderer {}
 
 // MARK: - Private methods
 private extension PersonRenderer {
-
+    
     func rendering() {
         backgroundColor = Colors.primaryBack.color
         renderingContentView()
         renderingBackgroundImageView()
         renderingEffectView()
-        renderingPortraitImageView()
+        reneringProfileImagesView()
+        renderingPersonalityView()
+        renderingPersonalInfoView()
+        renderingBiographyView()
     }
     
     func renderingContentView() {
@@ -145,9 +143,9 @@ private extension PersonRenderer {
         insertSubview(backgroundImageView, belowSubview: contentView)
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo:  frameLayoutGuide.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: contentLayoutGuide.leadingAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: contentLayoutGuide.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 200)
+            backgroundImageView.bottomAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: frameLayoutGuide.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: frameLayoutGuide.trailingAnchor)
         ])
     }
     
@@ -161,7 +159,7 @@ private extension PersonRenderer {
         
         contentView.addSubview(effectView.blur)
         NSLayoutConstraint.activate([
-            effectView.blur.topAnchor.constraint(equalTo: contentLayoutGuide.topAnchor),
+            effectView.blur.topAnchor.constraint(equalTo: frameLayoutGuide.topAnchor),
             effectView.blur.bottomAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor),
             effectView.blur.leadingAnchor.constraint(equalTo: frameLayoutGuide.leadingAnchor),
             effectView.blur.trailingAnchor.constraint(equalTo: frameLayoutGuide.trailingAnchor)
@@ -170,13 +168,44 @@ private extension PersonRenderer {
         effectView.blur.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    func renderingPortraitImageView() {
-        addSubview(portraitImageView)
+    func reneringProfileImagesView() {
+        contentView.addSubview(profileImagesView)
         NSLayoutConstraint.activate([
-            portraitImageView.topAnchor.constraint(equalTo:  topAnchor, constant: 100),
-            portraitImageView.widthAnchor.constraint(equalToConstant: 200),
-            portraitImageView.heightAnchor.constraint(equalToConstant: 300),
-            portraitImageView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            profileImagesView.heightAnchor.constraint(equalToConstant: 500),
+            profileImagesView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            profileImagesView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            profileImagesView.topAnchor.constraint(equalTo:  contentView.safeAreaLayoutGuide.topAnchor, constant: 16)
+        ])
+    }
+    
+    func renderingPersonalityView() {
+        contentView.addSubview(personalityView)
+        NSLayoutConstraint.activate([
+            personalityView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
+            personalityView.topAnchor.constraint(equalTo: profileImagesView.bottomAnchor, constant: 16),
+            personalityView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            personalityView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+        ])
+    }
+    
+    func renderingPersonalInfoView() {
+        contentView.addSubview(personalInfoView)
+        NSLayoutConstraint.activate([
+            personalInfoView.heightAnchor.constraint(greaterThanOrEqualToConstant: 350),
+            personalInfoView.topAnchor.constraint(equalTo: personalityView.safeAreaLayoutGuide.bottomAnchor, constant: 16),
+            personalInfoView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            personalInfoView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+        ])
+    }
+    
+    func renderingBiographyView() {
+        contentView.addSubview(biographyView)
+        NSLayoutConstraint.activate([
+            biographyView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
+            biographyView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            biographyView.topAnchor.constraint(equalTo: personalInfoView.safeAreaLayoutGuide.bottomAnchor, constant: 16),
+            biographyView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            biographyView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
     }
 }
@@ -191,37 +220,30 @@ extension PersonRenderer: UIRendererPreview {
     static func preview() -> Self {
         let preview = Self.init(interactional: interactional)
         preview.moduleDidLoad()
-        preview.set(content: .init(portraitPath: "/euDPyqLnuwaWMHajcU3oZ9uZezR.jpg"))
+        preview.set(content: .init(biography: .init(knownAs: "Марго Роббі Марго Робби มาร์โก ร็อบบี 瑪歌·羅比 마고 로비",
+                                                    biography: "Margot Elise Robbie (born July 2, 1990) is an Australian actress and producer. Known for her work in both blockbuster and independent films, she has received several accolades, including nominations for two Academy Awards, four Golden Globe Awards, and five British Academy Film Awards. Time magazine named her one of the 100 most influential people in the world in 2017 and she was ranked as one of the world's highest-paid actresses by Forbes in 2019."),
+                                   portraits: (0...10).map { _ in .init(path: "/euDPyqLnuwaWMHajcU3oZ9uZezR.jpg")},
+                                   personality: .init(name: "Margot Robbie", rating: 0.7),
+                                   personalInfo: .init(knownFor: "Acting",
+                                                       gender: "Female",
+                                                       birthday: "1990-07-02 (33 years old)",
+                                                       placeOfBirth: "Dalby, Queensland, Australia")))
         return preview
     }
 }
 
-extension UIImage {
-    
-    func withShadow(blur: CGFloat = 6,
-                    offset: CGSize = .zero,
-                    color: UIColor = UIColor(white: 0, alpha: 0.8)) -> UIImage {
-
-        let shadowRect = CGRect(x: offset.width - blur,
-                                y: offset.height - blur,
-                                width: size.width + blur * 2,
-                                height: size.height + blur * 2)
-        let size = CGSize(width: max(shadowRect.maxX, size.width) - min(shadowRect.minX, 0),
-                          height: max(shadowRect.maxY, size.height) - min(shadowRect.minY, 0))
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        let context = UIGraphicsGetCurrentContext()!
-        context.setShadow(offset: offset, blur: blur, color: color.cgColor )
-        
-        draw(in: .init(x: max(0, -shadowRect.origin.x),
-                        y: max(0, -shadowRect.origin.y),
-                        width: size.width,
-                        height: size.height))
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
-    }
-}
-
+#if DEBUG
 #Preview(String(describing: PersonRenderer.self)) {
-    PersonRenderer.preview()
+    let vc = UIViewController()
+    let preview = PersonRenderer.preview()
+    preview.translatesAutoresizingMaskIntoConstraints = false
+    vc.view.addSubview(preview)
+    NSLayoutConstraint.activate([
+        preview.topAnchor.constraint(equalTo: vc.view.topAnchor),
+        preview.bottomAnchor.constraint(equalTo: vc.view.bottomAnchor),
+        preview.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
+        preview.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor),
+    ])
+    return vc
 }
+#endif

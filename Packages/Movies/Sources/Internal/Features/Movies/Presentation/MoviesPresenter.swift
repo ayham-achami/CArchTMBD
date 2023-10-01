@@ -2,14 +2,20 @@
 //  MoviesPresenter.swift
 
 import CArch
+import CRest
 import Foundation
 
 /// Протокол реализующий логику отображения данных
+@UIContactor
 @MainActor protocol MoviesRenderingLogic: RootRenderingLogic {
     
     /// Показать загруженные фильмы
     /// - Parameter movies: Загруженные фильмы
      func display(_ movies: [MovieCell.Model])
+    
+    /// Показать ошибку загрузки
+    /// - Parameter errorDescription: Ошибку загрузки
+    func display(errorDescription: String)
 }
 
 /// Объект содержащий логику преобразования объектов модели `Model` в
@@ -32,14 +38,14 @@ final class MoviesPresenter: MoviesPresentationLogic {
     }
 
     func didObtain(_ movies: [Movie]) {
-        Task {
-            await view?.display(movies.map { .init($0, formatter) })
-        }
+        view?.nonisolatedDisplay(movies.map { .init($0, formatter) })
     }
     
     func encountered(_ error: Error) {
-        Task {
-            await view?.displayErrorAlert(with: error)
+        if let error = error as? NetworkError {
+            view?.nonisolatedDisplay(errorDescription: error.errorDescription)
+        } else {
+            view?.nonisolatedDisplay(errorDescription: error.localizedDescription)
         }
     }
 }

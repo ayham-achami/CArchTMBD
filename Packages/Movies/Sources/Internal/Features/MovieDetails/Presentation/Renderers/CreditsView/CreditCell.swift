@@ -110,6 +110,8 @@ class CreditCell: UICollectionViewCell {
     }
 }
 
+#if DEBUG
+// MARK: - Preview
 #Preview(String(describing: CreditCell.self)) {
     let preview = CreditCell(frame: .zero)
     preview.set(content: .init(id: 0,
@@ -126,3 +128,4 @@ class CreditCell: UICollectionViewCell {
     
     return vc
 }
+#endif

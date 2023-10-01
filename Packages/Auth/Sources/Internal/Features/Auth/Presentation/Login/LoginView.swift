@@ -90,7 +90,9 @@ extension LoginViewController: LoginUserInteraction {
     }
 }
 
+#if DEBUG
  // MARK: - Preview
 #Preview(String(describing: LoginModule.self)) {
     LoginModule.PreviewBuilder().build().node
 }
+#endif

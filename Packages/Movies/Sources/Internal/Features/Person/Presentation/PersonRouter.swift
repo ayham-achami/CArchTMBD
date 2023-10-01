@@ -1,14 +1,14 @@
 //  
 //  PersonRouter.swift
-//  
-//
-//  Created by Ayham Hylam on 12.09.2023.
-//
 
 import CArch
 
 /// Протокол организующий логику переходов от модуля `Person` в другие модули
-protocol PersonRoutingLogic: RootRoutingLogic {}
+protocol PersonRoutingLogic: RootRoutingLogic {
+    
+    /// Закрыть модуль
+    func closeModule()
+}
 
 /// Объект содержаний логику переходов от модуля `Person` в другие модули
 final class PersonRouter: PersonRoutingLogic {
@@ -17,5 +17,9 @@ final class PersonRouter: PersonRoutingLogic {
     
     nonisolated init(transitionController: TransitionController) {
         self.transitionController = transitionController
+    }
+    
+    func closeModule() {
+        transitionController.dismiss()
     }
 }

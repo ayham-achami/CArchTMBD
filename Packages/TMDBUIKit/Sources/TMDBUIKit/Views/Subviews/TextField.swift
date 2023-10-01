@@ -60,7 +60,7 @@ public final class TextField: UITextField {
         }
     }
     
-    private(set) var hintState: HintState = .plainText {
+    public private(set) var hintState: HintState = .plainText {
         didSet {
             setupHintColors()
         }

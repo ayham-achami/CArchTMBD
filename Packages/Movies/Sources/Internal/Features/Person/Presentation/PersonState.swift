@@ -1,9 +1,5 @@
 //  
 //  PersonState.swift
-//  
-//
-//  Created by Ayham Hylam on 12.09.2023.
-//
 
 import CArch
 

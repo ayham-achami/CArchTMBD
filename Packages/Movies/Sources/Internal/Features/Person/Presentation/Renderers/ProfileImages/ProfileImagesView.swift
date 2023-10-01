@@ -1,40 +1,46 @@
 //
-//  CreditsView.swift
+//  ProfileImagesView.swift
 
 import UIKit
 import CArch
 import TMDBUIKit
 
 // MARK: - Delegate
-protocol CreditsViewDelegate: AnyObject {
+protocol ProfileImagesViewDelegate: AnyObject {
     
-    /// Вызывается при выборе актера из списка
-    /// - Parameters:
-    ///   - creditsView: `CreditsView`
-    ///   - id: Идентификатор актера
-    func creditsView(_ creditsView: CreditsView, didSelectedPersone id: Int)
+    func profileImagesView(_ profileImagesView: ProfileImagesView, didSelectedImage path: String)
 }
 
 // MARK: - View
-final class CreditsView: UIView {
+final class ProfileImagesView: UIView {
     
-    private let cellId = "\(String(describing: CreditsView.self)).\(String(describing: CreditCell.self))"
+    typealias Model = [ProfileImagesCell.Model]
+    
+    private let cellId = "\(String(describing: ProfileImagesView.self)).\(String(describing: ProfileImagesCell.self))"
+    
+    private lazy var layout: CarouselCollectionViewLayout = {
+        let layout = CarouselCollectionViewLayout()
+        layout.sideItemAlpha = 0.8
+        layout.sideItemScale = 0.5
+        layout.scrollDirection = .horizontal
+        layout.itemSize = .init(width: 300, height: 450)
+        return layout
+    }()
     
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.delegate = self
         view.dataSource = self
         view.backgroundColor = .clear
+        view.showsHorizontalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(CreditCell.self, forCellWithReuseIdentifier: cellId)
+        view.register(ProfileImagesCell.self, forCellWithReuseIdentifier: cellId)
         return view
     }()
     
-    private var content: [CreditCell.Model] = []
+    private var content: [ProfileImagesCell.Model] = []
     
-    weak var delegate: CreditsViewDelegate?
+    weak var delegate: ProfileImagesViewDelegate?
     
     var contentInset: UIEdgeInsets {
         get {
@@ -56,7 +62,7 @@ final class CreditsView: UIView {
         rendering()
     }
     
-    func set(content: [CreditCell.Model]) {
+    func set(content: [ProfileImagesCell.Model]) {
         self.content = content
         collectionView.reloadData()
     }
@@ -73,8 +79,8 @@ final class CreditsView: UIView {
     }
 }
 
-// MARK: - CreditsView + UICollectionViewDataSource
-extension CreditsView: UICollectionViewDataSource {
+// MARK: - ProfileImagesView + UICollectionViewDataSource
+extension ProfileImagesView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         content.count
@@ -82,7 +88,7 @@ extension CreditsView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? CreditCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ProfileImagesCell
         else { preconditionFailure("") }
         cell.set(content: content[indexPath.row])
         return cell
@@ -90,44 +96,29 @@ extension CreditsView: UICollectionViewDataSource {
     }
 }
 
-// MARK: - CreditsView + UICollectionViewDelegateFlowLayout
-extension CreditsView: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 140, height: 230)
-    }
-}
-
-// MARK: - CreditsView + UICollectionViewDelegate
-extension CreditsView: UICollectionViewDelegate {
+// MARK: - ProfileImagesView + UICollectionViewDelegate
+extension ProfileImagesView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        delegate?.creditsView(self, didSelectedPersone: content[indexPath.row].id)
+        delegate?.profileImagesView(self, didSelectedImage: content[indexPath.row].path)
     }
 }
 
 #if DEBUG
-// MARK: - Preview
-#Preview(String(describing: CreditsView.self)) {
-    let preview = CreditsView(frame: .zero)
-    preview.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+#Preview(String(describing: ProfileImagesView.self)) {
+    let preview = ProfileImagesView(frame: .zero)
+    //preview.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
     preview.set(content: (1...10).map { id in
-            .init(id: id,
-                  name: "Cillian Murphy",
-                  character: "J. Robert Oppenheimer",
-                  posterPath: "/llkbyWKwpfowZ6C8peBjIV9jj99.jpg")
+            .init(path: "/llkbyWKwpfowZ6C8peBjIV9jj99.jpg")
     })
     preview.translatesAutoresizingMaskIntoConstraints = false
     let vc = UIViewController()
     vc.view.addSubview(preview)
-    NSLayoutConstraint.activate([preview.heightAnchor.constraint(equalToConstant: 300),
+    NSLayoutConstraint.activate([preview.heightAnchor.constraint(equalToConstant: 400),
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
                                  preview.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
                                  preview.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor)])
-    
     return vc
 }
 #endif

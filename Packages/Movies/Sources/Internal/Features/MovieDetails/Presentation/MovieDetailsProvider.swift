@@ -6,8 +6,8 @@ import CArch
 /// Протокол взаимодействия с MovieDetailsPresenter
 protocol MovieDetailsPresentationLogic: RootPresentationLogic {
     
-    /// <#Description#>
-    /// - Parameter details: <#details description#>
+    /// Вызывается при получении данных о фильме
+    /// - Parameter details: `MovieDetails` + `Credits`
     func didObtain(_ response: (details: MovieDetails, credits: Credits))
 }
 

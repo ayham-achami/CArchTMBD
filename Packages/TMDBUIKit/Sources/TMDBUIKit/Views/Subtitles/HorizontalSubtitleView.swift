@@ -58,7 +58,6 @@ public final class HorizontalSubtitleView: UIView {
                                  preview.heightAnchor.constraint(equalToConstant: 44),
                                  preview.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
-    
     return vc
 }
 

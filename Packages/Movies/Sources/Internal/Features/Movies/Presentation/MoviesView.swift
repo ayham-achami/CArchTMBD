@@ -18,13 +18,14 @@ protocol MoviesProvisionLogic: RootProvisionLogic, ErrorAsyncHandler {
 }
 
 /// Все взаимодействия пользователя с модулем
-typealias MoviesUserInteraction = MoviesRendererUserInteraction
+typealias MoviesUserInteraction = MoviesRendererUserInteraction & StateRendererUserInteraction
 
 /// Объект содержаний логику отображения данных
 class MoviesViewController: UIViewController, ModuleLifeCycleOwner {
 
     private let moduleReference = assembly(MoviesAssembly.self)
 
+    var stateRenderer: StateRenderer!
     var moviesRenderer: MoviesRenderer!
     var provider: MoviesProvisionLogic!
     var router: MoviesRoutingLogic!
@@ -40,14 +41,17 @@ class MoviesViewController: UIViewController, ModuleLifeCycleOwner {
         
         moduleDidLoad()
         
-        view.addSubview(moviesRenderer)
         moviesRenderer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(moviesRenderer)
         NSLayoutConstraint.activate([
             moviesRenderer.topAnchor.constraint(equalTo: view.topAnchor),
             moviesRenderer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             moviesRenderer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             moviesRenderer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+         
+        stateRenderer.set(content: .init(state: .loading))
+        contentUnavailableConfiguration = stateRenderer
         provider.obtainMovies(of: state.initial.type, at: state.page)
     }
     
@@ -94,7 +98,16 @@ extension MoviesViewController: MoviesRenderingLogic {
     
     func display(_ movies: [MovieCell.Model]) {
         moviesRenderer.set(content: movies)
+        contentUnavailableConfiguration = nil
         state.page += 1
+    }
+    
+    func display(errorDescription: String) {
+        stateRenderer.set(content: .init(state: .error,
+                                         image: .init(systemName: "exclamationmark.arrow.triangle.2.circlepath"),
+                                         action: "Retry request",
+                                         message: errorDescription))
+        contentUnavailableConfiguration = stateRenderer
     }
 }
 
@@ -108,9 +121,17 @@ extension MoviesViewController: MoviesUserInteraction {
     func didRequestMovieDetails(with id: Int) {
         router.showMovieDetails(.init(id: id))
     }
+    
+    func didAction(for state: StateRenderer.State) {
+        guard case .error = state else { return }
+        contentUnavailableConfiguration = stateRenderer
+        provider.obtainMovies(of: self.state.initial.type, at: self.state.page)
+    }
 }
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: MoviesModule.self)) {
     MoviesModule.PreviewBuilder().build().node
 }
+#endif

@@ -14,6 +14,7 @@ final class OverviewView: CardView {
     
     let subtitleView: VerticalSubtitleView = {
         let view = VerticalSubtitleView()
+        view.titleLabel.text = "Overview: "
         view.titleLabel.font = UIFont.Bold.body2
         view.subtitleLabel.font = UIFont.Regular.body2
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +22,6 @@ final class OverviewView: CardView {
     }()
     
     func set(content: Model) {
-        subtitleView.titleLabel.text = "Overview: "
         subtitleView.subtitleLabel.text = content.overview
     }
     
@@ -37,6 +37,8 @@ final class OverviewView: CardView {
     }
 }
 
+#if  DEBUG
+// MARK: - Preview
 #Preview(String(describing: OverviewView.self)) {
     let preview = OverviewView(frame: .zero)
     preview.set(content: .init(overview: "The story of J. Robert Oppenheimer’s role in the development of the atomic bomb during World War II."))
@@ -47,6 +49,6 @@ final class OverviewView: CardView {
                                  preview.heightAnchor.constraint(equalToConstant: 200),
                                  preview.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
-    
     return vc
 }
+#endif

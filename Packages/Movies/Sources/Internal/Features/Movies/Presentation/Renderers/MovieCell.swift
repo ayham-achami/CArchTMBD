@@ -90,7 +90,7 @@ final class MovieCell: UICollectionViewCell {
     }()
     
     private let posterBaseURL: URL = {
-        .init(string: "https://image.tmdb.org/t/p/w1280")!
+        .init(string: "https://image.tmdb.org/t/p/w185")!
     }()
     
     override init(frame: CGRect) {
@@ -109,8 +109,10 @@ final class MovieCell: UICollectionViewCell {
         dateLabel.text = content.releaseDate
         ratingView.setRating(text: content.rating)
         ratingView.setRating(content.rating, animated: true)
-        posterImageView.af.setImage(withURL: posterBaseURL.appending(path: content.posterPath))
-        posterEffectImageView.af.setImage(withURL: posterBaseURL.appending(path: content.posterPath))
+        posterImageView.setImage(with: posterBaseURL,
+                                 path: content.posterPath,
+                                 showLoader: true,
+                                 union: posterEffectImageView)
     }
     
     func rendering() {
@@ -171,12 +173,14 @@ final class MovieCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        posterImageView.af.cancelImageRequest()
+        posterImageView.cancelImageLoading()
         posterImageView.image = nil
+        posterEffectImageView.cancelImageLoading()
         posterEffectImageView.image = nil
     }
 }
 
+#if DEBUG
 #Preview(String(describing: MovieCell.self)) {
     let preview = MovieCell(frame: .zero)
     preview.set(content: .init(id: 0,
@@ -191,7 +195,6 @@ final class MovieCell: UICollectionViewCell {
                                  preview.heightAnchor.constraint(equalToConstant: 600),
                                  preview.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
-    
     return vc
 }
-
+#endif

@@ -62,7 +62,6 @@ final class WelcomeCell: UICollectionViewCell {
                                  preview.heightAnchor.constraint(equalToConstant: 150),
                                  preview.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
-    
     return vc
 }
 

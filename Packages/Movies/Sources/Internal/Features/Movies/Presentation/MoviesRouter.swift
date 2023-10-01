@@ -8,8 +8,8 @@ import TMDBCore
 /// Протокол организующий логику переходов от модуля `Movies` в другие модули
 protocol MoviesRoutingLogic: RootRoutingLogic {
     
-    /// <#Description#>
-    /// - Parameter initialState: <#initialState description#>
+    /// Показать модуль детали фильма
+    /// - Parameter initialState: `MovieDetailsModuleState.InitialState`
     func showMovieDetails(_ initialState: MovieDetailsModuleState.InitialState)
 }
 
@@ -28,9 +28,9 @@ final class MoviesRouter: MoviesRoutingLogic {
         TransitionBuilder
             .with(transitionController)
             .with(state: initialState)
-            .with(hierarchy: .clear)
-            .with(transition: .present)
-            .with(builder: MovieDetailsModule.Builder(factoryProvider.factory))
+            .with(hierarchy: .navigation)
+            .with(transition: .customPresent(.formSheet, .coverVertical))
+            .with(builder: MovieDetailsModule.NavigationBuilder(factoryProvider.factory))
             .commit()
         
     }

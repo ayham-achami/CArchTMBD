@@ -3,19 +3,20 @@
 
 import UIKit
 import CArch
+import TMDBUIKit
 import CArchSwinject
 
 /// Протокол реализующий логику получения данных из слоя бизнес логики
 @SyncAlias
 protocol MovieDetailsProvisionLogic: RootProvisionLogic, ErrorAsyncHandler {
     
-    /// <#Description#>
-    /// - Parameter id: <#id description#>
+    /// Получить детали фильма
+    /// - Parameter id: Идентификатор фильма
     func obtainMovieDetails(with id: Int) async throws
 }
 
 /// Все взаимодействия пользователя с модулем
-typealias MovieDetailsUserInteraction = MovieDetailsRendererUserInteraction & MovieDetailsNavigationRendererUserInteraction
+typealias MovieDetailsUserInteraction = MovieDetailsRendererUserInteraction & StateRendererUserInteraction
 
 /// Объект содержаний логику отображения данных
 final class MovieDetailsViewController: UIViewController, ModuleLifeCycleOwner {
@@ -25,38 +26,38 @@ final class MovieDetailsViewController: UIViewController, ModuleLifeCycleOwner {
     var provider: MovieDetailsProvisionLogic!
 
     // MARK: - Injected Renderers
-    var renderer: MovieDetailsRenderer!
-    var navigationRenderer: MovieDetailsNavigationRenderer!
+    var stateRenderer: StateRenderer!
+    var detailsRenderer: MovieDetailsRenderer!
 
     /// состояние модуля `MovieDetails`
     private var state = MovieDetailsModuleState()
 
     // MARK: - Lifecycle
-    var lifeCycle: [ModuleLifeCycle] { [renderer, navigationRenderer] }
+    var lifeCycle: [ModuleLifeCycle] { [detailsRenderer] }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         moduleDidLoad()
         
-        view.addSubview(renderer)
-        renderer.translatesAutoresizingMaskIntoConstraints = false
+        if presentingViewController != nil &&
+            navigationController?.viewControllers.first === self {
+            navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .close,
+                                                      target: self,
+                                                      action: #selector(didRequestClose))
+        }
+        
+        detailsRenderer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(detailsRenderer)
         NSLayoutConstraint.activate([
-            renderer.topAnchor.constraint(equalTo: view.topAnchor),
-            renderer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            renderer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            renderer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            detailsRenderer.topAnchor.constraint(equalTo: view.topAnchor),
+            detailsRenderer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            detailsRenderer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            detailsRenderer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        view.addSubview(navigationRenderer)
-        navigationRenderer.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            navigationRenderer.widthAnchor.constraint(equalToConstant: 30),
-            navigationRenderer.heightAnchor.constraint(equalToConstant: 30),
-            navigationRenderer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
-            navigationRenderer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -32)
-        ])
-        
+        stateRenderer.set(content: .init(state: .loading))
+        contentUnavailableConfiguration = stateRenderer
         provider.obtainMovieDetails(with: state.initial.id)
     }
     
@@ -96,7 +97,16 @@ extension MovieDetailsViewController: MovieDetailsModuleStateRepresentable {
 extension MovieDetailsViewController: MovieDetailsRenderingLogic {
     
     func display(_ details: MovieDetailsRenderer.ModelType) {
-        renderer.set(content: details)
+        detailsRenderer.set(content: details)
+        contentUnavailableConfiguration = nil
+    }
+    
+    func display(errorDescription: String) {
+        stateRenderer.set(content: .init(state: .error,
+                                         image: .init(systemName: "exclamationmark.arrow.triangle.2.circlepath"),
+                                         action: "Retry request",
+                                         message: errorDescription))
+        contentUnavailableConfiguration = stateRenderer
     }
 }
 
@@ -107,12 +117,21 @@ extension MovieDetailsViewController: MovieDetailsUserInteraction {
         router.showPersoneDetailes(.init(id: id))
     }
     
+    @objc
     func didRequestClose() {
         router.closeModule()
     }
+    
+    func didAction(for state: StateRenderer.State) {
+        guard case .error = state else { return }
+        contentUnavailableConfiguration = stateRenderer
+        provider.obtainMovieDetails(with: self.state.initial.id)
+    }
 }
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: MovieDetailsModule.self)) {
     MovieDetailsModule.PreviewBuilder().build().node
 }
+#endif

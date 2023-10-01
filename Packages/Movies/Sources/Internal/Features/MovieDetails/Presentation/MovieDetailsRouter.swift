@@ -7,9 +7,11 @@ import TMDBCore
 /// Протокол организующий логику переходов от модуля `MovieDetails` в другие модули
 protocol MovieDetailsRoutingLogic: RootRoutingLogic {
     
+    /// Показать модуль информации о актере
+    /// - Parameter initialState: `PersonModuleState.InitialState`
     func showPersoneDetailes(_ initialState: PersonModuleState.InitialState)
     
-    /// <#Description#>
+    /// Закрыть модуль
     func closeModule()
 }
 
@@ -30,7 +32,7 @@ final class MovieDetailsRouter: MovieDetailsRoutingLogic {
             .with(transitionController)
             .with(state: initialState)
             .with(hierarchy: .clear)
-            .with(transition: .present)
+            .with(transition: .push)
             .with(builder: PersonModule.Builder(factoryProvider.factory))
             .commit()
     }

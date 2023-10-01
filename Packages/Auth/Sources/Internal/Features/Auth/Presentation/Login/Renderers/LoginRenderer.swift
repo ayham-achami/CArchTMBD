@@ -8,10 +8,10 @@ import TMDBUIKit
 /// Протокол взаимодействия пользователя с модулем
 protocol LoginRendererUserInteraction: AnyUserInteraction {
     
-    /// <#Description#>
+    /// Вызывается при нажатии на кнопку логин
     /// - Parameters:
-    ///   - login: <#login description#>
-    ///   - password: <#password description#>
+    ///   - login: Логин
+    ///   - password: Пароль
     func didRequestLogin(_ login: String, password: String)
 }
 
@@ -105,8 +105,9 @@ final class LoginRenderer: UIScrollView, UIRenderer {
 private extension LoginRenderer {
     
     @objc private func didTapLogin() {
-        let credentials = credentialsView.credentials
-        interactional?.didRequestLogin(credentials.login, password: credentials.password)
+        guard validate(credentialsView.credentials) else { return }
+        interactional?.didRequestLogin(credentialsView.credentials.login,
+                                       password: credentialsView.credentials.password)
     }
 }
 
@@ -184,8 +185,8 @@ private extension LoginRenderer {
         NSLayoutConstraint.activate([
             leadingConstraint,
             trailingConstraint,
-            credentialsView.heightAnchor.constraint(equalToConstant: 230),
             credentialsView.widthAnchor.constraint(lessThanOrEqualToConstant: 472),
+            credentialsView.heightAnchor.constraint(greaterThanOrEqualToConstant: 200),
             credentialsView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             credentialsView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 32)
         ])
@@ -203,8 +204,23 @@ private extension LoginRenderer {
             loginButton.topAnchor.constraint(equalTo: credentialsView.bottomAnchor, constant: 16)
         ])
     }
+    
+    func validate(_ credentials: CredentialsView.Credentials) -> Bool {
+        switch (credentials.login.isEmpty, credentials.password.isEmpty) {
+        case (true, true):
+            credentialsView.set(credentialsValidate: .all)
+        case (true, _):
+            credentialsView.set(credentialsValidate: .login)
+        case (_, true):
+            credentialsView.set(credentialsValidate: .password)
+        default:
+            return true
+        }
+        return false
+    }
 }
 
+#if DEBUG
 // MARK: - Preview
 extension LoginRenderer: UIRendererPreview {
     
@@ -237,3 +253,4 @@ extension LoginRenderer: UIRendererPreview {
     ])
     return vc
 }
+#endif
