@@ -24,7 +24,7 @@ private final class MockSocialNavigatorAssembly: DIAssembly {
     nonisolated init() {}
     
     func assemble(container: DIContainer) {
-        container.record(SocialNavigator.self, inScope: .autoRelease) { _ in
+        container.record(SocialNavigator.self, inScope: .autoRelease, configuration: nil) { _ in
             MockSocialNavigator()
         }
     }
@@ -42,7 +42,7 @@ private final class MockApplicationRouter: ApplicationRouter {
 private final class MockApplicationRouterAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(ApplicationRouter.self, inScope: .autoRelease) { _ in
+        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { _ in
             MockApplicationRouter()
         }
     }
@@ -65,7 +65,7 @@ private final class MockJWTController: JWTController {
 private final class MockJWTControllerAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(JWTController.self, inScope: .autoRelease) { _ in
+        container.record(JWTController.self, inScope: .autoRelease, configuration: nil) { _ in
             MockJWTController()
         }
     }
@@ -81,7 +81,7 @@ private final class MockFactoryProvider: FactoryProvider {
 private final class MockFactoryProviderAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(FactoryProvider.self, inScope: .autoRelease) { _ in
+        container.record(FactoryProvider.self, inScope: .autoRelease, configuration: nil) { _ in
             MockFactoryProvider()
         }
     }
@@ -122,5 +122,4 @@ extension ReviewsModule {
         }
     }
 }
-
 #endif

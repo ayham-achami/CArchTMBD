@@ -79,7 +79,9 @@ extension ___VARIABLE_productName___ViewController: ___VARIABLE_productName___Re
 // MARK: - ___VARIABLE_productName___ + UserInteraction
 extension ___VARIABLE_productName___ViewController: ___VARIABLE_productName___UserInteraction {}
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: ___VARIABLE_productName___Module.self)) {
     ___VARIABLE_productName___Module.Builder().build().node
 }
+#endif

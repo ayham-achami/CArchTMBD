@@ -43,41 +43,42 @@ final class ReviewsAssembly: LayoutModuleAssembly {
     }
     
     func registerView(in container: DIContainer) {
-        container.record(ReviewsViewController.self) { resolver in
+        container.recordComponent(ReviewsViewController.self) { resolver in
             let controller = ReviewsViewController()
-            guard
-                let presenter = resolver.unravel(ReviewsPresentationLogic.self,
-                                                 arguments: controller as ReviewsRenderingLogic,
-                                                 controller as ReviewsModuleStateRepresentable)
-            else { preconditionFailure("Could not to build Reviews module, module Presenter is nil") }
-            controller.renderer = resolver.unravel(ReviewsRenderer.self, argument: controller as ReviewsUserInteraction)
-            controller.router = resolver.unravel(ReviewsRoutingLogic.self, argument: controller as TransitionController)
-            controller.provider = resolver.unravel(ReviewsProvisionLogic.self, argument: presenter as ReviewsPresentationLogic)
+            let presenter = resolver.unravelComponent(ReviewsPresenter.self,
+                                                      argument1: controller as ReviewsRenderingLogic,
+                                                      argument2: controller as ReviewsModuleStateRepresentable)
+            controller.renderer = resolver.unravelComponent(ReviewsRenderer.self,
+                                                            argument: controller as ReviewsUserInteraction)
+            controller.router = resolver.unravelComponent(ReviewsRouter.self,
+                                                          argument: controller as TransitionController)
+            controller.provider = resolver.unravelComponent(ReviewsProvider.self,
+                                                            argument: presenter as ReviewsPresentationLogic)
             return controller
         }
     }
     
     func registerRenderers(in container: DIContainer) {
-        container.record(ReviewsRenderer.self) { (_, interaction: ReviewsUserInteraction) in
+        container.recordComponent(ReviewsRenderer.self) { (_, interaction: ReviewsUserInteraction) in
             ReviewsRenderer(interactional: interaction)
         }
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.record(ReviewsPresentationLogic.self) { (resolver, view: ReviewsRenderingLogic, state: ReviewsModuleStateRepresentable) in
+        container.recordComponent(ReviewsPresenter.self) { (resolver, view: ReviewsRenderingLogic, state: ReviewsModuleStateRepresentable) in
             ReviewsPresenter(view: view, state: state)
         }
     }
 
     func registerProvider(in container: DIContainer) {
-        container.record(ReviewsProvisionLogic.self) { (resolver, presenter: ReviewsPresentationLogic) in
+        container.recordComponent(ReviewsProvider.self) { (resolver, presenter: ReviewsPresentationLogic) in
             ReviewsProvider(presenter: presenter,
-                            previewsService: resolver.unravel(PreviewsService.self)!)
+                            previewsService: resolver.unravelService(PreviewsService.self))
         }
     }
     
     func registerRouter(in container: DIContainer) {
-        container.record(ReviewsRoutingLogic.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(ReviewsRouter.self) { (resolver, transitionController: TransitionController) in
             ReviewsRouter(transitionController: transitionController)
         }
     }

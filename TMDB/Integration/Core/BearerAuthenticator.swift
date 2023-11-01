@@ -21,7 +21,7 @@ final class BearerAuthenticator: IOBearerAuthenticator {
 final class BearerAuthenticatorAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(IOBearerAuthenticator.self, inScope: .autoRelease) { resolver in
+        container.record(IOBearerAuthenticator.self, inScope: .autoRelease, configuration: nil) { resolver in
             BearerAuthenticator(provider: resolver.unravel(BearerCredentialProvider.self)!)
         }
     }

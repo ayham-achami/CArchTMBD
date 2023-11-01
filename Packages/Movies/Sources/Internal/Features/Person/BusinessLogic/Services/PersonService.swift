@@ -6,16 +6,17 @@ import CRest
 import TMDBCore
 import Foundation
 
-// MAR: - DI
+// MARK: - DI
 final class PersonServiceAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(PersonService.self, inScope: .autoRelease) { resolver in
-            PersonServiceImplementation(io: resolver.unravel(ConcurrencyIO.self)!)
+        container.recordService(PersonService.self) { resolver in
+            PersonService(io: resolver.concurrencyIO)
         }
     }
 }
 
+// MARK: Requests
 private extension Request {
  
     static func person(id: Int, language: String? = nil) -> Self {
@@ -52,22 +53,12 @@ private extension Request {
     }
 }
 
-// MARK: - Public
-@MaintenanceActor protocol PersonService: BusinessLogicService {
-    
-    func fetchPerson(with id: Int) async throws -> Person
-    
-    func fetchImages(with id: Int) async throws -> ProfileImages
-    
-    func fetchMovies(with id: Int) async throws -> ProfileMovies
-}
-
-// MARK: - Private
-private final class PersonServiceImplementation: PersonService {
+// MARK: Service
+actor PersonService: BusinessLogicService {
     
     private let io: ConcurrencyIO
     
-    nonisolated init(io: ConcurrencyIO) {
+    init(io: ConcurrencyIO) {
         self.io = io
     }
     

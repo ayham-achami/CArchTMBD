@@ -60,6 +60,7 @@ final class ReviewNode: ASCellNode {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: ReviewNode.self)) {
     let preview = ReviewNode(.init(id: "64b9ba153009aa00ad6237a4",
                                    author: "Manuel São Bento",
@@ -72,3 +73,4 @@ final class ReviewNode: ASCellNode {
     }
     return ASDKViewController(node: preview)
 }
+#endif

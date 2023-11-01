@@ -88,7 +88,9 @@ extension MainViewController: MainRenderingLogic {}
 // MARK: - Main + UserInteraction
 extension MainViewController: MainUserInteraction {}
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: MainModule.self)) {
     MainModule.PreviewBuilder().build().node
 }
+#endif

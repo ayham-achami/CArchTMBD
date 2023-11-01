@@ -55,7 +55,7 @@ public struct PersonModule {
         
         public func embedIntoNavigationController(_ module: CArchModule) -> CArchModule {
             let navigationController = UINavigationController(rootViewController: module.node)
-            navigationController.navigationBar.tintColor = .white
+            navigationController.navigationBar.tintColor = Colors.invertBack.color
             navigationController.navigationBar.shadowImage = .init()
             navigationController.navigationBar.backgroundColor = .clear
             navigationController.navigationBar.prefersLargeTitles = false
@@ -73,45 +73,43 @@ final class PersonAssembly: LayoutModuleAssembly {
     }
     
     func registerView(in container: DIContainer) {
-        container.record(PersonViewController.self) { resolver in
+        container.recordComponent(PersonViewController.self) { resolver in
             let controller = PersonViewController()
-            guard
-                let presenter = resolver.unravel(PersonPresentationLogic.self,
-                                                 arguments: controller as PersonRenderingLogic,
-                                                 controller as PersonModuleStateRepresentable)
-            else { preconditionFailure("Could not to build Person module, module Presenter is nil") }
-            controller.renderer = resolver.unravel(PersonRenderer.self, argument: controller as PersonUserInteraction)
-            controller.stateRenderer = resolver.unravel(StateRenderer.self, argument: controller as PersonUserInteraction)
-            controller.router = resolver.unravel(PersonRoutingLogic.self, argument: controller as TransitionController)
-            controller.provider = resolver.unravel(PersonProvisionLogic.self, argument: presenter as PersonPresentationLogic)
+            let presenter = resolver.unravelComponent(PersonPresenter.self,
+                                                      argument1: controller as PersonRenderingLogic,
+                                                      argument2: controller as PersonModuleStateRepresentable)
+            controller.renderer = resolver.unravelComponent(PersonRenderer.self, argument: controller as PersonUserInteraction)
+            controller.stateRenderer = resolver.unravelComponent(StateRenderer.self, argument: controller as PersonUserInteraction)
+            controller.router = resolver.unravelComponent(PersonRouter.self, argument: controller as TransitionController)
+            controller.provider = resolver.unravelComponent(PersonProvider.self, argument: presenter as PersonPresentationLogic)
             return controller
         }
     }
     
     func registerRenderers(in container: DIContainer) {
-        container.record(PersonRenderer.self) { (_, interaction: PersonUserInteraction) in
+        container.recordComponent(PersonRenderer.self) { (_, interaction: PersonUserInteraction) in
             PersonRenderer(interactional: interaction)
         }
-        container.record(StateRenderer.self) { (_, interaction: PersonUserInteraction) in
+        container.recordComponent(StateRenderer.self) { (_, interaction: PersonUserInteraction) in
             StateRenderer(interactional: interaction)
         }
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.record(PersonPresentationLogic.self) { (resolver, view: PersonRenderingLogic, state: PersonModuleStateRepresentable) in
+        container.recordComponent(PersonPresenter.self) { (resolver, view: PersonRenderingLogic, state: PersonModuleStateRepresentable) in
             PersonPresenter(view: view, state: state)
         }
     }
 
     func registerProvider(in container: DIContainer) {
-        container.record(PersonProvisionLogic.self) { (resolver, presenter: PersonPresentationLogic) in
+        container.recordComponent(PersonProvider.self) { (resolver, presenter: PersonPresentationLogic) in
             PersonProvider(presenter: presenter,
-                           personService: resolver.unravel(PersonService.self)!)
+                           personService: resolver.unravelService(PersonService.self))
         }
     }
     
     func registerRouter(in container: DIContainer) {
-        container.record(PersonRoutingLogic.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(PersonRouter.self) { (resolver, transitionController: TransitionController) in
             PersonRouter(transitionController: transitionController)
         }
     }

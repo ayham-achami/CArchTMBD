@@ -25,13 +25,14 @@ struct Person: Response {
     
     let name: String
     let biography: String
-    let profilePath: String
     let knownForDepartment: String
     
-    let imdbId: String?
     let birthday: Date?
     let deathday: Date?
+    
+    let imdbId: String?
     let homepage: String?
+    let profilePath: String?
     let placeOfBirth: String?
     
     let alsoKnownAs: [String]

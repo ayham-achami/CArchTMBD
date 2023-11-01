@@ -70,6 +70,7 @@ open class CardView: UIView {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: CardView.self)) {
     let preview = CardView(frame: .zero)
     let vc = UIViewController()
@@ -81,3 +82,4 @@ open class CardView: UIView {
     
     return preview
 }
+#endif

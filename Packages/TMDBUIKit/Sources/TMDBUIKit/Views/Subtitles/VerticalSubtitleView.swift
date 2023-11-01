@@ -53,6 +53,7 @@ public final class VerticalSubtitleView: UIView {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: VerticalSubtitleView.self)) {
     let preview = VerticalSubtitleView(frame: .zero)
     preview.titleLabel.text = "The FlashThe"
@@ -69,3 +70,4 @@ public final class VerticalSubtitleView: UIView {
     
     return preview
 }
+#endif

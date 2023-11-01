@@ -144,6 +144,8 @@ extension WelcomeBackgroundRenderer: UIRendererPreview {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: WelcomeBackgroundRenderer.self)) {
     WelcomeBackgroundRenderer.preview()
 }
+#endif

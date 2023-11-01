@@ -6,15 +6,17 @@ import CRest
 import TMDBCore
 import Foundation
 
+// MARK: DI
 final class MoviesServiceAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(MoviesService.self, inScope: .autoRelease) { resolver in
-            MoviesServiceImplementation(io: resolver.unravel(ConcurrencyIO.self)!)
+        container.recordService(MoviesService.self) { resolver in
+            MoviesService(io: resolver.concurrencyIO)
         }
     }
 }
 
+// MARK: Requests
 private extension Request {
     
     enum Kind: String {
@@ -46,22 +48,12 @@ private extension Request {
     }
 }
 
-@MaintenanceActor protocol MoviesService: BusinessLogicService {
-
-    func fetchNowPlaying(_ page: Int) async throws -> MoviesList
-    
-    func fetchPopular(_ page: Int) async throws -> MoviesList
-    
-    func fetchTopRated(_ page: Int) async throws -> MoviesList
-    
-    func fetchUpcoming(_ page: Int) async throws -> MoviesList
-}
-
-private final class MoviesServiceImplementation: MoviesService {
+// MARK: Service
+actor MoviesService: BusinessLogicService {
     
     private let io: ConcurrencyIO
     
-    nonisolated init(io: ConcurrencyIO) {
+    init(io: ConcurrencyIO) {
         self.io = io
     }
     

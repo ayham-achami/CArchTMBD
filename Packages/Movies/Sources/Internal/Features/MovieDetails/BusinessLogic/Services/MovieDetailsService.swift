@@ -6,16 +6,17 @@ import CRest
 import TMDBCore
 import Foundation
 
-// MAR: - DI
+// MARK: - DI
 final class MovieDetailsServiceAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(MovieDetailsService.self, inScope: .autoRelease) { resolver in
-            MovieDetailsServiceImplementation(io: resolver.unravel(ConcurrencyIO.self)!)
+        container.recordService(MovieDetailsService.self) { resolver in
+            MovieDetailsService(io: resolver.concurrencyIO)
         }
     }
 }
 
+// MARK: Requests
 private extension Request {
     
     static func details(id: Int, language: String? = nil) -> Self {
@@ -46,28 +47,29 @@ private extension Request {
             .build()
         return .init(url)
     }
+    
+    static func videos(id: Int, language: String? = nil) -> Self {
+        enum Keys: String, URLQueryKeys {
+            
+            case language
+        }
+        let url = DynamicURL
+            .keyed(by: Keys.self)
+            .with(endPoint: .movie)
+            .with(pathComponent: "\(id)")
+            .with(pathComponent: "videos")
+            .with(value: language, key: .language)
+            .build()
+        return .init(url)
+    }
 }
 
-// MARK: - Public
-@MaintenanceActor protocol MovieDetailsService: BusinessLogicService {
-    
-    /// <#Description#>
-    /// - Parameter id: <#id description#>
-    /// - Returns: <#description#>
-    func fetchDetails(with id: Int) async throws -> MovieDetails
-    
-    /// <#Description#>
-    /// - Parameter id: <#id description#>
-    /// - Returns: <#description#>
-    func fetchCast(with id: Int) async throws -> Credits
-}
-
-// MARK: - Private
-private final class MovieDetailsServiceImplementation: MovieDetailsService {
+// MARK: Service
+actor MovieDetailsService: BusinessLogicService {
     
     private let io: ConcurrencyIO
     
-    nonisolated init(io: ConcurrencyIO) {
+    init(io: ConcurrencyIO) {
         self.io = io
     }
     
@@ -77,5 +79,9 @@ private final class MovieDetailsServiceImplementation: MovieDetailsService {
     
     func fetchCast(with id: Int) async throws -> Credits {
         try await io.fetch(for: .cast(id: id), response: Credits.self, encoding: .URL(.default))
+    }
+    
+    func fetchVideos(with id: Int) async throws -> Videos {
+        try await io.fetch(for: .videos(id: id), response: Videos.self, encoding: .URL(.default))
     }
 }

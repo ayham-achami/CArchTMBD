@@ -9,8 +9,8 @@ import CArchSwinject
 class AppDelegate: SecureAppDelegate {
     
     override init() {
-        LayoutAssemblyFactory().record(AppAssembly.self)
         super.init()
+        LayoutAssemblyFactory.registerAppComponents()
     }
     
     override func application(_ application: UIApplication, 

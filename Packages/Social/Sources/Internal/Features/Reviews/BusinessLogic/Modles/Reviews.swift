@@ -2,9 +2,10 @@
 //  Reviews.swift
 //  TMDB
 
+import CRest
 import Foundation
 
-public struct Reviews: Codable {
+public struct Reviews: Response {
     
     public let id: Int
     public let page: Int

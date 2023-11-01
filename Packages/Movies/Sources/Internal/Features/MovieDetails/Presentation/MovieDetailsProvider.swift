@@ -8,7 +8,7 @@ protocol MovieDetailsPresentationLogic: RootPresentationLogic {
     
     /// Вызывается при получении данных о фильме
     /// - Parameter details: `MovieDetails` + `Credits`
-    func didObtain(_ response: (details: MovieDetails, credits: Credits))
+    func didObtain(_ response: (details: MovieDetails, credits: Credits, videos: Videos))
 }
 
 /// Объект содержаний логику получения данных из слоя бизнес логики 
@@ -29,7 +29,8 @@ final class MovieDetailsProvider: MovieDetailsProvisionLogic {
     
     func obtainMovieDetails(with id: Int) async throws {
         let response = try await (details: movieDetailsService.fetchDetails(with: id),
-                                  credits: movieDetailsService.fetchCast(with: id))
+                                  credits: movieDetailsService.fetchCast(with: id),
+                                  videos: movieDetailsService.fetchVideos(with: id))
         presenter.didObtain(response)
     }
     

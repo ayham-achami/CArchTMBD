@@ -26,7 +26,7 @@ private final class MockAuthNavigatorAssembly: DIAssembly {
     nonisolated init() {}
     
     func assemble(container: DIContainer) {
-        container.record(AuthNavigator.self, inScope: .autoRelease) { _ in
+        container.record(AuthNavigator.self, inScope: .autoRelease, configuration: nil) { _ in
             MockAuthNavigator()
         }
     }
@@ -44,7 +44,7 @@ private final class MockApplicationRouter: ApplicationRouter {
 private final class MockApplicationRouterAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(ApplicationRouter.self, inScope: .autoRelease) { _ in
+        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { _ in
             MockApplicationRouter()
         }
     }
@@ -67,7 +67,7 @@ private final class MockJWTController: JWTController {
 private final class MockJWTControllerAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(JWTController.self, inScope: .autoRelease) { _ in
+        container.record(JWTController.self, inScope: .autoRelease, configuration: nil) { _ in
             MockJWTController()
         }
     }

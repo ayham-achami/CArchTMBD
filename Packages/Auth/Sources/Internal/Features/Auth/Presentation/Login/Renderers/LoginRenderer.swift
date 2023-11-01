@@ -12,7 +12,7 @@ protocol LoginRendererUserInteraction: AnyUserInteraction {
     /// - Parameters:
     ///   - login: Логин
     ///   - password: Пароль
-    func didRequestLogin(_ login: String, password: String)
+    func didRequestLogin(_ login: String, _ password: String)
 }
 
 /// Объект содержащий логику отображения данных 
@@ -107,7 +107,7 @@ private extension LoginRenderer {
     @objc private func didTapLogin() {
         guard validate(credentialsView.credentials) else { return }
         interactional?.didRequestLogin(credentialsView.credentials.login,
-                                       password: credentialsView.credentials.password)
+                                       credentialsView.credentials.password)
     }
 }
 
@@ -226,7 +226,7 @@ extension LoginRenderer: UIRendererPreview {
     
     final class InteractionalPreview: LoginUserInteraction {
         
-        func didRequestLogin(_ login: String, password: String) {
+        func didRequestLogin(_ login: String, _ password: String) {
             print(#function)
         }
     }
@@ -251,6 +251,7 @@ extension LoginRenderer: UIRendererPreview {
         preview.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
         preview.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor),
     ])
-    return vc
+    let nc = UINavigationController(rootViewController: vc)
+    return nc
 }
 #endif

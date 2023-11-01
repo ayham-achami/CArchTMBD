@@ -2,14 +2,11 @@
 //  PreviewFactory.swift
 //  TMDB
 
-
 #if DEBUG
 import CArch
 import TMDBCore
 import Foundation
 import CArchSwinject
-
-private let factory: LayoutAssemblyFactory = .init()
 
 extension WelcomeModule {
     
@@ -19,12 +16,11 @@ extension WelcomeModule {
         
         typealias InitialStateType = WelcomeModuleState.InitialStateType
         
-        private let buidler: Builder
+        private let builder: Builder
         
         init() {
-            factory.record(CoreDICollection())
-            factory.record(NavigatorsDICollection())
-            buidler = .init(factory)
+            LayoutAssemblyFactory.registerAppComponents()
+            builder = .init(.init())
         }
 
         func build(with initialState: InitialStateType) -> CArchModule {
@@ -34,7 +30,7 @@ extension WelcomeModule {
         }
         
         func build() -> CArchModule {
-            buidler.build()
+            builder.build()
         }
     }
 }
@@ -47,12 +43,11 @@ extension MainModule {
         
         typealias InitialStateType = MainModuleState.InitialStateType
         
-        private let buidler: Builder
+        private let builder: Builder
         
         init() {
-            factory.record(CoreDICollection())
-            factory.record(NavigatorsDICollection())
-            buidler = .init(factory)
+            LayoutAssemblyFactory.registerAppComponents()
+            builder = .init(.init())
         }
 
         func build(with initialState: InitialStateType) -> CArchModule {
@@ -62,7 +57,7 @@ extension MainModule {
         }
         
         func build() -> CArchModule {
-            buidler.build()
+            builder.build()
         }
     }
 }

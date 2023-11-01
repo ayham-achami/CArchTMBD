@@ -51,7 +51,7 @@ import CArchSwinject
 public extension AsyncAlamofireRestIO {
     
     var authenticator: IOBearerAuthenticator {
-        LayoutAssemblyFactory().resolver.unravel(IOBearerAuthenticator.self)!
+        LayoutAssemblyFactory().resolver.unravel(some: IOBearerAuthenticator.self)
     }
     
     var builder: DynamicRequest.Builder {
@@ -97,14 +97,22 @@ extension AsyncAlamofireRestIO: AsyncRestIOSendable {
 
 public typealias ConcurrencyIO = AsyncRestIO & AsyncRestIOSendable
 
+extension AsyncAlamofireRestIO: BusinessLogicEngine {}
+
 public final class RestIOAssembly: DIAssembly {
     
     public init() {}
     
     public func assemble(container: DIContainer) {
-        container.record(ConcurrencyIO.self, inScope: .autoRelease) { resolver in
+        container.recordEngine(AsyncAlamofireRestIO.self) { resolver in
             AsyncAlamofireRestIO(IOConfiguration())
         }
     }
 }
 
+public extension DIResolver {
+    
+    var concurrencyIO: ConcurrencyIO {
+        unravelEngine(AsyncAlamofireRestIO.self)
+    }
+}

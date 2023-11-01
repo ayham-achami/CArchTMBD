@@ -123,7 +123,9 @@ extension WelcomeViewController: WelcomeUserInteraction {
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: WelcomeModule.self)) {
     WelcomeModule.PreviewBuilder().build().node
 }
+#endif

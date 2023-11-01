@@ -5,6 +5,7 @@
 import UIKit
 import CArch
 import TMDBCore
+import TMDBUIKit
 import CArchSwinject
 
 /// Пространство имен модуля Welcome
@@ -56,7 +57,7 @@ public struct WelcomeModule {
         
         public func embedIntoNavigationController(_ module: CArchModule) -> CArchModule {
             let navigationController = UINavigationController(rootViewController: module.node)
-            navigationController.navigationBar.tintColor = .white
+            navigationController.navigationBar.tintColor = Colors.invertBack.color
             navigationController.navigationBar.prefersLargeTitles = true
             return navigationController
         }
@@ -71,46 +72,48 @@ final class WelcomeAssembly: LayoutModuleAssembly {
     }
     
     func registerView(in container: DIContainer) {
-        container.record(WelcomeViewController.self) { resolver in
+        container.recordComponent(WelcomeViewController.self) { resolver in
             let controller = WelcomeViewController()
-            guard
-                let presenter = resolver.unravel(WelcomePresentationLogic.self,
-                                                 arguments: controller as WelcomeRenderingLogic,
-                                                 controller as WelcomeModuleStateRepresentable)
-            else { preconditionFailure("Could not to build Welcome module, module Presenter is nil") }
-            controller.renderer = resolver.unravel(WelcomeRenderer.self, argument: controller as WelcomeUserInteraction)
-            controller.backgroundRenderer = resolver.unravel(WelcomeBackgroundRenderer.self, argument: controller as WelcomeUserInteraction)
-            controller.router = resolver.unravel(WelcomeRoutingLogic.self, argument: controller as TransitionController)
-            controller.provider = resolver.unravel(WelcomeProvisionLogic.self, argument: presenter as WelcomePresentationLogic)
+            let presenter = resolver.unravelComponent(WelcomePresenter.self,
+                                                      argument1: controller as WelcomeRenderingLogic,
+                                                      argument2: controller as WelcomeModuleStateRepresentable)
+            controller.renderer = resolver.unravelComponent(WelcomeRenderer.self, 
+                                                            argument: controller as WelcomeUserInteraction)
+            controller.backgroundRenderer = resolver.unravelComponent(WelcomeBackgroundRenderer.self,
+                                                                      argument: controller as WelcomeUserInteraction)
+            controller.router = resolver.unravelComponent(WelcomeRouter.self,
+                                                          argument: controller as TransitionController)
+            controller.provider = resolver.unravelComponent(WelcomeProvider.self,
+                                                            argument: presenter as WelcomePresentationLogic)
             return controller
         }
     }
     
     func registerRenderers(in container: DIContainer) {
-        container.record(WelcomeRenderer.self) { (_, interaction: WelcomeUserInteraction) in
+        container.recordComponent(WelcomeRenderer.self) { (_, interaction: WelcomeUserInteraction) in
             WelcomeRenderer(interactional: interaction)
         }
-        container.record(WelcomeBackgroundRenderer.self) { (_, interaction: WelcomeUserInteraction) in
+        container.recordComponent(WelcomeBackgroundRenderer.self) { (_, interaction: WelcomeUserInteraction) in
             WelcomeBackgroundRenderer(interactional: interaction)
         }
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.record(WelcomePresentationLogic.self) { (resolver, view: WelcomeRenderingLogic, state: WelcomeModuleStateRepresentable) in
+        container.recordComponent(WelcomePresenter.self) { (resolver, view: WelcomeRenderingLogic, state: WelcomeModuleStateRepresentable) in
             WelcomePresenter(view: view, state: state)
         }
     }
 
     func registerProvider(in container: DIContainer) {
-        container.record(WelcomeProvisionLogic.self) { (resolver, presenter: WelcomePresentationLogic) in
+        container.recordComponent(WelcomeProvider.self) { (resolver, presenter: WelcomePresentationLogic) in
             WelcomeProvider(presenter: presenter)
         }
     }
     
     func registerRouter(in container: DIContainer) {
-        container.record(WelcomeRoutingLogic.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(WelcomeRouter.self) { (resolver, transitionController: TransitionController) in
             WelcomeRouter(transitionController: transitionController,
-                          factoryProvider: resolver.unravel(FactoryProvider.self)!)
+                          factoryProvider: resolver.unravel(some: FactoryProvider.self))
         }
     }
 }

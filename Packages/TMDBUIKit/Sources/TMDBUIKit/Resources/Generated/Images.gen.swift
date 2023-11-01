@@ -23,6 +23,7 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum Images {
   public static let tmdb = ImageAsset(name: "TMDB")
+  public static let test = ImageAsset(name: "Test")
   public static let vision = ImageAsset(name: "Vision")
   public static let background = ImageAsset(name: "background")
   public static let cross = ImageAsset(name: "cross")

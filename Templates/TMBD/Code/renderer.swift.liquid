@@ -65,8 +65,9 @@ extension {{ module_info.name }}Renderer: UIRendererPreview {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: {{ module_info.name }}Renderer.self)) {
     {{ module_info.name }}Renderer.preview()
 }
-
+#endif
 

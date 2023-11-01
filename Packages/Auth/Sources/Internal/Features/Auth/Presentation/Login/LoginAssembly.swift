@@ -41,43 +41,44 @@ final class LoginAssembly: LayoutModuleAssembly {
     }
     
     func registerView(in container: DIContainer) {
-        container.record(LoginViewController.self) { resolver in
+        container.recordComponent(LoginViewController.self) { resolver in
             let controller = LoginViewController()
-            guard
-                let presenter = resolver.unravel(LoginPresentationLogic.self,
-                                                 arguments: controller as LoginRenderingLogic,
-                                                 controller as LoginModuleStateRepresentable)
-            else { preconditionFailure("Could not to build Login module, module Presenter is nil") }
-            controller.renderer = resolver.unravel(LoginRenderer.self, argument: controller as LoginUserInteraction)
-            controller.router = resolver.unravel(LoginRoutingLogic.self, argument: controller as TransitionController)
-            controller.provider = resolver.unravel(LoginProvisionLogic.self, argument: presenter as LoginPresentationLogic)
+            let presenter = resolver.unravelComponent(LoginPresenter.self,
+                                                      argument1: controller as LoginRenderingLogic,
+                                                      argument2: controller as LoginModuleStateRepresentable)
+            controller.renderer = resolver.unravelComponent(LoginRenderer.self,
+                                                            argument: controller as LoginUserInteraction)
+            controller.router = resolver.unravelComponent(LoginRouter.self,
+                                                          argument: controller as TransitionController)
+            controller.provider = resolver.unravelComponent(LoginProvider.self,
+                                                            argument: presenter as LoginPresentationLogic)
             return controller
         }
     }
     
     func registerRenderers(in container: DIContainer) {
-        container.record(LoginRenderer.self) { (_, interaction: LoginUserInteraction) in
+        container.recordComponent(LoginRenderer.self) { (_, interaction: LoginUserInteraction) in
             LoginRenderer(interactional: interaction)
         }
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.record(LoginPresentationLogic.self) { (resolver, view: LoginRenderingLogic, state: LoginModuleStateRepresentable) in
+        container.recordComponent(LoginPresenter.self) { (resolver, view: LoginRenderingLogic, state: LoginModuleStateRepresentable) in
             LoginPresenter(view: view, state: state)
         }
     }
 
     func registerProvider(in container: DIContainer) {
-        container.record(LoginProvisionLogic.self) { (resolver, presenter: LoginPresentationLogic) in
+        container.recordComponent(LoginProvider.self) { (resolver, presenter: LoginPresentationLogic) in
             LoginProvider(presenter: presenter)
         }
     }
     
     func registerRouter(in container: DIContainer) {
-        container.record(LoginRoutingLogic.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(LoginRouter.self) { (resolver, transitionController: TransitionController) in
             LoginRouter(transitionController: transitionController,
-                        appRouter: resolver.unravel(ApplicationRouter.self)!,
-                        authNavigator: resolver.unravel(AuthNavigator.self)!)
+                        appRouter: resolver.unravel(some: ApplicationRouter.self),
+                        authNavigator: resolver.unravel(some: AuthNavigator.self))
         }
     }
 }

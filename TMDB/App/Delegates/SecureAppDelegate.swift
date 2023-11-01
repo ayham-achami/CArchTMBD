@@ -2,13 +2,15 @@
 //  SecureAppDelegate.swift
 
 import UIKit
+import CArch
 import TMDBCore
 import CArchSwinject
 
 class SecureAppDelegate: UIResponder, UIApplicationDelegate {
     
-    @UnsafeInjectable(LayoutAssemblyFactory.self)
-    private var router: ApplicationTMBDRouter
+    private lazy var router: ApplicationTMBDRouter = {
+        LayoutAssemblyFactory().resolver.unravel(some: ApplicationTMBDRouter.self)
+    }()
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {

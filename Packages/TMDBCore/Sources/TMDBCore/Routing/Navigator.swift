@@ -4,6 +4,6 @@
 import CArch
 import Foundation
 
-public protocol PackegeBounds: RawRepresentable where RawValue == String {}
+public protocol PackageBounds {}
 
 @MainActor public protocol Navigator {}

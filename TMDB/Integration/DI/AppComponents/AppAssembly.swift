@@ -6,10 +6,21 @@ import CArch
 import Foundation
 import CArchSwinject
 
-struct AppAssembly: ServicesRecorder {
+private struct AppDICollection: DIAssemblyCollection {
     
-    var records: [any DIAssemblyCollection] {
-        [CoreDICollection(),
-         NavigatorsDICollection()]
+    var services: [DIAssembly] {
+        [AppJWTControllerAssembly(),
+         AppFactoryProviderAssembly(),
+         BearerAuthenticatorAssembly(),
+         ApplicationTMBDRouterAssembly()]
+    }
+}
+
+extension LayoutAssemblyFactory {
+    
+    static func registerAppComponents() {
+        let factory = LayoutAssemblyFactory()
+        factory.record(AppDICollection())
+        factory.record(NavigatorsDICollection())
     }
 }

@@ -47,6 +47,7 @@ public final class HorizontalSubtitleView: UIView {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: HorizontalSubtitleView.self)) {
     let preview = HorizontalSubtitleView(frame: .zero)
     preview.titleLabel.text = "Title:"
@@ -60,4 +61,4 @@ public final class HorizontalSubtitleView: UIView {
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
     return vc
 }
-
+#endif

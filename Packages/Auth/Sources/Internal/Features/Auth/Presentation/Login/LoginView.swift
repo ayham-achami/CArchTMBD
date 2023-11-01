@@ -85,7 +85,7 @@ extension LoginViewController: LoginRenderingLogic {}
 // MARK: - Login + UserInteraction
 extension LoginViewController: LoginUserInteraction {
     
-    func didRequestLogin(_ login: String, password: String) {
+    func didRequestLogin(_ login: String, _ password: String) {
         router.showMain()
     }
 }

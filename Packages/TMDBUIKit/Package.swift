@@ -32,7 +32,8 @@ let package = Package(
             ],
             swiftSettings: [
                 .define("DEBUG", .when(configuration: .debug))
-            ], plugins: [
+            ], 
+            plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
             ]
         ),

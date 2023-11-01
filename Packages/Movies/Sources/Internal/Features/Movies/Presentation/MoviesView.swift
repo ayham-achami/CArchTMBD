@@ -22,9 +22,7 @@ typealias MoviesUserInteraction = MoviesRendererUserInteraction & StateRendererU
 
 /// Объект содержаний логику отображения данных
 class MoviesViewController: UIViewController, ModuleLifeCycleOwner {
-
-    private let moduleReference = assembly(MoviesAssembly.self)
-
+    
     var stateRenderer: StateRenderer!
     var moviesRenderer: MoviesRenderer!
     var provider: MoviesProvisionLogic!

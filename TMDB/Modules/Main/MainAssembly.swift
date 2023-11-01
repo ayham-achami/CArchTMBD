@@ -43,40 +43,38 @@ final class MainAssembly: LayoutModuleAssembly {
     }
     
     func registerView(in container: DIContainer) {
-        container.record(MainViewController.self) { resolver in
+        container.recordComponent(MainViewController.self) { resolver in
             let controller = MainViewController()
-            guard
-                let presenter = resolver.unravel(MainPresentationLogic.self,
-                                                 arguments: controller as MainRenderingLogic,
-                                                 controller as MainModuleStateRepresentable)
-            else { preconditionFailure("Could not to build Main module, module Presenter is nil") }
-            controller.renderer = resolver.unravel(MainRenderer.self, argument: controller as MainUserInteraction)
-            controller.router = resolver.unravel(MainRoutingLogic.self, argument: controller as TransitionController)
-            controller.provider = resolver.unravel(MainProvisionLogic.self, argument: presenter as MainPresentationLogic)
+            let presenter = resolver.unravelComponent(MainPresenter.self,
+                                                      argument1: controller as MainRenderingLogic,
+                                                      argument2: controller as MainModuleStateRepresentable)
+            controller.router = resolver.unravelComponent(MainRouter.self, argument: controller as TransitionController)
+            controller.renderer = resolver.unravelComponent(MainRenderer.self, argument: controller as MainUserInteraction)
+            controller.provider = resolver.unravelComponent(MainProvider.self, argument: presenter as MainPresentationLogic)
             return controller
         }
     }
     
     func registerRenderers(in container: DIContainer) {
-        container.record(MainRenderer.self) { (_, interaction: MainUserInteraction) in
+        container.recordComponent(MainRenderer.self) { (_, interaction: MainUserInteraction) in
             MainRenderer(interactional: interaction)
         }
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.record(MainPresentationLogic.self) { (resolver, view: MainRenderingLogic, state: MainModuleStateRepresentable) in
+        container.recordComponent(MainPresenter.self) { (resolver, view: MainRenderingLogic, state: MainModuleStateRepresentable) in
             MainPresenter(view: view, state: state)
         }
     }
 
     func registerProvider(in container: DIContainer) {
-        container.record(MainProvisionLogic.self) { (resolver, presenter: MainPresentationLogic) in
+        container.recordComponent(MainProvider.self) { (resolver, presenter: MainPresentationLogic) in
             MainProvider(presenter: presenter)
         }
     }
     
     func registerRouter(in container: DIContainer) {
-        container.record(MainRoutingLogic.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(MainRouter.self) { (resolver, transitionController: TransitionController) in
             MainRouter(transitionController: transitionController)
         }
     }

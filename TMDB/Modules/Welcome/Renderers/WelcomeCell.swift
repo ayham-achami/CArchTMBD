@@ -52,6 +52,7 @@ final class WelcomeCell: UICollectionViewCell {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: WelcomeCell.self)) {
     let preview = WelcomeCell(frame: .zero)
     preview.set(content: "/uS1AIL7I1Ycgs8PTfqUeN6jYNsQ.jpg")
@@ -64,5 +65,4 @@ final class WelcomeCell: UICollectionViewCell {
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
     return vc
 }
-
-
+#endif

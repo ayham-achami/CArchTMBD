@@ -92,6 +92,8 @@ final class RandomCellSizeLayout: UICollectionViewFlowLayout {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: WelcomeBackgroundRenderer.self)) {
     WelcomeBackgroundRenderer.preview()
 }
+#endif

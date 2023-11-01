@@ -47,7 +47,9 @@ private extension MainRenderer {}
 // MARK: - Private methods
 private extension MainRenderer {
 
-    func rendering() {}
+    func rendering() {
+        self.tabBar.tintColor = Colors.invertBack.color
+    }
 }
 
 // MARK: - Preview
@@ -64,8 +66,8 @@ extension MainRenderer: UIRendererPreview {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: MainRenderer.self)) {
     MainRenderer.preview()
 }
-
-
+#endif

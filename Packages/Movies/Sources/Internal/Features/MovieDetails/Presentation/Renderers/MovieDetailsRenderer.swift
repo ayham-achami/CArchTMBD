@@ -99,6 +99,8 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         return view
     }()
     
+    private var titleViewTopConstraint: NSLayoutConstraint?
+    
     // MARK: - Inits
     init(interactional: MovieDetailsRendererUserInteraction) {
         super.init(frame: .zero)
@@ -113,6 +115,10 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
     func moduleDidLoad() {
         creditsView.delegate = self
         rendering()
+    }
+    
+    func moduleLayoutSubviews() {
+        titleViewTopConstraint?.constant = center.y
     }
     
     // MARK: - Public methods
@@ -196,6 +202,7 @@ private extension MovieDetailsRenderer {
             titleView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             titleView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
         ])
+        titleViewTopConstraint = topConstraint
     }
     
     func renderingOverviewView() {

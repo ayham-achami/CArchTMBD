@@ -47,7 +47,6 @@ final class ReviewsViewController: UIViewController, ModuleLifeCycleOwner {
             renderer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        
         provider.obtainReviews(for: state.initial.id)
     }
     
@@ -94,7 +93,9 @@ extension ReviewsViewController: ReviewsRenderingLogic {
 // MARK: - Reviews + UserInteraction
 extension ReviewsViewController: ReviewsUserInteraction {}
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: ReviewsModule.self)) {
     ReviewsModule.PreviewBuilder().build().node
 }
+#endif

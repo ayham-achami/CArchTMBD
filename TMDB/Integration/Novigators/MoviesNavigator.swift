@@ -24,8 +24,8 @@ import CArchSwinject
 final class MoviesNavigatorAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(MoviesNavigator.self, inScope: .autoRelease) { resolver in
-            MoviesNavigatorImplementation(resolver.unravel(FactoryProvider.self)!)
+        container.record(MoviesNavigator.self, inScope: .autoRelease, configuration: nil) { resolver in
+            MoviesNavigatorImplementation(resolver.unravel(some: FactoryProvider.self))
         }
     }
 }

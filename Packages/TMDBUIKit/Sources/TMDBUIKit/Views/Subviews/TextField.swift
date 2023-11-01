@@ -463,6 +463,7 @@ private extension TextField {
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: TextField.self), traits: .fixedLayout(width: 300, height: 300)) {
     let preview = TextField(frame: .zero)
@@ -482,4 +483,4 @@ private extension TextField {
     
     return preview
 }
-
+#endif

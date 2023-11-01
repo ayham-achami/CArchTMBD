@@ -87,6 +87,7 @@ extension ReviewsRenderer: ASCollectionDataSource {
 extension ReviewsRenderer: ASCollectionDelegate {
 }
 
+#if DEBUG
 // MARK: - Preview
 extension ReviewsRenderer: UIRendererPreview {
     
@@ -111,3 +112,4 @@ extension ReviewsRenderer: UIRendererPreview {
 #Preview(String(describing: ReviewsRenderer.self)) {
     ReviewsRenderer.preview().view
 }
+#endif

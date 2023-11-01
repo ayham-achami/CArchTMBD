@@ -59,6 +59,8 @@ extension ___VARIABLE_productName___Renderer: UIRendererPreview {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: ___VARIABLE_productName___Renderer.self)) {
     ___VARIABLE_productName___Renderer.preview()
 }
+#endif

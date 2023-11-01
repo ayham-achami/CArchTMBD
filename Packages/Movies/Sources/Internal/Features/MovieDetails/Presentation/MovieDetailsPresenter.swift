@@ -52,7 +52,7 @@ final class MovieDetailsPresenter: MovieDetailsPresentationLogic {
         self.state = state
     }
     
-    func didObtain(_ response: (details: MovieDetails, credits: Credits)) {
+    func didObtain(_ response: (details: MovieDetails, credits: Credits, videos: Videos)) {
         view?.nonisolatedDisplay(.init(response.details, response.credits, dateFormatter, timeFormatter, currencyFormatter))
     }
 

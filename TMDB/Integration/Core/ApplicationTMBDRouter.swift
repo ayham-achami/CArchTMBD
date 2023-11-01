@@ -40,11 +40,11 @@ import CArchSwinject
 final class ApplicationTMBDRouterAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(ApplicationTMBDRouter.self, inScope: .autoRelease) { resolver in
-            ApplicationTMBDRouter(resolver.unravel(FactoryProvider.self)!)
+        container.record(ApplicationTMBDRouter.self, inScope: .autoRelease, configuration: nil) { resolver in
+            ApplicationTMBDRouter(resolver.unravel(some: FactoryProvider.self))
         }
-        container.record(ApplicationRouter.self, inScope: .autoRelease) { resolver in
-            resolver.unravel(ApplicationTMBDRouter.self)!
+        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { resolver in
+            resolver.unravel(some: ApplicationTMBDRouter.self)
         }
     }
 }

@@ -223,6 +223,7 @@ extension WelcomeRenderer: UIRendererPreview {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: WelcomeRenderer.self)) {
     let vc = UIViewController()
     let preview = WelcomeRenderer.preview()
@@ -236,3 +237,4 @@ extension WelcomeRenderer: UIRendererPreview {
     ])
     return vc
 }
+#endif

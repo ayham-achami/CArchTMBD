@@ -85,7 +85,9 @@ extension {{ module_info.name }}ViewController: {{ module_info.name }}RenderingL
 // MARK: - {{ module_info.name }} + UserInteraction
 extension {{ module_info.name }}ViewController: {{ module_info.name }}UserInteraction {}
 
+#if DEBUG
 // MARK: - Preview
 #Preview(String(describing: {{ module_info.name }}Module.self)) {
     {{ module_info.name }}Module.Builder().build().node
 }
+#endif

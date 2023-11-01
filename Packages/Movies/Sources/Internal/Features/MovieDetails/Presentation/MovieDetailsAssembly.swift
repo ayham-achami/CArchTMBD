@@ -55,7 +55,7 @@ public struct MovieDetailsModule {
         
         public func embedIntoNavigationController(_ module: CArchModule) -> CArchModule {
             let navigationController = UINavigationController(rootViewController: module.node)
-            navigationController.navigationBar.tintColor = .white
+            navigationController.navigationBar.tintColor = Colors.invertBack.color
             navigationController.navigationBar.shadowImage = .init()
             navigationController.navigationBar.backgroundColor = .clear
             navigationController.navigationBar.prefersLargeTitles = false
@@ -73,47 +73,45 @@ final class MovieDetailsAssembly: LayoutModuleAssembly {
     }
     
     func registerView(in container: DIContainer) {
-        container.record(MovieDetailsViewController.self) { resolver in
+        container.recordComponent(MovieDetailsViewController.self) { resolver in
             let controller = MovieDetailsViewController()
-            guard
-                let presenter = resolver.unravel(MovieDetailsPresentationLogic.self,
-                                                 arguments: controller as MovieDetailsRenderingLogic,
-                                                 controller as MovieDetailsModuleStateRepresentable)
-            else { preconditionFailure("Could not to build MovieDetails module, module Presenter is nil") }
-            controller.detailsRenderer = resolver.unravel(MovieDetailsRenderer.self, argument: controller as MovieDetailsUserInteraction)
-            controller.stateRenderer = resolver.unravel(StateRenderer.self, argument: controller as MovieDetailsUserInteraction)
-            controller.router = resolver.unravel(MovieDetailsRoutingLogic.self, argument: controller as TransitionController)
-            controller.provider = resolver.unravel(MovieDetailsProvisionLogic.self, argument: presenter as MovieDetailsPresentationLogic)
+            let presenter = resolver.unravelComponent(MovieDetailsPresenter.self,
+                                                      argument1: controller as MovieDetailsRenderingLogic,
+                                                      argument2: controller as MovieDetailsModuleStateRepresentable)
+            controller.detailsRenderer = resolver.unravelComponent(MovieDetailsRenderer.self, argument: controller as MovieDetailsUserInteraction)
+            controller.stateRenderer = resolver.unravelComponent(StateRenderer.self, argument: controller as MovieDetailsUserInteraction)
+            controller.router = resolver.unravelComponent(MovieDetailsRouter.self, argument: controller as TransitionController)
+            controller.provider = resolver.unravelComponent(MovieDetailsProvider.self, argument: presenter as MovieDetailsPresentationLogic)
             return controller
         }
     }
     
     func registerRenderers(in container: DIContainer) {
-        container.record(MovieDetailsRenderer.self) { (_, interaction: MovieDetailsUserInteraction) in
+        container.recordComponent(MovieDetailsRenderer.self) { (_, interaction: MovieDetailsUserInteraction) in
             MovieDetailsRenderer(interactional: interaction)
         }
-        container.record(StateRenderer.self) { (_, interaction: MovieDetailsUserInteraction) in
+        container.recordComponent(StateRenderer.self) { (_, interaction: MovieDetailsUserInteraction) in
             StateRenderer(interactional: interaction)
         }
     }
     
     func registerPresenter(in container: DIContainer) {
-        container.record(MovieDetailsPresentationLogic.self) { (resolver, view: MovieDetailsRenderingLogic, state: MovieDetailsModuleStateRepresentable) in
+        container.recordComponent(MovieDetailsPresenter.self) { (resolver, view: MovieDetailsRenderingLogic, state: MovieDetailsModuleStateRepresentable) in
             MovieDetailsPresenter(view: view, state: state)
         }
     }
     
     func registerProvider(in container: DIContainer) {
-        container.record(MovieDetailsProvisionLogic.self) { (resolver, presenter: MovieDetailsPresentationLogic) in
+        container.recordComponent(MovieDetailsProvider.self) { (resolver, presenter: MovieDetailsPresentationLogic) in
             MovieDetailsProvider(presenter: presenter,
-                                 movieDetailsService: resolver.unravel(MovieDetailsService.self)!)
+                                 movieDetailsService: resolver.unravelService(MovieDetailsService.self))
         }
     }
     
     func registerRouter(in container: DIContainer) {
-        container.record(MovieDetailsRoutingLogic.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(MovieDetailsRouter.self) { (resolver, transitionController: TransitionController) in
             MovieDetailsRouter(transitionController: transitionController,
-                               factoryProvider: resolver.unravel(FactoryProvider.self)!)
+                               factoryProvider: resolver.unravel(some: FactoryProvider.self))
         }
     }
 }

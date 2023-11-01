@@ -228,6 +228,7 @@ public final class RatingView: UIView {
     }
 }
 
+#if DEBUG
 #Preview(String(describing: RatingView.self)) {
     let preview = RatingView(frame: .zero)
     preview.backgroundColor = .systemFill
@@ -248,3 +249,4 @@ public final class RatingView: UIView {
                                  preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)])
     return preview
 }
+#endif
