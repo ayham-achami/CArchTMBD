@@ -1,0 +1,140 @@
+disabled_rules:
+opt_in_rules: 
+  - attributes
+  - array_init
+  - empty_count
+  - file_header
+  # - modifier_order
+  - sorted_imports
+  - implicit_return
+  - file_types_order
+  - trailing_newline 
+  - required_enum_case
+  - type_contents_order
+  - closure_body_length
+  - collection_alignment
+  - untyped_error_in_catch
+  - unhandled_throwing_task
+  - closure_end_indentation
+  - empty_collection_literal
+  - discouraged_object_literal
+  - conditional_returns_on_newline
+  - enum_case_associated_values_count
+  - vertical_whitespace_closing_braces
+included:
+  - Sources
+  - Tests
+  - Package.swift
+excluded:
+  - Templates
+  - "**/*.gen.swift"
+analyzer_rules:
+  - explicit_self
+  - unused_import
+force_cast: error
+force_try:
+  severity: error
+line_length: 
+  warning: 200
+  error: 200
+function_body_length:
+  warning: 70
+  error: 70
+type_body_length:
+  warning: 400
+  error: 400
+file_length:
+  warning: 500
+  error: 500
+large_tuple:
+  warning: 6
+  error: 6
+type_name:
+  min_length: 3 
+  max_length: 
+    warning: 40
+    error: 40
+  excluded: iPhone 
+identifier_name:
+  min_length: 
+    warning: 1
+  excluded: 
+    - id
+    - URL
+    - GlobalAPIKey
+nesting:
+  type_level:
+    warning: 4
+    error: 4
+  statement_level:
+    warning: 4
+    error: 4
+implicit_return:
+  severity: error
+attributes:
+  always_on_same_line:
+    ["@MainActor", "@objc", "@frozen", "@IBOutlet", "@IBAction", "@IBSegueAction"]
+  always_on_line_above:
+    ["@UIContactor", "@SyncAlias", "@available", "@discardableResult"]
+file_header:
+  required_pattern: |
+                    \/\/
+                    \/\/  .*?\.swift
+                    \/\/
+  severity: error
+# modifier_order:
+#   preferred_modifier_order:
+#     [final, lazy, setterACL, override, required, convenience, acl, dynamic, mutators, typeMethods, owned]
+type_contents_order:
+  order:
+    - [type_alias, associated_type, type_method, type_property, subtype]
+    - case 
+    - instance_property
+    - ib_inspectable
+    - ib_outlet
+    - initializer
+    - deinitializer
+    - view_life_cycle_method
+    - ib_action 
+    - other_method
+    - subscript
+  severity: error
+file_types_order:
+  order:
+    - supporting_type
+    - [main_type, extension]
+    - preview_provider
+    - library_content_provider
+closure_body_length:
+  warning: 20
+  error: 20
+conditional_returns_on_newline:
+  if_only: true
+enum_case_associated_values_count:
+  warning: 3
+  error: 3
+trailing_whitespace:
+  ignores_empty_lines: true
+custom_rules:
+  swiftgen_images:
+    name: "SwiftGen images"
+    regex: '(UIImage)(\.init)?\(named: ?"?.+"?(, ?in:.+?, ?compatibleWith:.+?)?\)|#imageLiteral\(resourceName: ?".+"\)'
+    message: "Use Images instead"
+    severity: error
+  swiftgen_colors:
+    name: "SwiftGen Colors"
+    regex: '(UIColor(\.init)?|#colorLiteral)\(((red|displayP3Red):.+?,green:.+?,blue:.+?,alpha:.+?)|(white:.+?,alpha:.+?)|(hue:.+?,saturation:.+?,brightness:.+?,alpha:.+?)\)'
+    message: "Use Colors instead"
+    severity: error
+  swiftgen_strings:
+    name: "SwiftGen Strings"
+    regex: 'NSLocalizedString'
+    message: "Use Localizable instead"
+    severity: error
+  vertical_whitespace_closing_braces:
+    included: ".*.swift"
+    regex: '\n[ \t]*\n[ \t]*[)}\]]'
+    name: "Vertical Whitespace before Closing Braces"
+    message: "Don't include vertical whitespace (empty line) before closing braces."
+    severity: error
+reporter: "xcode" 
