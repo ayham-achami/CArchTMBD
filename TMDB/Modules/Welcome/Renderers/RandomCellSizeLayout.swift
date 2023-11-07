@@ -1,6 +1,6 @@
 //
 //  RandomCellSizeLayout.swift
-//  TMDB
+//
 
 import UIKit
 

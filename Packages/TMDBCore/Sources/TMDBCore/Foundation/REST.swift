@@ -1,12 +1,14 @@
 //
 //  REST.swift
+//
 
-import CRest
 import CArch
-import Foundation
-import CFoundation
 import CArchSwinject
+import CFoundation
+import CRest
+import Foundation
 
+// swiftlint:disable file_types_order
 @frozen public struct IOConfiguration: RestIOConfiguration {
     
     #if DEBUG
@@ -104,7 +106,7 @@ public final class RestIOAssembly: DIAssembly {
     public init() {}
     
     public func assemble(container: DIContainer) {
-        container.recordEngine(AsyncAlamofireRestIO.self) { resolver in
+        container.recordEngine(AsyncAlamofireRestIO.self) { _ in
             AsyncAlamofireRestIO(IOConfiguration())
         }
     }
@@ -116,3 +118,4 @@ public extension DIResolver {
         unravelEngine(AsyncAlamofireRestIO.self)
     }
 }
+// swiftlint:enable file_types_order

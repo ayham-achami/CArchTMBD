@@ -1,10 +1,11 @@
-//  
+//
 //  MovieDetailsView.swift
+//
 
-import UIKit
 import CArch
-import TMDBUIKit
 import CArchSwinject
+import TMDBUIKit
+import UIKit
 
 /// Протокол реализующий логику получения данных из слоя бизнес логики
 @SyncAlias
@@ -117,8 +118,7 @@ extension MovieDetailsViewController: MovieDetailsUserInteraction {
         router.showPersoneDetailes(.init(id: id))
     }
     
-    @objc
-    func didRequestClose() {
+    @objc func didRequestClose() {
         router.closeModule()
     }
     

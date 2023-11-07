@@ -1,8 +1,9 @@
 //
 //  PlayerView.swift
+//
 
-import UIKit
 import AVFoundation
+import UIKit
 
 class PlayerView: UIView {
 
@@ -11,7 +12,7 @@ class PlayerView: UIView {
     }
 
     var playerLayer: AVPlayerLayer {
-        layer as! AVPlayerLayer
+        layer as! AVPlayerLayer // swiftlint:disable:this force_cast
     }
 
     var player: AVPlayer? {

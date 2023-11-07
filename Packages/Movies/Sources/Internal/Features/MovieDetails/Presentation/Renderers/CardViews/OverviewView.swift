@@ -1,9 +1,10 @@
 //
 //  OverviewView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 final class OverviewView: CardView {
     
@@ -32,7 +33,7 @@ final class OverviewView: CardView {
             subtitleView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             subtitleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             subtitleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            subtitleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            subtitleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
     }
 }

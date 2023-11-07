@@ -1,12 +1,12 @@
-//  
+//
 //  WelcomeAssembly.swift
-//  TMDB
+//
 
-import UIKit
 import CArch
+import CArchSwinject
 import TMDBCore
 import TMDBUIKit
-import CArchSwinject
+import UIKit
 
 /// Пространство имен модуля Welcome
 public struct WelcomeModule {
@@ -77,7 +77,7 @@ final class WelcomeAssembly: LayoutModuleAssembly {
             let presenter = resolver.unravelComponent(WelcomePresenter.self,
                                                       argument1: controller as WelcomeRenderingLogic,
                                                       argument2: controller as WelcomeModuleStateRepresentable)
-            controller.renderer = resolver.unravelComponent(WelcomeRenderer.self, 
+            controller.renderer = resolver.unravelComponent(WelcomeRenderer.self,
                                                             argument: controller as WelcomeUserInteraction)
             controller.backgroundRenderer = resolver.unravelComponent(WelcomeBackgroundRenderer.self,
                                                                       argument: controller as WelcomeUserInteraction)
@@ -99,13 +99,13 @@ final class WelcomeAssembly: LayoutModuleAssembly {
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.recordComponent(WelcomePresenter.self) { (resolver, view: WelcomeRenderingLogic, state: WelcomeModuleStateRepresentable) in
+        container.recordComponent(WelcomePresenter.self) { (_, view: WelcomeRenderingLogic, state: WelcomeModuleStateRepresentable) in
             WelcomePresenter(view: view, state: state)
         }
     }
 
     func registerProvider(in container: DIContainer) {
-        container.recordComponent(WelcomeProvider.self) { (resolver, presenter: WelcomePresentationLogic) in
+        container.recordComponent(WelcomeProvider.self) { (_, presenter: WelcomePresentationLogic) in
             WelcomeProvider(presenter: presenter)
         }
     }

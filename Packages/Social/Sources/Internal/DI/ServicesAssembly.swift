@@ -1,11 +1,10 @@
 //
 //  ServicesAssembly.swift
-
-import Foundation
+//
 
 import CArch
-import Foundation
 import CArchSwinject
+import Foundation
 
 struct PreviewsServices: DIAssemblyCollection {
     
@@ -13,4 +12,3 @@ struct PreviewsServices: DIAssemblyCollection {
         [PreviewsServiceAssembly()]
     }
 }
-

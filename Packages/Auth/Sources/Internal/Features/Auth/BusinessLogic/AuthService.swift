@@ -1,9 +1,10 @@
-//  
+//
 //  AuthService.swift
+//
 
 import CArch
-import TMDBCore
 import Foundation
+import TMDBCore
 
 // MARK: - DI
 final class AuthServiceAssembly: DIAssembly {
@@ -24,6 +25,6 @@ actor AuthService: BusinessLogicService {
         self.jwtController = jwtController
     }
     
-    func login(_ login: String, _ password: String) async throws {        
+    func login(_ login: String, _ password: String) async throws {
     }
 }

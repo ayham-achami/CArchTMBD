@@ -1,5 +1,6 @@
 //
 //  UIWindow+TMDB.swift
+//
 
 import UIKit
 
@@ -30,4 +31,3 @@ extension UIWindow {
         isHidden = true
     }
 }
-

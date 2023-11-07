@@ -1,5 +1,6 @@
 //
 //  LoginState.swift
+//
 
 import CArch
 
@@ -13,7 +14,10 @@ protocol LoginModuleStateRepresentable: AnyModuleStateRepresentable {
 }
 
 /// Состояние модуля `Login`
-public struct LoginModuleState: ModuleState {    
+public struct LoginModuleState: ModuleState {
+    
+    public typealias InitialStateType = InitialState
+    public typealias FinalStateType = FinalState
     
     public struct InitialState: ModuleInitialState {
         
@@ -30,15 +34,12 @@ public struct LoginModuleState: ModuleState {
         public init() {}
     }
     
-    public typealias InitialStateType = InitialState
-    public typealias FinalStateType = FinalState
-    
     public var initialState: LoginModuleState.InitialStateType?
     public var finalState: LoginModuleState.FinalStateType?
 
-    public init() {}
-    
     var userName: String?
+    
+    public init() {}
 }
 
 // MARK: - LoginModuleState +  ReadOnly

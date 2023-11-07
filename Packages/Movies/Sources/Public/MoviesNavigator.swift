@@ -1,8 +1,9 @@
 //
 //  MoviesNavigator.swift
+//
 
-import TMDBCore
 import Foundation
+import TMDBCore
 
 public enum MoviesBounds {}
 

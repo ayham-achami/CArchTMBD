@@ -1,9 +1,10 @@
 //
 //  ProfileImagesView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 // MARK: - Delegate
 protocol ProfileImagesViewDelegate: AnyObject {
@@ -74,7 +75,7 @@ final class ProfileImagesView: UIView {
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }
@@ -92,7 +93,6 @@ extension ProfileImagesView: UICollectionViewDataSource {
         else { preconditionFailure("") }
         cell.set(content: content[indexPath.row])
         return cell
-                
     }
 }
 
@@ -108,8 +108,8 @@ extension ProfileImagesView: UICollectionViewDelegate {
 #if DEBUG
 #Preview(String(describing: ProfileImagesView.self)) {
     let preview = ProfileImagesView(frame: .zero)
-    //preview.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
-    preview.set(content: (1...10).map { id in
+    // preview.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+    preview.set(content: (1...10).map { _ in
             .init(path: "/llkbyWKwpfowZ6C8peBjIV9jj99.jpg")
     })
     preview.translatesAutoresizingMaskIntoConstraints = false

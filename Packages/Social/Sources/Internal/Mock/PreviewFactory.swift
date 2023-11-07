@@ -1,31 +1,37 @@
 //
 //  PreviewFactory.swift
+//
 
 #if DEBUG
-import UIKit
 import CArch
-import TMDBCore
-import Foundation
 import CArchSwinject
+import Foundation
+import TMDBCore
+import UIKit
 
-private let layoutAssemblyFactory: LayoutAssemblyFactory = .init()
-
-private final class MockSocialNavigator: SocialNavigator {
-    
-    nonisolated init() {}
-    
-    func destination(for bound: SocialBounds) -> Destination {
-        fatalError()
-    }
-}
-
-private final class MockSocialNavigatorAssembly: DIAssembly {
+private final class MockSocialNavigatorAssembly: DIAssembly { // swiftlint:disable:this file_types_order
     
     nonisolated init() {}
     
     func assemble(container: DIContainer) {
         container.record(SocialNavigator.self, inScope: .autoRelease, configuration: nil) { _ in
             MockSocialNavigator()
+        }
+    }
+}
+
+private final class MockSocialNavigator: SocialNavigator {
+    
+    nonisolated init() {}
+    
+    func destination(for bound: SocialBounds) -> Destination {}
+}
+
+private final class MockApplicationRouterAssembly: DIAssembly {
+    
+    func assemble(container: DIContainer) {
+        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { _ in
+            MockApplicationRouter()
         }
     }
 }
@@ -39,11 +45,11 @@ private final class MockApplicationRouter: ApplicationRouter {
     }
 }
 
-private final class MockApplicationRouterAssembly: DIAssembly {
+private final class MockJWTControllerAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { _ in
-            MockApplicationRouter()
+        container.record(JWTController.self, inScope: .autoRelease, configuration: nil) { _ in
+            MockJWTController()
         }
     }
 }
@@ -59,22 +65,6 @@ private final class MockJWTController: JWTController {
     
     func set(_ token: JWT) throws {
         print("Has set JWT")
-    }
-}
-
-private final class MockJWTControllerAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.record(JWTController.self, inScope: .autoRelease, configuration: nil) { _ in
-            MockJWTController()
-        }
-    }
-}
-
-private final class MockFactoryProvider: FactoryProvider {
-    
-    var factory: LayoutAssemblyFactory {
-        layoutAssemblyFactory
     }
 }
 
@@ -96,6 +86,13 @@ private struct MockServicesAssembly: DIAssemblyCollection {
     }
 }
 
+private final class MockFactoryProvider: FactoryProvider {
+    
+    var factory: LayoutAssemblyFactory {
+        .init()
+    }
+}
+
 extension ReviewsModule {
     
     /// Объект содержащий логику создания модуля `Reviews`
@@ -107,8 +104,9 @@ extension ReviewsModule {
         private let builder: Builder
         
         init() {
-            layoutAssemblyFactory.record(MockServicesAssembly())
-            builder = .init(layoutAssemblyFactory)
+            let factory = LayoutAssemblyFactory()
+            factory.record(MockServicesAssembly())
+            builder = .init(factory)
         }
 
         func build(with initialState: InitialStateType) -> CArchModule {

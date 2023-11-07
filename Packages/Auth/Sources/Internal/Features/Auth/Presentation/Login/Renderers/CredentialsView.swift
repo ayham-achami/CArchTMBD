@@ -1,12 +1,13 @@
 //
 //  CredentialsView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 final class CredentialsView: CardView {
-
+    
     struct Credentials {
         
         let login: String
@@ -86,7 +87,7 @@ final class CredentialsView: CardView {
             bottomConstraint,
             passwordTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 48),
             passwordTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            passwordTextField.trailingAnchor.constraint(equalTo:trailingAnchor, constant: -16),
+            passwordTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             passwordTextField.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 32)
         ])
     }
@@ -95,13 +96,13 @@ final class CredentialsView: CardView {
 // MARK: - CredentialsView + UITextFieldDelegate
 extension CredentialsView: UITextFieldDelegate {
     
-    func textField(_ textField: UITextField, 
+    func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
         switch textField {
-        case loginTextField where loginTextField.hintState == .error :
+        case loginTextField where loginTextField.hintState == .error:
             loginTextField.hideError()
-        case passwordTextField where passwordTextField.hintState == .error :
+        case passwordTextField where passwordTextField.hintState == .error:
             passwordTextField.hideError()
         default:
             break
@@ -123,7 +124,7 @@ extension CredentialsView: UITextFieldDelegate {
         preview.widthAnchor.constraint(equalToConstant: 300),
         preview.heightAnchor.constraint(equalToConstant: 200),
         preview.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
-        preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
+        preview.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
     ])
     return vc
 }

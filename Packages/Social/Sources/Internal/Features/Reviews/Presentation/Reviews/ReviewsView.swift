@@ -1,11 +1,11 @@
-//  
+//
 //  ReviewsView.swift
-//  TMDB
+//
 
-import UIKit
+import AsyncDisplayKit
 import CArch
 import CArchSwinject
-import AsyncDisplayKit
+import UIKit
 
 /// Протокол реализующий логику получения данных из слоя бизнес логики
 @SyncAlias

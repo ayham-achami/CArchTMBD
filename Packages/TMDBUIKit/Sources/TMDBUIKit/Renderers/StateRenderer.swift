@@ -1,8 +1,9 @@
-//  
+//
 //  StateRenderer.swift
+//
 
-import UIKit
 import CArch
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 public protocol StateRendererUserInteraction: AnyUserInteraction {
@@ -38,9 +39,9 @@ public final class StateRenderer: UIRenderer, UIContentConfiguration {
         public let message: String?
         
         public init(state: State,
-             image: UIImage? = nil,
-             action: String? = nil,
-             message: String? = nil) {
+                    image: UIImage? = nil,
+                    action: String? = nil,
+                    message: String? = nil) {
             self.state = state
             self.image = image
             self.action = action
@@ -175,17 +176,8 @@ private extension StateRenderer {
 // MARK: - Preview
 extension StateRenderer: UIRendererPreview {
     
-    final class InteractionalPreview: StateRendererUserInteraction {
-        
-        func didAction(for state: StateRenderer.State) {
-            print("\(#function) State: \(state)")
-        }
-    }
-    
-    static let interactional: InteractionalPreview = .init()
-    
     public static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         
         enum NoResult: AnyNoResultReason {
@@ -197,6 +189,15 @@ extension StateRenderer: UIRendererPreview {
                                    action: "Retry request",
                                    message: "Could not load data"))
         return preview
+    }
+    
+    final class InteractionalPreview: StateRendererUserInteraction {
+        
+        static let interactional: InteractionalPreview = .init()
+        
+        func didAction(for state: StateRenderer.State) {
+            print("\(#function) State: \(state)")
+        }
     }
 }
 

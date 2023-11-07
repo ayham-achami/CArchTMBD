@@ -1,11 +1,12 @@
 //
 //  MoviesAssembly.swift
+//
 
-import UIKit
 import CArch
+import CArchSwinject
 import TMDBCore
 import TMDBUIKit
-import CArchSwinject
+import UIKit
 
 /// Пространство имен модуля Movies
 public struct MoviesModule {
@@ -102,7 +103,7 @@ final class MoviesAssembly: LayoutModuleAssembly {
                                                             argument: presenter as MoviesPresentationLogic)
             controller.router = resolver.unravelComponent(MoviesRouter.self,
                                                           argument: controller as TransitionController)
-            controller.stateRenderer = resolver.unravelComponent(StateRenderer.self, 
+            controller.stateRenderer = resolver.unravelComponent(StateRenderer.self,
                                                                  argument: controller as MoviesUserInteraction)
             controller.moviesRenderer = resolver.unravelComponent(MoviesRenderer.self,
                                                                   argument: controller as MoviesUserInteraction)

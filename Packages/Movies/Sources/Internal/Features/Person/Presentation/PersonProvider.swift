@@ -1,5 +1,6 @@
-//  
+//
 //  PersonProvider.swift
+//
 
 import CArch
 
@@ -13,7 +14,7 @@ protocol PersonPresentationLogic: RootPresentationLogic {
     func didObtain(_ person: PersonData)
 }
 
-/// Объект содержаний логику получения данных из слоя бизнес логики 
+/// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются PersonPresenter как `UIModel`
 final class PersonProvider: PersonProvisionLogic {
     

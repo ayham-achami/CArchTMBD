@@ -1,11 +1,11 @@
 //
 //  FactoryProvider .swift
-//  TMDB
+//
 
 import CArch
-import TMDBCore
-import Foundation
 import CArchSwinject
+import Foundation
+import TMDBCore
 
 final class AppFactoryProvider: FactoryProvider {
     

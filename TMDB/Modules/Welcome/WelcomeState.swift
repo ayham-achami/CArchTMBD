@@ -1,6 +1,6 @@
-//  
+//
 //  WelcomeState.swift
-//  TMDB
+//
 
 import CArch
 
@@ -14,14 +14,14 @@ protocol WelcomeModuleStateRepresentable: AnyModuleStateRepresentable {
 }
 
 /// Состояние модуля `Welcome`
-public struct WelcomeModuleState: ModuleState {    
+public struct WelcomeModuleState: ModuleState {
+    
+    public typealias InitialStateType = InitialState
+    public typealias FinalStateType = FinalState
     
     public struct InitialState: ModuleInitialState {}
     
     public struct FinalState: ModuleFinalState {}
-    
-    public typealias InitialStateType = InitialState
-    public typealias FinalStateType = FinalState
     
     public var initialState: WelcomeModuleState.InitialStateType?
     public var finalState: WelcomeModuleState.FinalStateType?

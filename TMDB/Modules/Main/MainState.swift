@@ -1,6 +1,6 @@
 //
 //  MainState.swift
-//  TMDB
+//
 
 import CArch
 
@@ -14,14 +14,14 @@ protocol MainModuleStateRepresentable: AnyModuleStateRepresentable {
 }
 
 /// Состояние модуля `Main`
-struct MainModuleState: ModuleState {    
+struct MainModuleState: ModuleState {
+    
+    typealias InitialStateType = InitialState
+    typealias FinalStateType = FinalState
     
     struct InitialState: ModuleInitialState {}
     
     struct FinalState: ModuleFinalState {}
-    
-    typealias InitialStateType = InitialState
-    typealias FinalStateType = FinalState
     
     var initialState: MainModuleState.InitialStateType?
     var finalState: MainModuleState.FinalStateType?

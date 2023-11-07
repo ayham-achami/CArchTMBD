@@ -1,11 +1,11 @@
-//  
+//
 //  PreviewsService.swift
-//  TMDB
+//
 
 import CArch
 import CRest
-import TMDBCore
 import Foundation
+import TMDBCore
 
 // MARK: - DI
 final class PreviewsServiceAssembly: DIAssembly {
@@ -35,7 +35,6 @@ private extension Request {
         return .init(url)
     }
 }
-
 
 // MARK: - Service
 actor PreviewsService: BusinessLogicService {

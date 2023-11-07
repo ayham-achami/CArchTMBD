@@ -1,11 +1,12 @@
 //
 //  MovieDetailsAssembly.swift
+//
 
-import UIKit
 import CArch
+import CArchSwinject
 import TMDBCore
 import TMDBUIKit
-import CArchSwinject
+import UIKit
 
 /// Пространство имен модуля MovieDetails
 public struct MovieDetailsModule {
@@ -96,7 +97,7 @@ final class MovieDetailsAssembly: LayoutModuleAssembly {
     }
     
     func registerPresenter(in container: DIContainer) {
-        container.recordComponent(MovieDetailsPresenter.self) { (resolver, view: MovieDetailsRenderingLogic, state: MovieDetailsModuleStateRepresentable) in
+        container.recordComponent(MovieDetailsPresenter.self) { (_, view: MovieDetailsRenderingLogic, state: MovieDetailsModuleStateRepresentable) in
             MovieDetailsPresenter(view: view, state: state)
         }
     }

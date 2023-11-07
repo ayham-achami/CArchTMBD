@@ -1,9 +1,10 @@
 //
 //  MoviesRouter.swift
+//
 
-import UIKit
 import CArch
 import TMDBCore
+import UIKit
 
 /// Протокол организующий логику переходов от модуля `Movies` в другие модули
 protocol MoviesRoutingLogic: RootRoutingLogic {
@@ -32,6 +33,5 @@ final class MoviesRouter: MoviesRoutingLogic {
             .with(transition: .customPresent(.formSheet, .coverVertical))
             .with(builder: MovieDetailsModule.NavigationBuilder(factoryProvider.factory))
             .commit()
-        
     }
 }

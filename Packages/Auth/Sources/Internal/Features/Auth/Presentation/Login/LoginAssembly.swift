@@ -1,15 +1,16 @@
 //
 //  LoginAssembly.swift
+//
 
 import CArch
-import TMDBCore
 import CArchSwinject
+import TMDBCore
 
 /// Пространство имен модуля Login
 public struct LoginModule {
 
-    /// Объект содержащий логику создания модуля `Login` 
-    /// с чистой иерархии (просто ViewController) 
+    /// Объект содержащий логику создания модуля `Login`
+    /// с чистой иерархии (просто ViewController)
     public final class Builder: ClearHierarchyModuleBuilder {
         
         public typealias InitialStateType = LoginModuleState.InitialStateType
@@ -63,13 +64,13 @@ final class LoginAssembly: LayoutModuleAssembly {
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.recordComponent(LoginPresenter.self) { (resolver, view: LoginRenderingLogic, state: LoginModuleStateRepresentable) in
+        container.recordComponent(LoginPresenter.self) { (_, view: LoginRenderingLogic, state: LoginModuleStateRepresentable) in
             LoginPresenter(view: view, state: state)
         }
     }
 
     func registerProvider(in container: DIContainer) {
-        container.recordComponent(LoginProvider.self) { (resolver, presenter: LoginPresentationLogic) in
+        container.recordComponent(LoginProvider.self) { (_, presenter: LoginPresentationLogic) in
             LoginProvider(presenter: presenter)
         }
     }

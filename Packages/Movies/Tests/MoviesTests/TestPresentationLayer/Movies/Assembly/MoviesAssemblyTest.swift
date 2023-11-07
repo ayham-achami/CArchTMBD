@@ -1,16 +1,16 @@
 //
 //  MoviesMoviesAssemblyTest.swift
+//
 
-import XCTest
 import CArch
 import CArchSwinject
 @testable import Movies
+import XCTest
 
 final class MoviesModuleAssemblyTests: XCTestCase {
 
     // Проверить, что модуль собирается
     func testAssemblyModule() {
-        
         // Given
         let assembly = MoviesModule.PreviewBuilder().build()
         let viewController = assembly.node as? MoviesViewController

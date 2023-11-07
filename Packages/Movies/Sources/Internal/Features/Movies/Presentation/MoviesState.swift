@@ -1,8 +1,9 @@
 //
 //  MoviesModuleState.swift
+//
 
-import UIKit
 import CArch
+import UIKit
 
 /// Протокол передающий доступ к некоторым свойствам состояние модуля `Movies` как только для чтения
 protocol MoviesModuleReadOnlyState: AnyReadOnlyState {}
@@ -16,6 +17,9 @@ protocol MoviesModuleStateRepresentable: AnyModuleStateRepresentable {
 /// Состояние модуля `Movies`
 public struct MoviesModuleState: ModuleState {
 
+    public typealias InitialStateType = InitialState
+    public typealias FinalStateType = FinalState
+    
     public enum MoviesType {
         
         case popular
@@ -38,9 +42,6 @@ public struct MoviesModuleState: ModuleState {
     }
 
     public struct FinalState: ModuleFinalState {}
-
-    public typealias InitialStateType = InitialState
-    public typealias FinalStateType = FinalState
 
     public var initialState: MoviesModuleState.InitialStateType?
     public var finalState: MoviesModuleState.FinalStateType?

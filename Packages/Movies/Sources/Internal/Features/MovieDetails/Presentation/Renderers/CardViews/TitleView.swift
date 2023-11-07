@@ -1,9 +1,10 @@
 //
 //  TitleView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 final class TitleView: CardView {
     
@@ -83,7 +84,7 @@ final class TitleView: CardView {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
         
         effectView.blur.contentView.addSubview(ratingView)

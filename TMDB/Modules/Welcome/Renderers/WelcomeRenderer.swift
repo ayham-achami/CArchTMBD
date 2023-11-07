@@ -1,10 +1,10 @@
-//  
+//
 //  WelcomeRenderer.swift
-//  TMDB
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol WelcomeRendererUserInteraction: AnyUserInteraction {
@@ -21,13 +21,12 @@ final class WelcomeRenderer: UIView, UIRenderer {
     
     // MARK: - Renderer model
     typealias ModelType = Model
+    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
     struct Model: UIModel {}
 
     // MARK: - Private properties
     private weak var interactional: WelcomeRendererUserInteraction?
-    
-    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
     private let effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemMaterial)
@@ -47,7 +46,7 @@ final class WelcomeRenderer: UIView, UIRenderer {
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
         gradientLayer.frame = .init(origin: .zero, size: .init(width: 2000, height: 2000))
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0) // 0 - 1
-        gradientLayer.endPoint = CGPoint(x: 0.0 , y: 0.65)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.65)
         return gradientLayer
     }()
     
@@ -175,7 +174,7 @@ private extension WelcomeRenderer {
             demoButton.heightAnchor.constraint(equalToConstant: 44),
             demoButton.bottomAnchor.constraint(equalTo: effectView.vibrancy.contentView.layoutMarginsGuide.bottomAnchor),
             demoButton.leadingAnchor.constraint(equalTo: effectView.vibrancy.contentView.layoutMarginsGuide.leadingAnchor, constant: 16),
-            demoButton.trailingAnchor.constraint(equalTo: effectView.vibrancy.contentView.layoutMarginsGuide.trailingAnchor, constant: -16),
+            demoButton.trailingAnchor.constraint(equalTo: effectView.vibrancy.contentView.layoutMarginsGuide.trailingAnchor, constant: -16)
         ])
     }
     
@@ -199,10 +198,20 @@ private extension WelcomeRenderer {
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 extension WelcomeRenderer: UIRendererPreview {
     
+    static func preview() -> Self {
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
+        preview.moduleDidLoad()
+        preview.moduleDidBecomeActive()
+        return preview
+    }
+    
     final class InteractionalPreview: WelcomeRendererUserInteraction {
+        
+        static let interactional: InteractionalPreview = .init()
         
         func didRequestLogin() {
             print(#function)
@@ -212,18 +221,8 @@ extension WelcomeRenderer: UIRendererPreview {
             print(#function)
         }
     }
-    
-    static let interactional: InteractionalPreview = .init()
-    
-    static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
-        preview.moduleDidLoad()
-        preview.moduleDidBecomeActive()
-        return preview
-    }
 }
 
-#if DEBUG
 #Preview(String(describing: WelcomeRenderer.self)) {
     let vc = UIViewController()
     let preview = WelcomeRenderer.preview()

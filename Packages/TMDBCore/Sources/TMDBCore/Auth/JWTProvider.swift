@@ -1,5 +1,6 @@
 //
 //  JWTProvider.swift
+//
 
 import Foundation
 
@@ -10,6 +11,13 @@ public enum AuthState {
     case unauthorized
 }
 
+public protocol JWTController: JWTProvider {
+    
+    func rest()
+    
+    func set(_ token: JWT) throws
+}
+
 public protocol JWTProvider: AnyObject {
     
     typealias JWT = (access: String, refresh: String)
@@ -17,11 +25,4 @@ public protocol JWTProvider: AnyObject {
     var token: JWT { get }
     
     var state: AuthState { get }
-}
-
-public protocol JWTController: JWTProvider {
-    
-    func rest()
-    
-    func set(_ token: JWT) throws
 }

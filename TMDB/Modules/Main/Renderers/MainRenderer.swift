@@ -1,15 +1,15 @@
 //
 //  MainRenderer.swift
-//  TMDB
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol MainRendererUserInteraction: AnyUserInteraction {}
 
-/// Объект содержащий логику отображения данных 
+/// Объект содержащий логику отображения данных
 final class MainRenderer: UITabBarController, UIRenderer {
     
     // MARK: - Renderer model
@@ -52,21 +52,22 @@ private extension MainRenderer {
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 extension MainRenderer: UIRendererPreview {
     
-    final class InteractionalPreview: MainUserInteraction {}
-    
-    static let interactional: InteractionalPreview = .init()
-    
     static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         return preview
     }
+    
+    final class InteractionalPreview: MainUserInteraction {
+        
+        static let interactional: InteractionalPreview = .init()
+    }
 }
 
-#if DEBUG
 #Preview(String(describing: MainRenderer.self)) {
     MainRenderer.preview()
 }

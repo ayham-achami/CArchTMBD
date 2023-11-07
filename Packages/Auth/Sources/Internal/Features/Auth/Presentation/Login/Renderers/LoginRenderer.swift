@@ -1,9 +1,10 @@
 //
 //  LoginRenderer.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol LoginRendererUserInteraction: AnyUserInteraction {
@@ -15,24 +16,25 @@ protocol LoginRendererUserInteraction: AnyUserInteraction {
     func didRequestLogin(_ login: String, _ password: String)
 }
 
-/// Объект содержащий логику отображения данных 
+/// Объект содержащий логику отображения данных
 final class LoginRenderer: UIScrollView, UIRenderer {
     
     // MARK: - Renderer model
     typealias ModelType = Model
+    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
     struct Model: UIModel {}
 
     // MARK: - Private properties
     private weak var interactional: LoginUserInteraction?
     
-    private let contentView: UIView = {
+    private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let backgroundImageView: UIImageView = {
+    private lazy var backgroundImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.image = Images.background.image
@@ -40,7 +42,7 @@ final class LoginRenderer: UIScrollView, UIRenderer {
         return view
     }()
     
-    private let logoImageView: UIImageView = {
+    private lazy var logoImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.image = Images.tmdb.image
@@ -50,9 +52,7 @@ final class LoginRenderer: UIScrollView, UIRenderer {
         return view
     }()
     
-    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
-    
-    private let effectView: PosterEffectView = {
+    private lazy var effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
@@ -133,14 +133,14 @@ private extension LoginRenderer {
             contentView.widthAnchor.constraint(equalTo: widthAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     
     func renderingBackgroundImageView() {
         insertSubview(backgroundImageView, belowSubview: contentView)
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo:  frameLayoutGuide.topAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: frameLayoutGuide.topAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: frameLayoutGuide.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: frameLayoutGuide.trailingAnchor)
@@ -171,8 +171,8 @@ private extension LoginRenderer {
         NSLayoutConstraint.activate([
             logoImageView.widthAnchor.constraint(equalToConstant: 150),
             logoImageView.heightAnchor.constraint(equalToConstant: 150),
-            logoImageView.centerXAnchor.constraint(equalTo: effectView.vibrancy.contentView.centerXAnchor),
             logoImageView.topAnchor.constraint(equalTo: contentLayoutGuide.topAnchor, constant: 32),
+            logoImageView.centerXAnchor.constraint(equalTo: effectView.vibrancy.contentView.centerXAnchor)
         ])
     }
     
@@ -223,20 +223,20 @@ private extension LoginRenderer {
 #if DEBUG
 // MARK: - Preview
 extension LoginRenderer: UIRendererPreview {
+
+    static func preview() -> Self {
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
+        preview.moduleDidLoad()
+        return preview
+    }
     
     final class InteractionalPreview: LoginUserInteraction {
+     
+        static let interactional: InteractionalPreview = .init()
         
         func didRequestLogin(_ login: String, _ password: String) {
             print(#function)
         }
-    }
-    
-    static let interactional: InteractionalPreview = .init()
-    
-    static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
-        preview.moduleDidLoad()
-        return preview
     }
 }
 
@@ -249,7 +249,7 @@ extension LoginRenderer: UIRendererPreview {
         preview.topAnchor.constraint(equalTo: vc.view.topAnchor),
         preview.bottomAnchor.constraint(equalTo: vc.view.bottomAnchor),
         preview.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
-        preview.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor),
+        preview.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor)
     ])
     let nc = UINavigationController(rootViewController: vc)
     return nc

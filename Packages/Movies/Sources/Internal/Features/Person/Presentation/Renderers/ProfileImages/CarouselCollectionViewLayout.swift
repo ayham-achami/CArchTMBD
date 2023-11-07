@@ -1,5 +1,6 @@
 //
 //  CarouselCollectionViewLayout.swift
+//
 
 import UIKit
 
@@ -37,11 +38,11 @@ class CarouselCollectionViewLayout: UICollectionViewFlowLayout {
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
+        true
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard 
+        guard
             let superAttributes = super.layoutAttributesForElements(in: rect),
             let attributes = NSArray(array: superAttributes, copyItems: true) as? [UICollectionViewLayoutAttributes]
         else { return nil }
@@ -95,7 +96,7 @@ class CarouselCollectionViewLayout: UICollectionViewFlowLayout {
         }
         let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
         let distanceY = attributes.frame.midY + visibleRect.midY
-        let transform = CATransform3DScale(CATransform3DIdentity, scale, scale,  1)
+        let transform = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
         attributes.transform3D = CATransform3DTranslate(transform, 0, 0, abs(distanceY / 1000))
         return attributes
     }

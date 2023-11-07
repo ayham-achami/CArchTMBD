@@ -1,9 +1,10 @@
 //
 //  PersonalInfoView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 final class PersonalInfoView: CardView {
     

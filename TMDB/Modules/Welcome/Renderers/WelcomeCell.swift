@@ -1,9 +1,9 @@
 //
 //  WelcomeCell.swift
-//  TMDB
+//
 
-import UIKit
 import AlamofireImage
+import UIKit
 
 final class WelcomeCell: UICollectionViewCell {
     

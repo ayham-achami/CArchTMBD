@@ -1,9 +1,10 @@
 //
 //  CreditsView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 // MARK: - Delegate
 protocol CreditsViewDelegate: AnyObject {
@@ -68,7 +69,7 @@ final class CreditsView: UIView {
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }
@@ -86,7 +87,6 @@ extension CreditsView: UICollectionViewDataSource {
         else { preconditionFailure("") }
         cell.set(content: content[indexPath.row])
         return cell
-                
     }
 }
 
@@ -96,7 +96,7 @@ extension CreditsView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 140, height: 230)
+        .init(width: 140, height: 230)
     }
 }
 

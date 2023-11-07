@@ -1,8 +1,10 @@
+//
 //  MoviesRenderer.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol MoviesRendererUserInteraction: AnyUserInteraction {
@@ -97,24 +99,12 @@ extension MoviesRenderer: UICollectionViewDelegate {
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 extension MoviesRenderer: UIRendererPreview {
     
-    final class InteractionalPreview: MoviesRendererUserInteraction {
-        
-        func didRequestMoreMovies() {
-            print(#function)
-        }
-        
-        func didRequestMovieDetails(with id: Int) {
-            print(#function)
-        }
-    }
-    
-    static let interactional: InteractionalPreview = .init()
-    
     static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         preview.set(content: (1...10).map { id in
             let path = (id % 2) == 0 ? "/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg" : "/ym1dxyOk4jFcSl4Q2zmRrA5BEEN.jpg"
@@ -126,9 +116,21 @@ extension MoviesRenderer: UIRendererPreview {
         })
         return preview
     }
+    
+    final class InteractionalPreview: MoviesRendererUserInteraction {
+     
+        static let interactional: InteractionalPreview = .init()
+        
+        func didRequestMoreMovies() {
+            print(#function)
+        }
+        
+        func didRequestMovieDetails(with id: Int) {
+            print(#function)
+        }
+    }
 }
 
-#if DEBUG
 #Preview(String(describing: MoviesRenderer.self)) {
     MoviesRenderer.preview()
 }

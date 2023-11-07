@@ -1,14 +1,12 @@
 //
 //  ProfileImages.swift
+//
 
 import CRest
 import Foundation
 
 // MARK: - ProfileImages
 struct ProfileImages: Response {
- 
-    let id: Int
-    let profiles: [Profile]
     
     struct Profile: Response {
 
@@ -21,4 +19,7 @@ struct ProfileImages: Response {
         let voteCount: Int
         let voteAverage: Double
     }
+    
+    let id: Int
+    let profiles: [Profile]
 }

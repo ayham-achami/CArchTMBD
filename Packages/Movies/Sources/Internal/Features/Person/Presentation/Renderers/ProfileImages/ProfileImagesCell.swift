@@ -1,10 +1,11 @@
 //
 //  ProfileImagesCell.swift
+//
 
-import CArch
-import UIKit
-import TMDBUIKit
 import AlamofireImage
+import CArch
+import TMDBUIKit
+import UIKit
 
 class ProfileImagesCell: UICollectionViewCell {
     
@@ -41,11 +42,11 @@ class ProfileImagesCell: UICollectionViewCell {
         rendering()
     }
     
-    func set(content: Model)  {
+    func set(content: Model) {
         portraitImageView.setImage(with: posterBaseURL, path: content.path, showLoader: true)
     }
     
-    func rendering(){
+    func rendering() {
         addSubview(cardView)
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: topAnchor),

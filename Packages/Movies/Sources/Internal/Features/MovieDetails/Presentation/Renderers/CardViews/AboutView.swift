@@ -1,9 +1,10 @@
 //
 //  AboutView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 final class AboutView: CardView {
     
@@ -91,7 +92,7 @@ final class AboutView: CardView {
         contentView.addSubview(dateLabel)
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
         ])
         
         contentView.addSubview(countriesLabel)
@@ -99,7 +100,7 @@ final class AboutView: CardView {
             countriesLabel.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor),
             countriesLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             countriesLabel.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 16),
-            countriesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            countriesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
         
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -118,7 +119,7 @@ final class AboutView: CardView {
         NSLayoutConstraint.activate([
             statusView.topAnchor.constraint(equalTo: runtimeView.bottomAnchor, constant: 8),
             statusView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            statusView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            statusView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
         
         contentView.addSubview(languageView)
@@ -132,7 +133,7 @@ final class AboutView: CardView {
         NSLayoutConstraint.activate([
             budgetView.topAnchor.constraint(equalTo: languageView.bottomAnchor, constant: 8),
             budgetView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            budgetView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            budgetView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
         
         contentView.addSubview(revenueView)
@@ -140,7 +141,7 @@ final class AboutView: CardView {
             revenueView.topAnchor.constraint(equalTo: budgetView.bottomAnchor, constant: 8),
             revenueView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             revenueView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            revenueView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            revenueView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 }

@@ -1,10 +1,10 @@
 //
 //  ReviewNode.swift
-//  TMDB
+//
 
+import AsyncDisplayKit
 import CArch
 import UIKit
-import AsyncDisplayKit
 
 final class ReviewNode: ASCellNode {
     
@@ -17,17 +17,17 @@ final class ReviewNode: ASCellNode {
         let updatedAt: String
     }
     
-    init(_ model: Model) {
-        super.init()
-        rendering(with: model)
-        automaticallyManagesSubnodes = true
-    }
-    
     private let dateNode = ASTextNode()
     private let contentNode = ASTextNode()
     private let authorNode = ASTextNode()
     private let backgroundNode = ASDisplayNode()
     private let avatarNode = ASNetworkImageNode()
+    
+    init(_ model: Model) {
+        super.init()
+        rendering(with: model)
+        automaticallyManagesSubnodes = true
+    }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let spacer = ASLayoutSpec()

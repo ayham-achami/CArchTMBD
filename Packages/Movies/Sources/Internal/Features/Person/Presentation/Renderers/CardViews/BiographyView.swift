@@ -1,9 +1,10 @@
 //
 //  BiographyView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 final class BiographyView: CardView {
     
@@ -42,7 +43,7 @@ final class BiographyView: CardView {
         NSLayoutConstraint.activate([
             biographyView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             biographyView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            biographyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            biographyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
         
         contentView.addSubview(knownAsView)
@@ -50,7 +51,7 @@ final class BiographyView: CardView {
             knownAsView.topAnchor.constraint(equalTo: biographyView.bottomAnchor, constant: 8),
             knownAsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             knownAsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            knownAsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            knownAsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
     }
 }

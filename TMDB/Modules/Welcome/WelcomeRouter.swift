@@ -1,12 +1,12 @@
 //
 //  WelcomeRouter.swift
-//  TMDB
+//
 
 import Auth
 import CArch
+import CArchSwinject
 import Movies
 import TMDBCore
-import CArchSwinject
 
 /// Протокол организующий логику переходов от модуля `Welcome` в другие модули
 protocol WelcomeRoutingLogic: RootRoutingLogic {

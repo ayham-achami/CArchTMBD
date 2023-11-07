@@ -1,5 +1,6 @@
 //
 //  RatingView.swift
+//
 
 import UIKit
 
@@ -86,6 +87,14 @@ public final class RatingView: UIView {
     public var timingFunction: CAMediaTimingFunction = .init(controlPoints: 0.19, 1, 0.22, 1)
     public private(set) var progress: CGFloat = 0
 
+    public let titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let ringLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.lineCap = .round
@@ -103,21 +112,7 @@ public final class RatingView: UIView {
         return layer
     }()
     
-    public let titleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private let gradientLayer = CAGradientLayer()
-
-    // MARK: Life Cycle
-    public init() {
-        super.init(frame: .zero)
-        rendering()
-    }
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -128,7 +123,13 @@ public final class RatingView: UIView {
         super.init(coder: coder)
         rendering()
     }
-
+    
+    public init() {
+        super.init(frame: .zero)
+        rendering()
+    }
+    
+    // MARK: Life Cycle
     public override func layoutSubviews() {
         super.layoutSubviews()
         configureRing()
@@ -172,8 +173,8 @@ public final class RatingView: UIView {
         CATransaction.commit()
     }
 
-    
     private func rendering() {
+        // registerForTraitChanges([UITraitActiveAppearance.self], action: #selector(styleRingLayer))
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -186,7 +187,7 @@ public final class RatingView: UIView {
         styleRingLayer()
     }
 
-    private func styleRingLayer() {
+    @objc private func styleRingLayer() {
         grooveLayer.strokeColor = grooveColor.cgColor
         grooveLayer.lineWidth = grooveWidth
         

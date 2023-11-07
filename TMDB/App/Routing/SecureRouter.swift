@@ -1,6 +1,6 @@
 //
 //  SecureRoutingLogic.swift
-//  TMDB
+//
 
 import CArch
 import UIKit
@@ -47,7 +47,6 @@ import UIKit
             self.mainWindow.rootViewController = nil
             self.animator = nil
         })
-        
     }
     
     func unlock(with module: CArchModule) {

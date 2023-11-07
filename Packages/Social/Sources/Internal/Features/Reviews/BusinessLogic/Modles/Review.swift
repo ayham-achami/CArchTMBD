@@ -1,6 +1,6 @@
 //
 //  Review.swift
-//  TMDB
+//
 
 import Foundation
 

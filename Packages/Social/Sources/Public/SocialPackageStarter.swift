@@ -1,9 +1,10 @@
 //
 //  SocialPackageStarter.swift
+//
 
 import CArch
-import TMDBCore
 import Foundation
+import TMDBCore
 
 public final class SocialPackageStarter: LayoutPackageStarter {
     
@@ -11,4 +12,3 @@ public final class SocialPackageStarter: LayoutPackageStarter {
         fatalError()
     }
 }
-

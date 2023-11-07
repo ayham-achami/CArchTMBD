@@ -1,6 +1,6 @@
 //
 //  TextField.swift
-//  TMDB
+//
 
 import UIKit
 
@@ -29,6 +29,33 @@ public final class TextField: UITextField {
         
         case clear
         case reveal
+    }
+    
+    public override var text: String? {
+        didSet {
+            if hintState == .error {
+                hideError()
+            }
+        }
+    }
+    
+    public override var placeholder: String? {
+        didSet {
+            setupPlaceholder()
+        }
+    }
+    
+    public override var intrinsicContentSize: CGSize {
+        var size = super.intrinsicContentSize
+        size.height = constants.height + bottomHeight
+        return size
+    }
+    
+    public override var isSecureTextEntry: Bool {
+        didSet {
+            guard isSecureTextEntry else { return }
+            rightViewType = .reveal
+        }
     }
     
     // MARK: - Public properties
@@ -63,33 +90,6 @@ public final class TextField: UITextField {
     public private(set) var hintState: HintState = .plainText {
         didSet {
             setupHintColors()
-        }
-    }
-    
-    public override var text: String? {
-        didSet {
-            if hintState == .error {
-                hideError()
-            }
-        }
-    }
-    
-    public override var placeholder: String? {
-        didSet {
-            setupPlaceholder()
-        }
-    }
-    
-    public override var intrinsicContentSize: CGSize {
-        var size = super.intrinsicContentSize
-        size.height = constants.height + bottomHeight
-        return size
-    }
-    
-    public override var isSecureTextEntry: Bool {
-        didSet {
-            guard isSecureTextEntry else { return }
-            rightViewType = .reveal
         }
     }
     
@@ -468,12 +468,12 @@ private extension TextField {
 #Preview(String(describing: TextField.self), traits: .fixedLayout(width: 300, height: 300)) {
     let preview = TextField(frame: .zero)
     preview.title = "Title"
-//    preview.text = "abc@abc.abc"
+    // preview.text = "abc@abc.abc"
     preview.placeholder = "placeholder"
     preview.additionalTitle = "Additional title"
     preview.hint = "Hint"
     preview.rightViewType = .reveal
-    //preview.showError(text: "Error")
+    // preview.showError(text: "Error")
     let vc = UIViewController()
     vc.view.addSubview(preview)
     NSLayoutConstraint.activate([preview.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),

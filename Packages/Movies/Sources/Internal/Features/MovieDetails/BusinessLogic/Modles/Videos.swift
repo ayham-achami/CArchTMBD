@@ -1,15 +1,9 @@
 //
 //  Videos.swift
+//
 
 import CRest
 import Foundation
-
-// MARK: - Videos
-struct Videos: Response {
-    
-    let id: Int
-    let results: [Video]
-}
 
 // MARK: - Result
 struct Video: Response {
@@ -43,4 +37,11 @@ struct Video: Response {
     
     let site: Site
     let type: Kind
+}
+
+// MARK: - Videos
+struct Videos: Response {
+    
+    let id: Int
+    let results: [Video]
 }

@@ -1,11 +1,11 @@
-//  
+//
 //  ReviewsRenderer.swift
-//  TMDB
+//
 
-import UIKit
+import AsyncDisplayKit
 import CArch
 import TMDBUIKit
-import AsyncDisplayKit
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol ReviewsRendererUserInteraction: AnyUserInteraction {}
@@ -32,7 +32,6 @@ final class ReviewsRenderer: ASDisplayNode, UIRenderer {
         collectionNode.view.showsVerticalScrollIndicator = false
         return collectionNode
     }()
-    
     
     // MARK: - Inits
     nonisolated init(interactional: ReviewsRendererUserInteraction) {
@@ -91,12 +90,8 @@ extension ReviewsRenderer: ASCollectionDelegate {
 // MARK: - Preview
 extension ReviewsRenderer: UIRendererPreview {
     
-    final class InteractionalPreview: ReviewsRendererUserInteraction {}
-    
-    static let interactional: InteractionalPreview = .init()
-    
     static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         preview.set(content: (1...10).map { id in
                 .init(id: "64b9ba153009aa00ad6237a4\(id)",
@@ -106,6 +101,11 @@ extension ReviewsRenderer: UIRendererPreview {
                       updatedAt: "08.08.08")
         })
         return preview
+    }
+    
+    final class InteractionalPreview: ReviewsRendererUserInteraction {
+        
+        static let interactional: InteractionalPreview = .init()
     }
 }
 

@@ -462,6 +462,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DF7DF27B2AF55907001B8867 /* PBXTargetDependency */,
 			);
 			name = TMDB;
 			packageProductDependencies = (
@@ -509,6 +510,7 @@
 				DF6FEAB22A85405E006E2261 /* XCLocalSwiftPackageReference "Packages/TMDBCore" */,
 				DF059A362A8919F700A77FA8 /* XCRemoteSwiftPackageReference "CFoundation" */,
 				DFAB11DB2AB047EB0005BC45 /* XCRemoteSwiftPackageReference "CRest" */,
+				DF7DF2752AF558F2001B8867 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = DFDE71692A753FA8007F0AAD /* Products */;
 			projectDirPath = "";
@@ -571,6 +573,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DF7DF27B2AF55907001B8867 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DF7DF27A2AF55907001B8867 /* SwiftLintPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DFDE71762A753FAA007F0AAD /* LaunchScreen.storyboard */ = {
@@ -814,6 +823,14 @@
 				kind = branch;
 			};
 		};
+		DF7DF2752AF558F2001B8867 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.53.0;
+			};
+		};
 		DFAB11DB2AB047EB0005BC45 /* XCRemoteSwiftPackageReference "CRest" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ayham-achami/CRest.git";
@@ -833,6 +850,11 @@
 		DF6FEAB32A85405E006E2261 /* TMDBCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TMDBCore;
+		};
+		DF7DF27A2AF55907001B8867 /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF7DF2752AF558F2001B8867 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
 		};
 		DFAB11DC2AB047EB0005BC45 /* CRest */ = {
 			isa = XCSwiftPackageProductDependency;

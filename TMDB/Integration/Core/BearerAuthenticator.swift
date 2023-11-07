@@ -1,11 +1,20 @@
 //
 //  BearerAuthenticator.swift
-//  TMDB
+//
 
 import CArch
+import CArchSwinject
 import CRest
 import Foundation
-import CArchSwinject
+
+final class BearerAuthenticatorAssembly: DIAssembly {
+    
+    func assemble(container: DIContainer) {
+        container.record(IOBearerAuthenticator.self, inScope: .autoRelease, configuration: nil) { resolver in
+            BearerAuthenticator(provider: resolver.unravel(some: BearerCredentialProvider.self))
+        }
+    }
+}
 
 final class BearerAuthenticator: IOBearerAuthenticator {
     
@@ -15,14 +24,5 @@ final class BearerAuthenticator: IOBearerAuthenticator {
     
     init(provider: BearerCredentialProvider) {
         self.provider = provider
-    }
-}
-
-final class BearerAuthenticatorAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.record(IOBearerAuthenticator.self, inScope: .autoRelease, configuration: nil) { resolver in
-            BearerAuthenticator(provider: resolver.unravel(BearerCredentialProvider.self)!)
-        }
     }
 }

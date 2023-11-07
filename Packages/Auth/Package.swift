@@ -19,6 +19,7 @@ let package = Package(
     dependencies: [
         .package(path: "../TMDBCore"),
         .package(path: "../TMDBUIKit"),
+        .package(url: "https://github.com/realm/SwiftLint", branch: "main"),
         .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/adapt"),
         .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
         
@@ -34,13 +35,21 @@ let package = Package(
             ],
             swiftSettings: [
                 .define("DEBUG", .when(configuration: .debug))
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
         .testTarget(
             name: "AuthTests",
             dependencies: [
                 "Auth"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
     ]
 )
+
+

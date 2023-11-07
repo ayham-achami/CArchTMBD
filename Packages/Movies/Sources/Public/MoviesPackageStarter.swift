@@ -1,9 +1,10 @@
 //
 //  MoviesPackageStarter.swift
+//
 
 import CArch
-import TMDBCore
 import Foundation
+import TMDBCore
 
 public final class MoviesPackageStarter: LayoutPackageStarter {
     

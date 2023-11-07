@@ -19,6 +19,7 @@ let package = Package(
     dependencies: [
         .package(path: "../TMDBCore"),
         .package(path: "../TMDBUIKit"),
+        .package(url: "https://github.com/realm/SwiftLint", branch: "main"),
         .package(url: "https://github.com/shimastripe/Texture.git", from: "3.1.1"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.2.0"),
         .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/adapt"),
@@ -37,12 +38,18 @@ let package = Package(
             ],
             swiftSettings: [
                 .define("DEBUG", .when(configuration: .debug))
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
         .testTarget(
             name: "SocialTests",
             dependencies: [
                 "Social"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
     ]

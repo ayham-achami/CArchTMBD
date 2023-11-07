@@ -1,10 +1,10 @@
-//  
+//
 //  WelcomeBackgroundRenderer.swift
-//  TMDB
+//
 
-import UIKit
 import CArch
 import Combine
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol WelcomeBackgroundRendererUserInteraction: AnyUserInteraction {}
@@ -125,15 +125,12 @@ extension WelcomeBackgroundRenderer: UICollectionViewDelegate {
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 extension WelcomeBackgroundRenderer: UIRendererPreview {
     
-    final class InteractionalPreview: WelcomeBackgroundRendererUserInteraction {}
-    
-    static let interactional: InteractionalPreview = .init()
-    
     static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         let array = (1...20).map { id in
             ((id % 2) != 0) ? "/eeJjd9JU2Mdj9d7nWRFLWlrcExi.jpg" : "/4m1Au3YkjqsxF8iwQy0fPYSxE0h.jpg"
@@ -142,9 +139,13 @@ extension WelcomeBackgroundRenderer: UIRendererPreview {
         preview.moduleDidBecomeActive()
         return preview
     }
+    
+    final class InteractionalPreview: WelcomeBackgroundRendererUserInteraction {
+        
+        static let interactional: InteractionalPreview = .init()
+    }
 }
 
-#if DEBUG
 #Preview(String(describing: WelcomeBackgroundRenderer.self)) {
     WelcomeBackgroundRenderer.preview()
 }

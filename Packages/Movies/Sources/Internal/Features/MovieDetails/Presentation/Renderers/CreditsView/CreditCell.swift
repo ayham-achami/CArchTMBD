@@ -1,10 +1,11 @@
 //
 //  CreditCell.swift
+//
 
-import CArch
-import UIKit
-import TMDBUIKit
 import AlamofireImage
+import CArch
+import TMDBUIKit
+import UIKit
 
 class CreditCell: UICollectionViewCell {
     
@@ -60,13 +61,13 @@ class CreditCell: UICollectionViewCell {
         rendering()
     }
     
-    func set(content: Model)  {
+    func set(content: Model) {
         nameLabel.text = content.name
         characterLabel.text = content.character
         posterImageView.af.setImage(withURL: posterBaseURL.appending(path: content.posterPath))
     }
     
-    func rendering(){
+    func rendering() {
         addSubview(cardView)
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: topAnchor),

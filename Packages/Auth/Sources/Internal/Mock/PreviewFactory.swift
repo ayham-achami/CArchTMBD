@@ -1,25 +1,12 @@
 //
 //  PreviewFactory.swift
+//
 
 #if DEBUG
 import CArch
-import TMDBCore
-import Foundation
 import CArchSwinject
-
-private let factory: LayoutAssemblyFactory = .init()
-
-private final class MockAuthNavigator: AuthNavigator {
-    
-    nonisolated init() {}
-    
-    func destination(for bound: AuthBounds) -> Destination {
-        switch bound {
-        case .login:
-            return .init(LoginModule.Builder(factory).build(), .main)
-        }
-    }
-}
+import Foundation
+import TMDBCore
 
 private final class MockAuthNavigatorAssembly: DIAssembly {
     
@@ -28,6 +15,27 @@ private final class MockAuthNavigatorAssembly: DIAssembly {
     func assemble(container: DIContainer) {
         container.record(AuthNavigator.self, inScope: .autoRelease, configuration: nil) { _ in
             MockAuthNavigator()
+        }
+    }
+}
+
+private final class MockAuthNavigator: AuthNavigator { // swiftlint:disable:this file_types_order
+    
+    nonisolated init() {}
+    
+    func destination(for bound: AuthBounds) -> Destination {
+        switch bound {
+        case .login:
+            return .init(LoginModule.Builder(.init()).build(), .main)
+        }
+    }
+}
+
+private final class MockApplicationRouterAssembly: DIAssembly {
+    
+    func assemble(container: DIContainer) {
+        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { _ in
+            MockApplicationRouter()
         }
     }
 }
@@ -41,11 +49,11 @@ private final class MockApplicationRouter: ApplicationRouter {
     }
 }
 
-private final class MockApplicationRouterAssembly: DIAssembly {
+private final class MockJWTControllerAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { _ in
-            MockApplicationRouter()
+        container.record(JWTController.self, inScope: .autoRelease, configuration: nil) { _ in
+            MockJWTController()
         }
     }
 }
@@ -61,15 +69,6 @@ private final class MockJWTController: JWTController {
     
     func set(_ token: JWT) throws {
         print("Has set JWT")
-    }
-}
-
-private final class MockJWTControllerAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.record(JWTController.self, inScope: .autoRelease, configuration: nil) { _ in
-            MockJWTController()
-        }
     }
 }
 
@@ -90,11 +89,12 @@ extension LoginModule {
         
         typealias InitialStateType = LoginModuleState.InitialStateType
         
-        private let buidler: Builder
+        private let builder: Builder
         
         init() {
+            let factory = LayoutAssemblyFactory()
             factory.record(MockServicesAssembly())
-            buidler = .init(factory)
+            builder = .init(factory)
         }
 
         func build(with initialState: InitialStateType) -> CArchModule {
@@ -104,7 +104,7 @@ extension LoginModule {
         }
         
         func build() -> CArchModule {
-            buidler.build()
+            builder.build()
         }
     }
 }

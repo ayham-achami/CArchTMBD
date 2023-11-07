@@ -1,9 +1,10 @@
 //
 //  PersonalityView.swift
+//
 
-import UIKit
 import CArch
 import TMDBUIKit
+import UIKit
 
 final class PersonalityView: CardView {
     
@@ -54,7 +55,7 @@ final class PersonalityView: CardView {
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
         
         effectView.blur.contentView.addSubview(ratingView)
@@ -63,7 +64,7 @@ final class PersonalityView: CardView {
             ratingView.heightAnchor.constraint(equalToConstant: 50),
             ratingView.centerXAnchor.constraint(equalTo: centerXAnchor),
             ratingView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            ratingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            ratingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }

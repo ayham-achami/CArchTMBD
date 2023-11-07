@@ -1,6 +1,6 @@
 //
 //  CardView.swift
-//  TMDB
+//
 
 import UIKit
 

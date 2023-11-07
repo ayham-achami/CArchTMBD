@@ -1,20 +1,20 @@
 //
 //  MainView.swift
-//  TMDB
+//
 
-import UIKit
 import CArch
+import CArchSwinject
 import Movies
 import TMDBCore
 import TMDBUIKit
-import CArchSwinject
+import UIKit
 
 /// Протокол реализующий логику получения данных из слоя бизнес логики
 @SyncAlias
 protocol MainProvisionLogic: RootProvisionLogic, ErrorAsyncHandler {}
 
 /// Все взаимодействия пользователя с модулем
-typealias MainUserInteraction = MainRendererUserInteraction 
+typealias MainUserInteraction = MainRendererUserInteraction
 
 /// Объект содержаний логику отображения данных
 final class MainViewController: UIViewController, ModuleLifeCycleOwner {

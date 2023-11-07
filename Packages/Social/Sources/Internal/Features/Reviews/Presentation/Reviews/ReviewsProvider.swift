@@ -1,6 +1,6 @@
-//  
+//
 //  ReviewsProvider.swift
-//  TMDB
+//
 
 import CArch
 
@@ -10,7 +10,7 @@ protocol ReviewsPresentationLogic: RootPresentationLogic {
     func didObtain(_ reviews: [Review])
 }
 
-/// Объект содержаний логику получения данных из слоя бизнес логики 
+/// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются ReviewsPresenter как `UIModel`
 final class ReviewsProvider: ReviewsProvisionLogic {
     

@@ -1,13 +1,13 @@
 //
 //  MainProvider.swift
-//  TMDB
+//
 
 import CArch
 
 /// Протокол взаимодействия с MainPresenter
 protocol MainPresentationLogic: RootPresentationLogic {}
 
-/// Объект содержаний логику получения данных из слоя бизнес логики 
+/// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются MainPresenter как `UIModel`
 final class MainProvider: MainProvisionLogic {
     

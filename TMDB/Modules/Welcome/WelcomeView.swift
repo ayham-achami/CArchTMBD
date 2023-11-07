@@ -1,12 +1,12 @@
-//  
+//
 //  WelcomeView.swift
-//  TMDB
+//
 
-import UIKit
 import CArch
+import CArchSwinject
 import Movies
 import TMDBUIKit
-import CArchSwinject
+import UIKit
 
 /// Протокол реализующий логику получения данных из слоя бизнес логики
 @SyncAlias

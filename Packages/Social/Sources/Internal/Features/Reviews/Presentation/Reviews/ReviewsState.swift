@@ -1,6 +1,6 @@
-//  
+//
 //  ReviewsState.swift
-//  TMDB
+//
 
 import CArch
 
@@ -14,7 +14,10 @@ protocol ReviewsModuleStateRepresentable: AnyModuleStateRepresentable {
 }
 
 /// Состояние модуля `Reviews`
-public struct ReviewsModuleState: ModuleState {    
+public struct ReviewsModuleState: ModuleState {
+    
+    public typealias InitialStateType = InitialState
+    public typealias FinalStateType = FinalState
     
     public struct InitialState: ModuleInitialState {
 
@@ -29,9 +32,6 @@ public struct ReviewsModuleState: ModuleState {
 
         public init() {}
     }
-    
-    public typealias InitialStateType = InitialState
-    public typealias FinalStateType = FinalState
     
     public var initialState: ReviewsModuleState.InitialStateType?
     public var finalState: ReviewsModuleState.FinalStateType?

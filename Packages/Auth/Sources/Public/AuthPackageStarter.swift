@@ -1,10 +1,11 @@
 //
 //  AuthPackageStarter.swift
+//
 
 import CArch
-import TMDBCore
-import Foundation
 import CArchSwinject
+import Foundation
+import TMDBCore
 
 public final class AuthPackageStarter: LayoutPackageStarter {
     

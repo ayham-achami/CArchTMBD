@@ -1,10 +1,11 @@
 //
 //  MoviesService.swift
+//
 
 import CArch
 import CRest
-import TMDBCore
 import Foundation
+import TMDBCore
 
 // MARK: DI
 final class MoviesServiceAssembly: DIAssembly {
@@ -27,7 +28,8 @@ private extension Request {
         case nowPlaying = "now_playing"
     }
     
-    static func movie(kind: Kind, at page: Int,
+    static func movie(kind: Kind,
+                      at page: Int,
                       language: String? = nil,
                       region: String? = nil) -> Self {
         enum Keys: String, URLQueryKeys {

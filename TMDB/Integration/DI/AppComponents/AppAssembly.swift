@@ -1,10 +1,10 @@
 //
 //  AppAssembly.swift
-//  TMDB
+//
 
 import CArch
-import Foundation
 import CArchSwinject
+import Foundation
 
 private struct AppDICollection: DIAssemblyCollection {
     

@@ -1,6 +1,6 @@
-//  
+//
 //  WelcomeProvider.swift
-//  TMDB
+//
 
 import CArch
 
@@ -10,7 +10,7 @@ protocol WelcomePresentationLogic: RootPresentationLogic {
     func didObtain(_ posters: [String])
 }
 
-/// Объект содержаний логику получения данных из слоя бизнес логики 
+/// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются WelcomePresenter как `UIModel`
 final class WelcomeProvider: WelcomeProvisionLogic {
     
@@ -63,7 +63,7 @@ final class WelcomeProvider: WelcomeProvisionLogic {
             "/ueO9MYIOHO7M1PiMUeX74uf8fB9.jpg",
             "/jUjg01KWd11nycbtXhJKghZFD7V.jpg",
             "/2lEyzOq6ILNgBpLLpTRckQhbNNt.jpg",
-            "/vIeu8WysZrTSFb2uhPViKjX9EcC.jpg",
+            "/vIeu8WysZrTSFb2uhPViKjX9EcC.jpg"
           ]
         presenter.didObtain(posters)
     }

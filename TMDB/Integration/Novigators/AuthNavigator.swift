@@ -1,11 +1,21 @@
 //
 //  AuthNavigator.swift
+//
 
 import Auth
 import CArch
-import TMDBCore
-import Foundation
 import CArchSwinject
+import Foundation
+import TMDBCore
+
+final class AuthNavigatorAssembly: DIAssembly {
+    
+    func assemble(container: DIContainer) {
+        container.record(AuthNavigator.self, inScope: .autoRelease, configuration: nil) { resolver in
+            AuthNavigatorImplementation(resolver.unravel(some: FactoryProvider.self))
+        }
+    }
+}
 
 @MainActor final class AuthNavigatorImplementation: AuthNavigator {
     
@@ -19,15 +29,6 @@ import CArchSwinject
         switch bound {
         case .login:
             return .init(MainModule.Builder(factory).build(), .main)
-        }
-    }
-}
-
-final class AuthNavigatorAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.record(AuthNavigator.self, inScope: .autoRelease) { resolver in
-            AuthNavigatorImplementation(resolver.unravel(FactoryProvider.self)!)
         }
     }
 }

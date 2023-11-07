@@ -1,6 +1,6 @@
 //
 //  NavigatorsDICollection.swift
-//  TMDB
+//
 
 import CArch
 import Foundation

@@ -1,11 +1,11 @@
-//  
+//
 //  PersonAssembly.swift
-//  
+//
 
-import UIKit
 import CArch
-import TMDBUIKit
 import CArchSwinject
+import TMDBUIKit
+import UIKit
 
 /// Пространство имен модуля Person
 public struct PersonModule {
@@ -96,7 +96,7 @@ final class PersonAssembly: LayoutModuleAssembly {
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.recordComponent(PersonPresenter.self) { (resolver, view: PersonRenderingLogic, state: PersonModuleStateRepresentable) in
+        container.recordComponent(PersonPresenter.self) { (_, view: PersonRenderingLogic, state: PersonModuleStateRepresentable) in
             PersonPresenter(view: view, state: state)
         }
     }
@@ -109,7 +109,7 @@ final class PersonAssembly: LayoutModuleAssembly {
     }
     
     func registerRouter(in container: DIContainer) {
-        container.recordComponent(PersonRouter.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(PersonRouter.self) { (_, transitionController: TransitionController) in
             PersonRouter(transitionController: transitionController)
         }
     }

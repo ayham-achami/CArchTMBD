@@ -1,12 +1,24 @@
 //
 //  ApplicationTMBDRouter.swift
-//  TMDB
+//
 
 import CArch
-import UIKit
-import TMDBCore
-import CFoundation
 import CArchSwinject
+import CFoundation
+import TMDBCore
+import UIKit
+
+final class ApplicationTMBDRouterAssembly: DIAssembly {
+    
+    func assemble(container: DIContainer) {
+        container.record(ApplicationTMBDRouter.self, inScope: .autoRelease, configuration: nil) { resolver in
+            ApplicationTMBDRouter(resolver.unravel(some: FactoryProvider.self))
+        }
+        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { resolver in
+            resolver.unravel(some: ApplicationTMBDRouter.self)
+        }
+    }
+}
 
 @MainActor final class ApplicationTMBDRouter: ApplicationRouter {
     
@@ -34,17 +46,5 @@ import CArchSwinject
     
     func showMain() {
         show(.init(MainModule.Builder(factory).build(), .main))
-    }
-}
-
-final class ApplicationTMBDRouterAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.record(ApplicationTMBDRouter.self, inScope: .autoRelease, configuration: nil) { resolver in
-            ApplicationTMBDRouter(resolver.unravel(some: FactoryProvider.self))
-        }
-        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { resolver in
-            resolver.unravel(some: ApplicationTMBDRouter.self)
-        }
     }
 }

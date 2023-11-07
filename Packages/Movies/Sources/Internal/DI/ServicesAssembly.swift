@@ -1,10 +1,19 @@
 //
 //  ServicesAssembly.swift
+//
 
 import CArch
-import TMDBCore
-import Foundation
 import CArchSwinject
+import Foundation
+import TMDBCore
+
+struct PersonServices: DIAssemblyCollection {
+    
+    var services: [DIAssembly] {
+        [RestIOAssembly(),
+         PersonServiceAssembly()]
+    }
+}
 
 struct MoviesServices: DIAssemblyCollection {
     
@@ -19,13 +28,5 @@ struct MovieDetailsServices: DIAssemblyCollection {
     var services: [DIAssembly] {
         [RestIOAssembly(),
          MovieDetailsServiceAssembly()]
-    }
-}
-
-struct PersonServices: DIAssemblyCollection {
-    
-    var services: [DIAssembly] {
-        [RestIOAssembly(),
-         PersonServiceAssembly()]
     }
 }

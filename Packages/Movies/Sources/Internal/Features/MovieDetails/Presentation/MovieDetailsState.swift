@@ -1,5 +1,6 @@
-//  
+//
 //  MovieDetailsState.swift
+//
 
 import CArch
 
@@ -13,7 +14,10 @@ protocol MovieDetailsModuleStateRepresentable: AnyModuleStateRepresentable {
 }
 
 /// Состояние модуля `MovieDetails`
-public struct MovieDetailsModuleState: ModuleState {    
+public struct MovieDetailsModuleState: ModuleState {
+    
+    public typealias InitialStateType = InitialState
+    public typealias FinalStateType = FinalState
     
     public struct InitialState: ModuleInitialState {
 
@@ -28,9 +32,6 @@ public struct MovieDetailsModuleState: ModuleState {
 
         public init() {}
     }
-    
-    public typealias InitialStateType = InitialState
-    public typealias FinalStateType = FinalState
     
     public var initialState: MovieDetailsModuleState.InitialStateType?
     public var finalState: MovieDetailsModuleState.FinalStateType?

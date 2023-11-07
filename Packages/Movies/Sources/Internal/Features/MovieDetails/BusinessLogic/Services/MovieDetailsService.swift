@@ -1,10 +1,11 @@
 //
 //  MovieDetailsService.swift
+//
 
 import CArch
 import CRest
-import TMDBCore
 import Foundation
+import TMDBCore
 
 // MARK: - DI
 final class MovieDetailsServiceAssembly: DIAssembly {

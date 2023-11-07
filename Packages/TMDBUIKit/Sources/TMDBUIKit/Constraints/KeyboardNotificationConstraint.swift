@@ -1,5 +1,6 @@
 //
 //  KeyboardNotificationConstraint.swift
+//
 
 #if canImport(UIKit)
 import UIKit
@@ -15,6 +16,7 @@ public final class KeyboardNotificationConstraint: NSLayoutConstraint {
             if isActive {
                 setupNotifications()
             } else {
+                // swiftlint:disable:next superfluous_disable_command notification_center_detachment
                 NotificationCenter.default.removeObserver(self)
             }
         }
@@ -45,8 +47,7 @@ public final class KeyboardNotificationConstraint: NSLayoutConstraint {
         }
     }
     
-    @objc
-    private func keyboardWillShow(_ notification: NSNotification) {
+    @objc private func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
            let view = firstItem as? UIView {
             let convertedRect = view.convert(keyboardSize, to: view.window)
@@ -57,8 +58,7 @@ public final class KeyboardNotificationConstraint: NSLayoutConstraint {
         }
     }
     
-    @objc
-    private func keyboardWillChangeFrame(_ notification: NSNotification) {
+    @objc private func keyboardWillChangeFrame(_ notification: NSNotification) {
         guard interactiveKeyboardFrameChange else { return }
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             constant = keyboardSize.maxY
@@ -68,8 +68,7 @@ public final class KeyboardNotificationConstraint: NSLayoutConstraint {
         }
     }
     
-    @objc
-    private func keyboardWillHide(_ notification: NSNotification) {
+    @objc private func keyboardWillHide(_ notification: NSNotification) {
         constant = 0
         let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.2
         let row = UInt(notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int ?? 0)

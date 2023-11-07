@@ -1,8 +1,9 @@
 //
 //  AlamofireImage.swift
+//
 
-import UIKit
 import AlamofireImage
+import UIKit
 
 extension UIImageView {
     
@@ -10,13 +11,12 @@ extension UIImageView {
     
     func setImage(with base: URL, path: String, showLoader: Bool = false, union: UIImageView? = nil) {
         if showLoader { addLoader() }
-        af.setImage(withURL: base.appending(path: path), completion:  { [weak self] response in
+        af.setImage(withURL: base.appending(path: path), completion: { [weak self] response in
             switch response.result {
             case let .success(image):
                 union?.image = image
             case let .failure(error):
                 guard !error.isCancelled else { return }
-                break
             }
             self?.removeLoader(from: self)
             self?.removeLoader(from: union)

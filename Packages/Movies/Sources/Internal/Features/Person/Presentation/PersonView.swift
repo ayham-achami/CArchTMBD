@@ -1,11 +1,12 @@
-//  
+//
 //  PersonView.swift
+//
 
-import UIKit
 import CArch
+import CArchSwinject
 import CRest
 import TMDBUIKit
-import CArchSwinject
+import UIKit
 
 /// Протокол реализующий логику получения данных из слоя бизнес логики
 @SyncAlias
@@ -113,8 +114,7 @@ extension PersonViewController: PersonRenderingLogic {
 // MARK: - Person + UserInteraction
 extension PersonViewController: PersonUserInteraction {
     
-    @objc
-    func didRequestClose() {
+    @objc func didRequestClose() {
         router.closeModule()
     }
     

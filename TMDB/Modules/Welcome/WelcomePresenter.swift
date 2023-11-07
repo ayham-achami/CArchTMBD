@@ -1,6 +1,6 @@
-//  
+//
 //  WelcomePresenter.swift
-//  TMDB
+//
 
 import CArch
 

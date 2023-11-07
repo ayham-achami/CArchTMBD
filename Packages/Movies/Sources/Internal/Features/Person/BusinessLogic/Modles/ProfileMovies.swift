@@ -1,22 +1,9 @@
 //
 //  ProfileMovies.swift
+//
 
 import CRest
 import Foundation
-
-struct ProfileMovies: Response {
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case id
-        case acting = "cast"
-        case production = "crew"
-    }
-    
-    let id: Int
-    let acting: [MovieCast]
-    let production: [MovieCast]
-}
 
 // MARK: - Cast
 struct MovieCast: Response {
@@ -47,3 +34,16 @@ struct MovieCast: Response {
     let backdropPath: String?
 }
 
+struct ProfileMovies: Response {
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case id
+        case acting = "cast"
+        case production = "crew"
+    }
+    
+    let id: Int
+    let acting: [MovieCast]
+    let production: [MovieCast]
+}

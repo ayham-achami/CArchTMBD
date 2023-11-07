@@ -1,5 +1,6 @@
-//  
+//
 //  MovieDetailsProvider.swift
+//
 
 import CArch
 
@@ -11,7 +12,7 @@ protocol MovieDetailsPresentationLogic: RootPresentationLogic {
     func didObtain(_ response: (details: MovieDetails, credits: Credits, videos: Videos))
 }
 
-/// Объект содержаний логику получения данных из слоя бизнес логики 
+/// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются MovieDetailsPresenter как `UIModel`
 final class MovieDetailsProvider: MovieDetailsProvisionLogic {
     

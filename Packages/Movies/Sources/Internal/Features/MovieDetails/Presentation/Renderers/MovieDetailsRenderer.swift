@@ -1,11 +1,12 @@
 //
 //  MovieDetailsRenderer.swift
+//
 
-import UIKit
-import CArch
-import TMDBUIKit
-import CoreImage
 import AlamofireImage
+import CArch
+import CoreImage
+import TMDBUIKit
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol MovieDetailsRendererUserInteraction: AnyUserInteraction {
@@ -20,6 +21,7 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
     
     // MARK: - Renderer model
     typealias ModelType = Model
+    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
     struct Model: UIModel {
         
@@ -51,8 +53,6 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         return imageView
     }()
     
-    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
-    
     private lazy var effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
@@ -71,7 +71,7 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
         gradientLayer.frame = .init(origin: .zero, size: .init(width: 2000, height: 2000))
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 0.0 , y: 0.2)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.2)
         return gradientLayer
     }()
     
@@ -158,14 +158,14 @@ private extension MovieDetailsRenderer {
             contentView.widthAnchor.constraint(equalTo: widthAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     
     func renderingBackgroundImageView() {
         insertSubview(backgroundImageView, belowSubview: contentView)
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo:  frameLayoutGuide.topAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: frameLayoutGuide.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: contentLayoutGuide.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: contentLayoutGuide.trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 200)
@@ -200,7 +200,7 @@ private extension MovieDetailsRenderer {
             topConstraint,
             titleView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
             titleView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            titleView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            titleView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
         titleViewTopConstraint = topConstraint
     }
@@ -211,7 +211,7 @@ private extension MovieDetailsRenderer {
             overviewView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
             overviewView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 16),
             overviewView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            overviewView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            overviewView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
     }
     
@@ -233,7 +233,7 @@ private extension MovieDetailsRenderer {
             creditsView.topAnchor.constraint(equalTo: aboutView.bottomAnchor, constant: 16),
             creditsView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
             creditsView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
-            creditsView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            creditsView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
 }
@@ -242,17 +242,8 @@ private extension MovieDetailsRenderer {
 // MARK: - Preview
 extension MovieDetailsRenderer: UIRendererPreview {
     
-    final class InteractionalPreview: MovieDetailsRendererUserInteraction {
-        
-        func didRequestPersonDetails(with id: Int) {
-            print(id)
-        }
-    }
-    
-    static let interactional: InteractionalPreview = .init()
-    
     static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         let title = TitleView.Model(rating: 0.68,
                                     title: "Oppenheimer ",
@@ -266,19 +257,29 @@ extension MovieDetailsRenderer: UIRendererPreview {
                                    language: "English",
                                    countries: "US, GB")
         let overview = OverviewView.Model(overview: "The story of J. Robert Oppenheimer’s role in the development of the atomic bomb during World War II.")
+        let credits = (1...10).map { id in
+            CreditCell.Model(id: id,
+                             name: "Cillian Murphy",
+                             character: "J. Robert Oppenheimer",
+                             posterPath: "/llkbyWKwpfowZ6C8peBjIV9jj99.jpg")
+        }
         preview.set(content: .init(id: 0,
                                    posterPath: "/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
                                    title: title,
                                    about: abut,
                                    overview: overview,
-                                   credits: (1...10).map { id in
-                .init(id: id,
-                      name: "Cillian Murphy",
-                      character: "J. Robert Oppenheimer",
-                      posterPath: "/llkbyWKwpfowZ6C8peBjIV9jj99.jpg")
-        }))
+                                   credits: credits))
         preview.moduleLayoutSubviews()
         return preview
+    }
+    
+    final class InteractionalPreview: MovieDetailsRendererUserInteraction {
+     
+        static let interactional: InteractionalPreview = .init()
+        
+        func didRequestPersonDetails(with id: Int) {
+            print(id)
+        }
     }
 }
 

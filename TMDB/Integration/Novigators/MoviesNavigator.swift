@@ -1,12 +1,12 @@
 //
 //  MoviesNavigator.swift
-//  TMDB
+//
 
 import CArch
+import CArchSwinject
+import Foundation
 import Movies
 import TMDBCore
-import Foundation
-import CArchSwinject
 
 @MainActor final class MoviesNavigatorImplementation: MoviesNavigator {
     
@@ -16,9 +16,7 @@ import CArchSwinject
         self.factory = provider.factory
     }
     
-    func destination(for bound: MoviesBounds) -> Destination {
-        fatalError()
-    }
+    func destination(for bound: MoviesBounds) -> Destination {}
 }
 
 final class MoviesNavigatorAssembly: DIAssembly {

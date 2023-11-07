@@ -1,5 +1,6 @@
 //
 //  MoviesPresenter.swift
+//
 
 import CArch
 import CRest
@@ -60,4 +61,3 @@ private extension MovieCell.Model {
         self.releaseDate = formatter.string(from: movie.releaseDate)
     }
 }
-

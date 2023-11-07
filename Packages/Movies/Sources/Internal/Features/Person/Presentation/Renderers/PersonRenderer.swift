@@ -1,10 +1,11 @@
 //
 //  PersonRenderer.swift
+//
 
-import UIKit
+import AlamofireImage
 import CArch
 import TMDBUIKit
-import AlamofireImage
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol PersonRendererUserInteraction: AnyUserInteraction {}
@@ -14,6 +15,7 @@ final class PersonRenderer: UIScrollView, UIRenderer {
     
     // MARK: - Renderer model
     typealias ModelType = Model
+    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
     struct Model: UIModel {
         
@@ -42,8 +44,6 @@ final class PersonRenderer: UIScrollView, UIRenderer {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
     private lazy var effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
@@ -135,14 +135,14 @@ private extension PersonRenderer {
             contentView.widthAnchor.constraint(equalTo: widthAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     
     func renderingBackgroundImageView() {
         insertSubview(backgroundImageView, belowSubview: contentView)
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo:  frameLayoutGuide.topAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: frameLayoutGuide.topAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: frameLayoutGuide.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: frameLayoutGuide.trailingAnchor)
@@ -174,7 +174,7 @@ private extension PersonRenderer {
             profileImagesView.heightAnchor.constraint(equalToConstant: 500),
             profileImagesView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             profileImagesView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            profileImagesView.topAnchor.constraint(equalTo:  contentView.safeAreaLayoutGuide.topAnchor, constant: 16)
+            profileImagesView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 16)
         ])
     }
     
@@ -184,7 +184,7 @@ private extension PersonRenderer {
             personalityView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
             personalityView.topAnchor.constraint(equalTo: profileImagesView.bottomAnchor, constant: 16),
             personalityView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            personalityView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            personalityView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
     }
     
@@ -194,7 +194,7 @@ private extension PersonRenderer {
             personalInfoView.heightAnchor.constraint(greaterThanOrEqualToConstant: 350),
             personalInfoView.topAnchor.constraint(equalTo: personalityView.safeAreaLayoutGuide.bottomAnchor, constant: 16),
             personalInfoView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            personalInfoView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            personalInfoView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
     }
     
@@ -210,17 +210,15 @@ private extension PersonRenderer {
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 extension PersonRenderer: UIRendererPreview {
-    
-    final class InteractionalPreview: PersonRendererUserInteraction {}
-    
-    static let interactional: InteractionalPreview = .init()
-    
+
     static func preview() -> Self {
-        let preview = Self.init(interactional: interactional)
+        let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         preview.set(content: .init(biography: .init(knownAs: "Марго Роббі Марго Робби มาร์โก ร็อบบี 瑪歌·羅比 마고 로비",
+                                                    // swiftlint:disable:next line_length
                                                     biography: "Margot Elise Robbie (born July 2, 1990) is an Australian actress and producer. Known for her work in both blockbuster and independent films, she has received several accolades, including nominations for two Academy Awards, four Golden Globe Awards, and five British Academy Film Awards. Time magazine named her one of the 100 most influential people in the world in 2017 and she was ranked as one of the world's highest-paid actresses by Forbes in 2019."),
                                    portraits: (0...10).map { _ in .init(path: "/euDPyqLnuwaWMHajcU3oZ9uZezR.jpg")},
                                    personality: .init(name: "Margot Robbie", rating: 0.7),
@@ -230,9 +228,13 @@ extension PersonRenderer: UIRendererPreview {
                                                        placeOfBirth: "Dalby, Queensland, Australia")))
         return preview
     }
+    
+    final class InteractionalPreview: PersonRendererUserInteraction {
+        
+        static let interactional: InteractionalPreview = .init()
+    }
 }
 
-#if DEBUG
 #Preview(String(describing: PersonRenderer.self)) {
     let vc = UIViewController()
     let preview = PersonRenderer.preview()
@@ -242,7 +244,7 @@ extension PersonRenderer: UIRendererPreview {
         preview.topAnchor.constraint(equalTo: vc.view.topAnchor),
         preview.bottomAnchor.constraint(equalTo: vc.view.bottomAnchor),
         preview.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
-        preview.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor),
+        preview.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor)
     ])
     return vc
 }

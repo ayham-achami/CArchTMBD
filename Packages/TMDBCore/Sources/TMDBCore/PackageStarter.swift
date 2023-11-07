@@ -1,16 +1,25 @@
 //
 //  PackageStarter.swift
+//
 
 import CArch
 import CArchSwinject
 
-public protocol PackageStarter<Factory> {
+public final class PackageStarterBuilder<Factory> where Factory: AnyDIAssemblyFactory {
     
-    associatedtype Factory: AnyDIAssemblyFactory
+    public static func with(factory: Factory.Type) -> Self {
+        .init(factory)
+    }
     
-    var factory: Factory { get }
+    private let factory: Factory
     
-    init(_ factory: Factory)
+    private init(_ factory: Factory.Type) {
+        self.factory = factory.init()
+    }
+    
+    public func build<Starter>(starter: Starter.Type) -> Starter where Starter: PackageStarter, Starter.Factory == Factory {
+        .init(factory)
+    }
 }
 
 open class LayoutPackageStarter: PackageStarter {
@@ -27,19 +36,11 @@ public protocol FactoryProvider {
     var factory: LayoutAssemblyFactory { get }
 }
 
-public final class PackageStarterBuilder<Factory> where Factory: AnyDIAssemblyFactory {
+public protocol PackageStarter<Factory> {
     
-    public static func with(factory: Factory.Type) -> Self {
-        .init(factory)
-    }
+    associatedtype Factory: AnyDIAssemblyFactory
     
-    private let factory: Factory
+    var factory: Factory { get }
     
-    private init(_ factory: Factory.Type) {
-        self.factory = factory.init()
-    }
-    
-    public func build<Starter>(starter:  Starter.Type) -> Starter where Starter: PackageStarter, Starter.Factory == Factory {
-        .init(factory)
-    }
+    init(_ factory: Factory)
 }

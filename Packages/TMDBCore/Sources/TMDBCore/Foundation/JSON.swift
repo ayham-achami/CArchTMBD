@@ -1,5 +1,6 @@
 //
 //  JSON.swift
+//
 
 import Foundation
 
@@ -8,11 +9,6 @@ private let formatter: ISO8601DateFormatter = {
 }()
 
 extension JSONDecoder {
-    
-    enum Error: Swift.Error {
-        
-        case parsing
-    }
     
     static let `default`: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -32,8 +28,12 @@ extension JSONDecoder {
         }
         return decoder
     }()
+    
+    enum Error: Swift.Error {
+        
+        case parsing
+    }
 }
-
 
 extension JSONEncoder {
     

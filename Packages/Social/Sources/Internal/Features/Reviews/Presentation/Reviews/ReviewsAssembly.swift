@@ -1,6 +1,6 @@
-//  
+//
 //  ReviewsAssembly.swift
-//  TMDB
+//
 
 import CArch
 import CArchSwinject
@@ -65,7 +65,7 @@ final class ReviewsAssembly: LayoutModuleAssembly {
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.recordComponent(ReviewsPresenter.self) { (resolver, view: ReviewsRenderingLogic, state: ReviewsModuleStateRepresentable) in
+        container.recordComponent(ReviewsPresenter.self) { (_, view: ReviewsRenderingLogic, state: ReviewsModuleStateRepresentable) in
             ReviewsPresenter(view: view, state: state)
         }
     }
@@ -78,7 +78,7 @@ final class ReviewsAssembly: LayoutModuleAssembly {
     }
     
     func registerRouter(in container: DIContainer) {
-        container.recordComponent(ReviewsRouter.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(ReviewsRouter.self) { (_, transitionController: TransitionController) in
             ReviewsRouter(transitionController: transitionController)
         }
     }

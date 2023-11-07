@@ -1,6 +1,6 @@
 //
 //  AuthorDetails.swift
-//  TMDB
+//
 
 import Foundation
 

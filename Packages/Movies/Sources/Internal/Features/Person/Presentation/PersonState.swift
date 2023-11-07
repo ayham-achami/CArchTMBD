@@ -1,5 +1,6 @@
-//  
+//
 //  PersonState.swift
+//
 
 import CArch
 
@@ -13,7 +14,10 @@ protocol PersonModuleStateRepresentable: AnyModuleStateRepresentable {
 }
 
 /// Состояние модуля `Person`
-public struct PersonModuleState: ModuleState {    
+public struct PersonModuleState: ModuleState {
+    
+    public typealias InitialStateType = InitialState
+    public typealias FinalStateType = FinalState
     
     public struct InitialState: ModuleInitialState {
         
@@ -28,9 +32,6 @@ public struct PersonModuleState: ModuleState {
         
         public init() {}
     }
-    
-    public typealias InitialStateType = InitialState
-    public typealias FinalStateType = FinalState
     
     public var initialState: PersonModuleState.InitialStateType?
     public var finalState: PersonModuleState.FinalStateType?

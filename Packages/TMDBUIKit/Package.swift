@@ -17,6 +17,7 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/realm/SwiftLint", branch: "main"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
         .package(url: "https://github.com/ayham-achami/CArch.git", branch: "feature/v-3.0.0")
     ],
@@ -34,6 +35,7 @@ let package = Package(
                 .define("DEBUG", .when(configuration: .debug))
             ], 
             plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint"),
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
             ]
         ),
@@ -41,6 +43,9 @@ let package = Package(
             name: "TMDBUIKitTests",
             dependencies: [
                 "TMDBUIKit"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
     ]

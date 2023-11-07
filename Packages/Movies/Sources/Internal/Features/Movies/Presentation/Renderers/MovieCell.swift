@@ -1,13 +1,16 @@
 //
 //  MovieCell.swift
+//
 
-import UIKit
+import AlamofireImage
 import CArch
 import TMDBUIKit
-import AlamofireImage
+import UIKit
 
 /// Объект содержащий логику отображения данных
 final class MovieCell: UICollectionViewCell {
+
+    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
     struct Model: UIModel {
         
@@ -72,8 +75,6 @@ final class MovieCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
     private let effectView: PosterEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)

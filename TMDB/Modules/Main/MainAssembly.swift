@@ -1,6 +1,6 @@
 //
 //  MainAssembly.swift
-//  TMDB
+//
 
 import CArch
 import CArchSwinject
@@ -8,8 +8,8 @@ import CArchSwinject
 /// Пространство имен модуля Main
 struct MainModule {
 
-    /// Объект содержащий логику создания модуля `Main` 
-    /// с чистой иерархии (просто ViewController) 
+    /// Объект содержащий логику создания модуля `Main`
+    /// с чистой иерархии (просто ViewController)
     final class Builder: ClearHierarchyModuleBuilder {
         
         typealias InitialStateType = MainModuleState.InitialStateType
@@ -24,7 +24,6 @@ struct MainModule {
             let module = build()
             module.initializer?.set(initialState: initialState)
             return module
-
         }
         
         func build() -> CArchModule {
@@ -62,19 +61,19 @@ final class MainAssembly: LayoutModuleAssembly {
     }
 
     func registerPresenter(in container: DIContainer) {
-        container.recordComponent(MainPresenter.self) { (resolver, view: MainRenderingLogic, state: MainModuleStateRepresentable) in
+        container.recordComponent(MainPresenter.self) { (_, view: MainRenderingLogic, state: MainModuleStateRepresentable) in
             MainPresenter(view: view, state: state)
         }
     }
 
     func registerProvider(in container: DIContainer) {
-        container.recordComponent(MainProvider.self) { (resolver, presenter: MainPresentationLogic) in
+        container.recordComponent(MainProvider.self) { (_, presenter: MainPresentationLogic) in
             MainProvider(presenter: presenter)
         }
     }
     
     func registerRouter(in container: DIContainer) {
-        container.recordComponent(MainRouter.self) { (resolver, transitionController: TransitionController) in
+        container.recordComponent(MainRouter.self) { (_, transitionController: TransitionController) in
             MainRouter(transitionController: transitionController)
         }
     }
