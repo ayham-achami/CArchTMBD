@@ -1,4 +1,6 @@
-//  ___FILEHEADER___
+//
+//  ___VARIABLE_productName___Renderer.swift
+//
 
 import UIKit
 import CArch

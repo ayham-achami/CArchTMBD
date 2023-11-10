@@ -1,4 +1,6 @@
-//  ___FILEHEADER___
+//
+//  ___VARIABLE_productName___Provider.swift
+//
 
 import CArch
 

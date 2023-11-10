@@ -1,4 +1,6 @@
-//  ___FILEHEADER___
+//
+//  ___VARIABLE_productName___ViewController.swift
+//
 
 import UIKit
 import CArch

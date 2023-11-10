@@ -1,4 +1,6 @@
-//  ___FILEHEADER___
+//
+//  ___VARIABLE_productName___State.swift
+//
 
 import CArch
 
@@ -14,6 +16,9 @@ protocol ___VARIABLE_productName___ModuleStateRepresentable: AnyModuleStateRepre
 /// Состояние модуля `___VARIABLE_productName___`
 public struct ___VARIABLE_productName___ModuleState: ModuleState {    
     
+    public typealias InitialStateType = InitialState
+    public typealias FinalStateType = FinalState
+    
     public struct InitialState: ModuleInitialState {
         
         public init() {}
@@ -23,9 +28,6 @@ public struct ___VARIABLE_productName___ModuleState: ModuleState {
         
         public init() {}
     }
-    
-    public typealias InitialStateType = InitialState
-    public typealias FinalStateType = FinalState
     
     public var initialState: ___VARIABLE_productName___ModuleState.InitialStateType?
     public var finalState: ___VARIABLE_productName___ModuleState.FinalStateType?

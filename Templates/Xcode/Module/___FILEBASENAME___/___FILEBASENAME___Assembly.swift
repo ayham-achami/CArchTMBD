@@ -1,4 +1,6 @@
-//  ___FILEHEADER___
+//
+//  ___VARIABLE_productName___Assembly.swift
+//
 
 import CArch
 import CArchSwinject

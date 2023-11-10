@@ -6,7 +6,7 @@ import CArch
 import Foundation
 
 // MARK: - DI
-final class ___VARIABLE_productName___AgentAssembly: DIAssembly { // swiftlint:disable:this type_name
+final class ___VARIABLE_productName___AgentAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
         container.recordAgent(___VARIABLE_productName___Agent.self) { _ in
@@ -16,7 +16,7 @@ final class ___VARIABLE_productName___AgentAssembly: DIAssembly { // swiftlint:d
 }
 
 // MARK: - Agent
-actor ___VARIABLE_productName___Agent: BusinessLogicAgent { // swiftlint:disable:this type_name
+actor ___VARIABLE_productName___Agent: BusinessLogicAgent { 
     
     init() {}
 }
