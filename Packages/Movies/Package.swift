@@ -21,7 +21,7 @@ let package = Package(
         .package(path: "../TMDBUIKit"),
         .package(url: "https://github.com/realm/SwiftLint", branch: "main"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.2.0"),
-        .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/adapt"),
+        .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/v-3.0.0"),
         .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
     ],
     targets: [

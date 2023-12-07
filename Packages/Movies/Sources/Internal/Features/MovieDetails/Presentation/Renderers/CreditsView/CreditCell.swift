@@ -4,12 +4,29 @@
 
 import AlamofireImage
 import CArch
+import CUIKit
 import TMDBUIKit
 import UIKit
 
+struct CreditCellFactory: UIReusableViewFactory {
+    
+    typealias View = CreditCell
+    typealias Model = CreditCell.Model
+    
+    private let model: Model
+    
+    init(_ model: CreditCell.Model) {
+        self.model = model
+    }
+    
+    func rendering(_ view: CreditCell) {
+        view.set(content: model)
+    }
+}
+
 class CreditCell: UICollectionViewCell {
     
-    struct Model: UIModel {
+    struct Model: ViewModel {
         
         let id: Int
         let name: String

@@ -9,12 +9,14 @@ import CRest
 import Foundation
 
 // swiftlint:disable file_types_order
+extension Logger: NetworkLogger {}
+
 @frozen public struct IOConfiguration: RestIOConfiguration {
     
     #if DEBUG
-    public let informant: NetworkInformant = .init(logger: .init(level: .debug))
+    public let informant: NetworkInformant = .init(logger: Logger(level: .debug))
     #else
-    public let informant: NetworkInformant = .init(logger: .init(level: .release))
+    public let informant: NetworkInformant = .init(logger: Logger(level: .release))
     #endif
     public let allHostsMustBeEvaluated: Bool = false
     
@@ -66,14 +68,11 @@ public extension AsyncAlamofireRestIO {
 
 extension AsyncAlamofireRestIO: AsyncRestIOSendable {
     
-    public func send<Response, Parameters>(for request: Request,
+    public func send<Response, Parameters>(for request: CRest.Request,
                                            parameters: Parameters?,
                                            response: Response.Type,
-                                           method: Http.Method,
-                                           encoding: Http.Encoding) async throws -> Response where Response: Model,
-                                                                                                   Response: Decodable,
-                                                                                                   Parameters: Model,
-                                                                                                   Parameters: Encodable {
+                                           method: CRest.Http.Method,
+                                           encoding: CRest.Http.Encoding) async throws -> Response where Response: CRest.Response, Parameters: CRest.Parameters {
         let request = try builder
             .with(url: request.rawValue)
             .with(method: method)

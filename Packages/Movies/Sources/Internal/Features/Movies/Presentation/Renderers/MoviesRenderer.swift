@@ -3,6 +3,7 @@
 //
 
 import CArch
+import CUIKit
 import TMDBUIKit
 import UIKit
 
@@ -22,8 +23,6 @@ final class MoviesRenderer: UICollectionView, UIRenderer {
     
     // MARK: - Renderer model
     typealias ModelType = [MovieCell.Model]
-
-    private let cellId = "\(String(describing: MoviesRenderer.self)).\(String(describing: MovieCell.self))"
     
     // MARK: - Private properties
     private weak var interactional: MoviesRendererUserInteraction?
@@ -43,7 +42,7 @@ final class MoviesRenderer: UICollectionView, UIRenderer {
     func moduleDidLoad() {
         delegate = self
         dataSource = self
-        register(MovieCell.self, forCellWithReuseIdentifier: cellId)
+        register(factory: MovieCellFactory.self)
         rendering()
     }
     
@@ -73,12 +72,7 @@ extension MoviesRenderer: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MovieCell
-        else { preconditionFailure("Cell is not a instance of MovieCell") }
-        let model = content[indexPath.row]
-        cell.set(content: model)
-        return cell
+        collectionView.dequeueReusableCell(by: MovieCellFactory.self, for: indexPath, models: content)
     }
 }
 

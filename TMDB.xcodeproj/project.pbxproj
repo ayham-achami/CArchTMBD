@@ -819,7 +819,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ayham-achami/CFoundation.git";
 			requirement = {
-				branch = mainline;
+				branch = feature/3.0.0;
 				kind = branch;
 			};
 		};
@@ -835,7 +835,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ayham-achami/CRest.git";
 			requirement = {
-				branch = feature/adapt;
+				branch = "feature/v-3.0.0";
 				kind = branch;
 			};
 		};

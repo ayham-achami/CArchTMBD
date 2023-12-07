@@ -19,13 +19,15 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/realm/SwiftLint", branch: "main"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
-        .package(url: "https://github.com/ayham-achami/CArch.git", branch: "feature/v-3.0.0")
+        .package(url: "https://github.com/ayham-achami/CArch.git", branch: "feature/v-3.0.0"),
+        .package(url: "https://github.com/ayham-achami/CUIKit.git", branch: "feature/v-3.0.0")
     ],
     targets: [
         .target(
             name: "TMDBUIKit",
             dependencies: [
-                "CArch"
+                "CArch",
+                "CUIKit"
             ],
             resources: [
                 .process("Resources/Images.xcassets"),

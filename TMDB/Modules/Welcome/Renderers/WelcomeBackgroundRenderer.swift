@@ -4,6 +4,7 @@
 
 import CArch
 import Combine
+import CUIKit
 import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
@@ -20,8 +21,6 @@ final class WelcomeBackgroundRenderer: UICollectionView, UIRenderer {
         case up
         case down
     }
-
-    private let cellId = "\(String(describing: WelcomeBackgroundRenderer.self)).\(String(describing: WelcomeCell.self))"
     
     // MARK: - Private properties
     private var content: ModelType = []
@@ -49,7 +48,7 @@ final class WelcomeBackgroundRenderer: UICollectionView, UIRenderer {
         contentInset = .zero
         isUserInteractionEnabled = false
         contentInsetAdjustmentBehavior = .never
-        register(WelcomeCell.self, forCellWithReuseIdentifier: cellId)
+        register(factory: WelcomeCellFactory.self)
         rendering()
     }
     
@@ -104,11 +103,7 @@ extension WelcomeBackgroundRenderer: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? WelcomeCell
-        else { preconditionFailure("Cell is not a instance of WelcomeCell") }
-        cell.set(content: content[indexPath.row])
-        return cell
+        collectionView.dequeueReusableCell(by: WelcomeCellFactory.self, for: indexPath, models: content)
     }
 }
 

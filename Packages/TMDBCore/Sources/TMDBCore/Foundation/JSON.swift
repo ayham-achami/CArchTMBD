@@ -43,7 +43,7 @@ extension JSONEncoder {
         let formatter = ISO8601DateFormatter()
         formatter.timeZone = Calendar.current.timeZone
         formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-        encoder.dateEncodingStrategy = .custom { date, encoder -> Void in
+        encoder.dateEncodingStrategy = .custom { date, encoder in
             var container = encoder.singleValueContainer()
             let dateString = formatter.string(from: date)
             try container.encode(dateString)

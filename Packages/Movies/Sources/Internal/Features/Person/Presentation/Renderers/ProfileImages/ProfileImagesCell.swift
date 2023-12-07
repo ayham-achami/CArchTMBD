@@ -4,12 +4,29 @@
 
 import AlamofireImage
 import CArch
+import CUIKit
 import TMDBUIKit
 import UIKit
 
+struct ProfileImagesCellFactory: UIReusableViewFactory {
+    
+    typealias View = ProfileImagesCell
+    typealias Model = ProfileImagesCell.Model
+    
+    private let model: Model
+    
+    init(_ model: ProfileImagesCell.Model) {
+        self.model = model
+    }
+    
+    func rendering(_ view: ProfileImagesCell) {
+        view.set(content: model)
+    }
+}
+
 class ProfileImagesCell: UICollectionViewCell {
     
-    struct Model: UIModel {
+    struct Model: ViewModel {
     
         let path: String
     }

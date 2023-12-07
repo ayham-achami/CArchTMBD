@@ -256,7 +256,9 @@ extension MovieDetailsRenderer: UIRendererPreview {
                                    runtime: "3h 1m",
                                    language: "English",
                                    countries: "US, GB")
-        let overview = OverviewView.Model(overview: "The story of J. Robert Oppenheimer’s role in the development of the atomic bomb during World War II.")
+        let overview = OverviewView.Model(overview: """
+The story of J. Robert Oppenheimer’s role in the development of the atomic bomb during World War II.
+""")
         let credits = (1...10).map { id in
             CreditCell.Model(id: id,
                              name: "Cillian Murphy",

@@ -51,5 +51,10 @@ public struct MoviesModuleState: ModuleState {
     public init() {}
 }
 
-// MARK: - MoviesModuleState +  ReadOnly
-extension MoviesModuleState: MoviesModuleReadOnlyState {}
+// MARK: - MoviesModuleState + ReadOnly
+extension MoviesModuleState: MoviesModuleReadOnlyState {
+    
+    var type: MoviesModuleState.MoviesType {
+        initial.type
+    }
+}

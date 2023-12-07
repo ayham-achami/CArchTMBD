@@ -3,6 +3,7 @@
 //
 
 import CArch
+import CUIKit
 import TMDBUIKit
 import UIKit
 
@@ -19,8 +20,6 @@ protocol CreditsViewDelegate: AnyObject {
 // MARK: - View
 final class CreditsView: UIView {
     
-    private let cellId = "\(String(describing: CreditsView.self)).\(String(describing: CreditCell.self))"
-    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -29,7 +28,7 @@ final class CreditsView: UIView {
         view.dataSource = self
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(CreditCell.self, forCellWithReuseIdentifier: cellId)
+        view.register(factory: CreditCellFactory.self)
         return view
     }()
     
@@ -82,11 +81,7 @@ extension CreditsView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? CreditCell
-        else { preconditionFailure("") }
-        cell.set(content: content[indexPath.row])
-        return cell
+        collectionView.dequeueReusableCell(by: CreditCellFactory.self, for: indexPath, models: content)
     }
 }
 

@@ -4,15 +4,32 @@
 
 import AlamofireImage
 import CArch
+import CUIKit
 import TMDBUIKit
 import UIKit
+
+struct MovieCellFactory: UIReusableViewFactory {
+    
+    typealias View = MovieCell
+    typealias Model = MovieCell.Model
+    
+    private let model: MovieCell.Model
+    
+    init(_ model: Model) {
+        self.model = model
+    }
+    
+    func rendering(_ view: MovieCell) {
+        view.set(content: model)
+    }
+}
 
 /// Объект содержащий логику отображения данных
 final class MovieCell: UICollectionViewCell {
 
     private typealias PosterEffectView = (blur: UIVisualEffectView, vibrancy: UIVisualEffectView)
     
-    struct Model: UIModel {
+    struct Model: ViewModel {
         
         let id: Int
         let name: String

@@ -3,7 +3,24 @@
 //
 
 import AlamofireImage
+import CUIKit
 import UIKit
+
+struct WelcomeCellFactory: UIReusableViewFactory {
+    
+    typealias View = WelcomeCell
+    typealias Model = String
+    
+    private let model: Model
+    
+    init(_ model: String) {
+        self.model = model
+    }
+    
+    func rendering(_ view: WelcomeCell) {
+        view.set(content: model)
+    }
+}
 
 final class WelcomeCell: UICollectionViewCell {
     

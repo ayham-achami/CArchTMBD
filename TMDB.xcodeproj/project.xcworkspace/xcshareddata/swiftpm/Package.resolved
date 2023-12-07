@@ -24,7 +24,7 @@
       "location" : "https://github.com/ayham-achami/CArch.git",
       "state" : {
         "branch" : "feature/v-3.0.0",
-        "revision" : "4d95179c88476f36e5a23fc3ed9a1ed1750f3434"
+        "revision" : "73ccc0a4f2a953200e5c722a7e7ffeb1232e9abb"
       }
     },
     {
@@ -33,7 +33,7 @@
       "location" : "https://github.com/ayham-achami/CArchSwinject.git",
       "state" : {
         "branch" : "feature/v-3.0.0",
-        "revision" : "e4a42d5a2df87beff0b4af705d150155711f3205"
+        "revision" : "37d927b869f57630c35a121be2da08f609224a70"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CFoundation.git",
       "state" : {
-        "branch" : "mainline",
-        "revision" : "1f2b721a29c9cba5202a3c4389a702033f7f7373"
+        "branch" : "feature/3.0.0",
+        "revision" : "3ea4e2852d38b7dac85f24e1ecbb2734f13aacfe"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CRest.git",
       "state" : {
-        "branch" : "feature/adapt",
-        "revision" : "c9b9c4c8600473d87714c152da2ad7d102aea4c3"
+        "branch" : "feature/v-3.0.0",
+        "revision" : "200caced74c007ada1d7d0e8bf2c77ac9f963752"
       }
     },
     {
@@ -68,8 +68,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
       "state" : {
-        "revision" : "32f641cf24fc7abc1c591a2025e9f2f572648b0f",
-        "version" : "1.7.2"
+        "revision" : "db51c407d3be4a051484a141bf0bff36c43d3b1e",
+        "version" : "1.8.0"
+      }
+    },
+    {
+      "identity" : "cuikit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CUIKit.git",
+      "state" : {
+        "branch" : "feature/v-3.0.0",
+        "revision" : "ef0f99ada42ce6461eadba2272aaa148547cb364"
       }
     },
     {
@@ -114,7 +123,7 @@
       "location" : "https://github.com/realm/SwiftLint",
       "state" : {
         "branch" : "main",
-        "revision" : "6e3bfc1a451723df9d94d71cfd284f61d980a362"
+        "revision" : "73c49d5a485e56204f01631602bd322ad949d3d7"
       }
     },
     {

@@ -3,6 +3,7 @@
 //
 
 import CArch
+import CUIKit
 import TMDBUIKit
 import UIKit
 
@@ -16,8 +17,6 @@ protocol ProfileImagesViewDelegate: AnyObject {
 final class ProfileImagesView: UIView {
     
     typealias Model = [ProfileImagesCell.Model]
-    
-    private let cellId = "\(String(describing: ProfileImagesView.self)).\(String(describing: ProfileImagesCell.self))"
     
     private lazy var layout: CarouselCollectionViewLayout = {
         let layout = CarouselCollectionViewLayout()
@@ -35,7 +34,7 @@ final class ProfileImagesView: UIView {
         view.backgroundColor = .clear
         view.showsHorizontalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(ProfileImagesCell.self, forCellWithReuseIdentifier: cellId)
+        view.register(factory: ProfileImagesCellFactory.self)
         return view
     }()
     
@@ -88,11 +87,7 @@ extension ProfileImagesView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ProfileImagesCell
-        else { preconditionFailure("") }
-        cell.set(content: content[indexPath.row])
-        return cell
+        collectionView.dequeueReusableCell(by: ProfileImagesCellFactory.self, for: indexPath, models: content)
     }
 }
 
