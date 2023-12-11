@@ -14,7 +14,7 @@ protocol ___VARIABLE_productName___ModuleStateRepresentable: AnyModuleStateRepre
 }
 
 /// Состояние модуля `___VARIABLE_productName___`
-public struct ___VARIABLE_productName___ModuleState: ModuleState {    
+public struct ___VARIABLE_productName___ModuleState: ModuleState {
     
     public typealias InitialStateType = InitialState
     public typealias FinalStateType = FinalState

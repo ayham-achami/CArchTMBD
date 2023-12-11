@@ -2,8 +2,8 @@
 //  ___VARIABLE_productName___Renderer.swift
 //
 
-import UIKit
 import CArch
+import UIKit
 
 /// Протокол взаимодействия пользователя с модулем
 protocol ___VARIABLE_productName___RendererUserInteraction: AnyUserInteraction {}
@@ -47,6 +47,7 @@ private extension ___VARIABLE_productName___Renderer {
     func rendering() {}
 }
 
+#if DEBUG
 // MARK: - Preview
 extension ___VARIABLE_productName___Renderer: UIRendererPreview {
     
@@ -61,7 +62,7 @@ extension ___VARIABLE_productName___Renderer: UIRendererPreview {
     }
 }
 
-#if DEBUG
+@available(iOS 17.0, *)
 #Preview(String(describing: ___VARIABLE_productName___Renderer.self)) {
     ___VARIABLE_productName___Renderer.preview()
 }

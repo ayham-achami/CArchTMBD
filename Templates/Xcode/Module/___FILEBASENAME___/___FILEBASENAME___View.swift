@@ -2,9 +2,9 @@
 //  ___VARIABLE_productName___ViewController.swift
 //
 
-import UIKit
 import CArch
 import CArchSwinject
+import UIKit
 
 /// Протокол реализующий логику получения данных из слоя бизнес логики
 @SyncAlias
@@ -83,6 +83,7 @@ extension ___VARIABLE_productName___ViewController: ___VARIABLE_productName___Us
 
 #if DEBUG
 // MARK: - Preview
+@available(iOS 17.0, *)
 #Preview(String(describing: ___VARIABLE_productName___Module.self)) {
     ___VARIABLE_productName___Module.Builder().build().node
 }
