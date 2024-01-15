@@ -22,9 +22,7 @@ final class ___VARIABLE_productName___Presenter: ___VARIABLE_productName___Prese
     }
 
     func encountered(_ error: Error) {
-        Task {
-            await view?.displayErrorAlert(with: error)
-        }
+        view?.nonisolatedDisplayErrorAlert(with: error)
     }
 }
 
