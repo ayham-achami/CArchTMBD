@@ -24,7 +24,7 @@
       "location" : "https://github.com/ayham-achami/CArch.git",
       "state" : {
         "branch" : "feature/v-3.0.0",
-        "revision" : "77f7f2c5da37013aa8130340841d55ad0a72dc12"
+        "revision" : "c8188cff4f0a22f9a4e3a94848332f5a68bc762c"
       }
     },
     {
@@ -168,7 +168,7 @@
       "location" : "https://github.com/realm/SwiftLint",
       "state" : {
         "branch" : "main",
-        "revision" : "2be8846ad326cb3f4bacdae5ca3956844661a4c1"
+        "revision" : "443cbd7fce33cc9dc8868a472193d0dbd05de1da"
       }
     },
     {
