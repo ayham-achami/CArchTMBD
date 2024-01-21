@@ -7,16 +7,6 @@ import CRest
 import Foundation
 import TMDBCore
 
-// MARK: - DI
-final class PersonServiceAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.recordService(PersonService.self) { resolver in
-            PersonService(io: resolver.concurrencyIO)
-        }
-    }
-}
-
 // MARK: Requests
 private extension Request {
  
@@ -54,13 +44,27 @@ private extension Request {
     }
 }
 
+// MARK: - Public
+@Contract protocol PersonService: BusinessLogicService, AutoResolve {
+    
+    func fetchPerson(with id: Int) async throws -> Person
+    
+    func fetchImages(with id: Int) async throws -> ProfileImages
+    
+    func fetchMovies(with id: Int) async throws -> ProfileMovies
+}
+
 // MARK: Service
-actor PersonService: BusinessLogicService {
+private actor PersonServiceImplementation: PersonService {
     
     private let io: ConcurrencyIO
     
     init(io: ConcurrencyIO) {
         self.io = io
+    }
+    
+    init(_ resolver: DIResolver) {
+        self.io = resolver.concurrencyIO
     }
     
     func fetchPerson(with id: Int) async throws -> Person {

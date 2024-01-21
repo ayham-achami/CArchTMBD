@@ -20,7 +20,6 @@
 		DF9A76832A9E4058005916B4 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A76822A9E4058005916B4 /* AppAssembly.swift */; };
 		DFAB11DA2AB0478D0005BC45 /* BearerAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAB11D92AB0478D0005BC45 /* BearerAuthenticator.swift */; };
 		DFAB11DD2AB047EB0005BC45 /* CRest in Frameworks */ = {isa = PBXBuildFile; productRef = DFAB11DC2AB047EB0005BC45 /* CRest */; };
-		DFB7954D2AF2D59C00DCBAC0 /* ___FILEBASENAME___Agent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB7954C2AF2D59C00DCBAC0 /* ___FILEBASENAME___Agent.swift.swift */; };
 		DFDE71752A753FAA007F0AAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFDE71742A753FAA007F0AAD /* Assets.xcassets */; };
 		DFDE71782A753FAA007F0AAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFDE71762A753FAA007F0AAD /* LaunchScreen.storyboard */; };
 		DFDE718B2A7541D8007F0AAD /* ApplicationTMBDRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDE71862A7541D8007F0AAD /* ApplicationTMBDRouter.swift */; };
@@ -60,9 +59,33 @@
 		DF679AFC2A9DE684005074F3 /* FactoryProvider .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactoryProvider .swift"; sourceTree = "<group>"; };
 		DF679B022A9DF89C005074F3 /* PreviewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewFactory.swift; sourceTree = "<group>"; };
 		DF6FEAB12A854042006E2261 /* TMDBCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = TMDBCore; sourceTree = "<group>"; };
+		DF77C3752B5DA3FE006097C3 /* TMBD.rambaspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TMBD.rambaspec; sourceTree = "<group>"; };
+		DF77C3782B5DA3FE006097C3 /* assemblyTest.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = assemblyTest.swift.liquid; sourceTree = "<group>"; };
+		DF77C37A2B5DA3FE006097C3 /* renderer.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = renderer.swift.liquid; sourceTree = "<group>"; };
+		DF77C37B2B5DA3FE006097C3 /* assembly.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = assembly.swift.liquid; sourceTree = "<group>"; };
+		DF77C37C2B5DA3FE006097C3 /* state.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = state.swift.liquid; sourceTree = "<group>"; };
+		DF77C37D2B5DA3FE006097C3 /* presenter.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = presenter.swift.liquid; sourceTree = "<group>"; };
+		DF77C37E2B5DA3FE006097C3 /* provider.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = provider.swift.liquid; sourceTree = "<group>"; };
+		DF77C37F2B5DA3FE006097C3 /* router.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = router.swift.liquid; sourceTree = "<group>"; };
+		DF77C3802B5DA3FE006097C3 /* view.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = view.swift.liquid; sourceTree = "<group>"; };
+		DF77C3822B5DA3FF006097C3 /* TemplateIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TemplateIcon@2x.png"; sourceTree = "<group>"; };
+		DF77C3842B5DA3FF006097C3 /* ___FILEBASENAME___Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Renderer.swift"; sourceTree = "<group>"; };
+		DF77C3882B5DA3FF006097C3 /* ___FILEBASENAME___Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Renderer.swift"; sourceTree = "<group>"; };
+		DF77C3892B5DA3FF006097C3 /* ___FILEBASENAME___Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Presenter.swift"; sourceTree = "<group>"; };
+		DF77C38A2B5DA3FF006097C3 /* ___FILEBASENAME___Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Router.swift"; sourceTree = "<group>"; };
+		DF77C38B2B5DA3FF006097C3 /* ___FILEBASENAME___Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Assembly.swift"; sourceTree = "<group>"; };
+		DF77C38C2B5DA3FF006097C3 /* ___FILEBASENAME___View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___View.swift"; sourceTree = "<group>"; };
+		DF77C38D2B5DA3FF006097C3 /* ___FILEBASENAME___State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___State.swift"; sourceTree = "<group>"; };
+		DF77C38E2B5DA3FF006097C3 /* ___FILEBASENAME___Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Provider.swift"; sourceTree = "<group>"; };
+		DF77C3902B5DA3FF006097C3 /* ___FILEBASENAME___Agent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Agent.swift"; sourceTree = "<group>"; };
+		DF77C3922B5DA3FF006097C3 /* ___FILEBASENAME___Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Singleton.swift"; sourceTree = "<group>"; };
+		DF77C3942B5DA3FF006097C3 /* ___FILEBASENAME___Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Service.swift"; sourceTree = "<group>"; };
+		DF77C3952B5DA3FF006097C3 /* TemplateIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon.png; sourceTree = "<group>"; };
+		DF77C3972B5DA3FF006097C3 /* ___FILEBASENAME___Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Engine.swift"; sourceTree = "<group>"; };
+		DF77C3992B5DA3FF006097C3 /* ___FILEBASENAME___Pool.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Pool.swift.swift"; sourceTree = "<group>"; };
+		DF77C39A2B5DA3FF006097C3 /* TemplateInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TemplateInfo.plist; sourceTree = "<group>"; };
 		DF9A76822A9E4058005916B4 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		DFAB11D92AB0478D0005BC45 /* BearerAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearerAuthenticator.swift; sourceTree = "<group>"; };
-		DFB7954C2AF2D59C00DCBAC0 /* ___FILEBASENAME___Agent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Agent.swift.swift"; sourceTree = "<group>"; };
 		DFDE71682A753FA8007F0AAD /* TMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFDE71742A753FAA007F0AAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFDE71772A753FAA007F0AAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -87,27 +110,6 @@
 		DFDE71C72A754430007F0AAD /* MainProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainProvider.swift; sourceTree = "<group>"; };
 		DFDE71C82A754430007F0AAD /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		DFDE71C92A754430007F0AAD /* MainAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
-		DFDE71DA2A754511007F0AAD /* TMBD.rambaspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TMBD.rambaspec; sourceTree = "<group>"; };
-		DFDE71DD2A754511007F0AAD /* assemblyTest.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = assemblyTest.swift.liquid; sourceTree = "<group>"; };
-		DFDE71DF2A754511007F0AAD /* renderer.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = renderer.swift.liquid; sourceTree = "<group>"; };
-		DFDE71E02A754511007F0AAD /* assembly.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = assembly.swift.liquid; sourceTree = "<group>"; };
-		DFDE71E12A754511007F0AAD /* state.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = state.swift.liquid; sourceTree = "<group>"; };
-		DFDE71E22A754511007F0AAD /* presenter.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = presenter.swift.liquid; sourceTree = "<group>"; };
-		DFDE71E32A754511007F0AAD /* provider.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = provider.swift.liquid; sourceTree = "<group>"; };
-		DFDE71E42A754511007F0AAD /* router.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = router.swift.liquid; sourceTree = "<group>"; };
-		DFDE71E52A754511007F0AAD /* view.swift.liquid */ = {isa = PBXFileReference; lastKnownFileType = text; path = view.swift.liquid; sourceTree = "<group>"; };
-		DFDE71E72A754511007F0AAD /* TemplateIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TemplateIcon@2x.png"; sourceTree = "<group>"; };
-		DFDE71E92A754511007F0AAD /* ___FILEBASENAME___Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Renderer.swift"; sourceTree = "<group>"; };
-		DFDE71ED2A754511007F0AAD /* ___FILEBASENAME___Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Renderer.swift"; sourceTree = "<group>"; };
-		DFDE71EE2A754511007F0AAD /* ___FILEBASENAME___Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Presenter.swift"; sourceTree = "<group>"; };
-		DFDE71EF2A754511007F0AAD /* ___FILEBASENAME___Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Router.swift"; sourceTree = "<group>"; };
-		DFDE71F02A754511007F0AAD /* ___FILEBASENAME___Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Assembly.swift"; sourceTree = "<group>"; };
-		DFDE71F12A754511007F0AAD /* ___FILEBASENAME___View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___View.swift"; sourceTree = "<group>"; };
-		DFDE71F22A754511007F0AAD /* ___FILEBASENAME___State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___State.swift"; sourceTree = "<group>"; };
-		DFDE71F32A754511007F0AAD /* ___FILEBASENAME___Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Provider.swift"; sourceTree = "<group>"; };
-		DFDE71F52A754511007F0AAD /* ___FILEBASENAME___Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___FILEBASENAME___Service.swift"; sourceTree = "<group>"; };
-		DFDE71F62A754511007F0AAD /* TemplateIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon.png; sourceTree = "<group>"; };
-		DFDE71F72A754511007F0AAD /* TemplateInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TemplateInfo.plist; sourceTree = "<group>"; };
 		DFE93ECC2A801D4100015E5C /* WelcomeBackgroundRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackgroundRenderer.swift; sourceTree = "<group>"; };
 		DFE93ECE2A80205600015E5C /* RandomCellSizeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCellSizeLayout.swift; sourceTree = "<group>"; };
 		DFE93ED02A80217C00015E5C /* WelcomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCell.swift; sourceTree = "<group>"; };
@@ -207,6 +209,150 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
+		DF77C3732B5DA3FE006097C3 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3742B5DA3FE006097C3 /* TMBD */,
+				DF77C3812B5DA3FE006097C3 /* Xcode */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		DF77C3742B5DA3FE006097C3 /* TMBD */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3752B5DA3FE006097C3 /* TMBD.rambaspec */,
+				DF77C3762B5DA3FE006097C3 /* Tests */,
+				DF77C3792B5DA3FE006097C3 /* Code */,
+			);
+			path = TMBD;
+			sourceTree = "<group>";
+		};
+		DF77C3762B5DA3FE006097C3 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3772B5DA3FE006097C3 /* Assembly */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		DF77C3772B5DA3FE006097C3 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3782B5DA3FE006097C3 /* assemblyTest.swift.liquid */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		DF77C3792B5DA3FE006097C3 /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C37A2B5DA3FE006097C3 /* renderer.swift.liquid */,
+				DF77C37B2B5DA3FE006097C3 /* assembly.swift.liquid */,
+				DF77C37C2B5DA3FE006097C3 /* state.swift.liquid */,
+				DF77C37D2B5DA3FE006097C3 /* presenter.swift.liquid */,
+				DF77C37E2B5DA3FE006097C3 /* provider.swift.liquid */,
+				DF77C37F2B5DA3FE006097C3 /* router.swift.liquid */,
+				DF77C3802B5DA3FE006097C3 /* view.swift.liquid */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		DF77C3812B5DA3FE006097C3 /* Xcode */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3952B5DA3FF006097C3 /* TemplateIcon.png */,
+				DF77C3822B5DA3FF006097C3 /* TemplateIcon@2x.png */,
+				DF77C39A2B5DA3FF006097C3 /* TemplateInfo.plist */,
+				DF77C3852B5DA3FF006097C3 /* Module */,
+				DF77C3832B5DA3FF006097C3 /* Renderer */,
+				DF77C38F2B5DA3FF006097C3 /* Agent */,
+				DF77C3932B5DA3FF006097C3 /* Service */,
+				DF77C3962B5DA3FF006097C3 /* Engine */,
+				DF77C3912B5DA3FF006097C3 /* Singleton */,
+				DF77C3982B5DA3FF006097C3 /* Pool */,
+			);
+			path = Xcode;
+			sourceTree = "<group>";
+		};
+		DF77C3832B5DA3FF006097C3 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3842B5DA3FF006097C3 /* ___FILEBASENAME___Renderer.swift */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		DF77C3852B5DA3FF006097C3 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3862B5DA3FF006097C3 /* ___FILEBASENAME___ */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		DF77C3862B5DA3FF006097C3 /* ___FILEBASENAME___ */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3872B5DA3FF006097C3 /* Renderers */,
+				DF77C3892B5DA3FF006097C3 /* ___FILEBASENAME___Presenter.swift */,
+				DF77C38A2B5DA3FF006097C3 /* ___FILEBASENAME___Router.swift */,
+				DF77C38B2B5DA3FF006097C3 /* ___FILEBASENAME___Assembly.swift */,
+				DF77C38C2B5DA3FF006097C3 /* ___FILEBASENAME___View.swift */,
+				DF77C38D2B5DA3FF006097C3 /* ___FILEBASENAME___State.swift */,
+				DF77C38E2B5DA3FF006097C3 /* ___FILEBASENAME___Provider.swift */,
+			);
+			path = "___FILEBASENAME___";
+			sourceTree = "<group>";
+		};
+		DF77C3872B5DA3FF006097C3 /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3882B5DA3FF006097C3 /* ___FILEBASENAME___Renderer.swift */,
+			);
+			path = Renderers;
+			sourceTree = "<group>";
+		};
+		DF77C38F2B5DA3FF006097C3 /* Agent */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3902B5DA3FF006097C3 /* ___FILEBASENAME___Agent.swift */,
+			);
+			path = Agent;
+			sourceTree = "<group>";
+		};
+		DF77C3912B5DA3FF006097C3 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3922B5DA3FF006097C3 /* ___FILEBASENAME___Singleton.swift */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
+		DF77C3932B5DA3FF006097C3 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3942B5DA3FF006097C3 /* ___FILEBASENAME___Service.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		DF77C3962B5DA3FF006097C3 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3972B5DA3FF006097C3 /* ___FILEBASENAME___Engine.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		DF77C3982B5DA3FF006097C3 /* Pool */ = {
+			isa = PBXGroup;
+			children = (
+				DF77C3992B5DA3FF006097C3 /* ___FILEBASENAME___Pool.swift.swift */,
+			);
+			path = Pool;
+			sourceTree = "<group>";
+		};
 		DF9A76802A9E401E005916B4 /* DI */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,21 +369,13 @@
 			path = AppComponents;
 			sourceTree = "<group>";
 		};
-		DFB7954B2AF2D56500DCBAC0 /* Agent */ = {
-			isa = PBXGroup;
-			children = (
-				DFB7954C2AF2D59C00DCBAC0 /* ___FILEBASENAME___Agent.swift.swift */,
-			);
-			path = Agent;
-			sourceTree = "<group>";
-		};
 		DFDE715F2A753FA7007F0AAD = {
 			isa = PBXGroup;
 			children = (
 				DFDE716A2A753FA8007F0AAD /* TMDB */,
 				DFDE71802A75415D007F0AAD /* Packages */,
 				DFDE717F2A753FC3007F0AAD /* Resources */,
-				DFDE71D82A754511007F0AAD /* Templates */,
+				DF77C3732B5DA3FE006097C3 /* Templates */,
 				DFDE71692A753FA8007F0AAD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -339,115 +477,6 @@
 			path = Renderers;
 			sourceTree = "<group>";
 		};
-		DFDE71D82A754511007F0AAD /* Templates */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71D92A754511007F0AAD /* TMBD */,
-				DFDE71E62A754511007F0AAD /* Xcode */,
-			);
-			path = Templates;
-			sourceTree = "<group>";
-		};
-		DFDE71D92A754511007F0AAD /* TMBD */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71DA2A754511007F0AAD /* TMBD.rambaspec */,
-				DFDE71DB2A754511007F0AAD /* Tests */,
-				DFDE71DE2A754511007F0AAD /* Code */,
-			);
-			path = TMBD;
-			sourceTree = "<group>";
-		};
-		DFDE71DB2A754511007F0AAD /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71DC2A754511007F0AAD /* Assembly */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		DFDE71DC2A754511007F0AAD /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71DD2A754511007F0AAD /* assemblyTest.swift.liquid */,
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
-		DFDE71DE2A754511007F0AAD /* Code */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71DF2A754511007F0AAD /* renderer.swift.liquid */,
-				DFDE71E02A754511007F0AAD /* assembly.swift.liquid */,
-				DFDE71E12A754511007F0AAD /* state.swift.liquid */,
-				DFDE71E22A754511007F0AAD /* presenter.swift.liquid */,
-				DFDE71E32A754511007F0AAD /* provider.swift.liquid */,
-				DFDE71E42A754511007F0AAD /* router.swift.liquid */,
-				DFDE71E52A754511007F0AAD /* view.swift.liquid */,
-			);
-			path = Code;
-			sourceTree = "<group>";
-		};
-		DFDE71E62A754511007F0AAD /* Xcode */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71E72A754511007F0AAD /* TemplateIcon@2x.png */,
-				DFDE71F62A754511007F0AAD /* TemplateIcon.png */,
-				DFDE71F72A754511007F0AAD /* TemplateInfo.plist */,
-				DFDE71E82A754511007F0AAD /* Renderer */,
-				DFDE71EA2A754511007F0AAD /* Module */,
-				DFDE71F42A754511007F0AAD /* Service */,
-				DFB7954B2AF2D56500DCBAC0 /* Agent */,
-			);
-			path = Xcode;
-			sourceTree = "<group>";
-		};
-		DFDE71E82A754511007F0AAD /* Renderer */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71E92A754511007F0AAD /* ___FILEBASENAME___Renderer.swift */,
-			);
-			path = Renderer;
-			sourceTree = "<group>";
-		};
-		DFDE71EA2A754511007F0AAD /* Module */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71EB2A754511007F0AAD /* ___FILEBASENAME___ */,
-			);
-			path = Module;
-			sourceTree = "<group>";
-		};
-		DFDE71EB2A754511007F0AAD /* ___FILEBASENAME___ */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71EC2A754511007F0AAD /* Renderers */,
-				DFDE71EE2A754511007F0AAD /* ___FILEBASENAME___Presenter.swift */,
-				DFDE71EF2A754511007F0AAD /* ___FILEBASENAME___Router.swift */,
-				DFDE71F02A754511007F0AAD /* ___FILEBASENAME___Assembly.swift */,
-				DFDE71F12A754511007F0AAD /* ___FILEBASENAME___View.swift */,
-				DFDE71F22A754511007F0AAD /* ___FILEBASENAME___State.swift */,
-				DFDE71F32A754511007F0AAD /* ___FILEBASENAME___Provider.swift */,
-			);
-			path = "___FILEBASENAME___";
-			sourceTree = "<group>";
-		};
-		DFDE71EC2A754511007F0AAD /* Renderers */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71ED2A754511007F0AAD /* ___FILEBASENAME___Renderer.swift */,
-			);
-			path = Renderers;
-			sourceTree = "<group>";
-		};
-		DFDE71F42A754511007F0AAD /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				DFDE71F52A754511007F0AAD /* ___FILEBASENAME___Service.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -538,7 +567,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB7954D2AF2D59C00DCBAC0 /* ___FILEBASENAME___Agent.swift.swift in Sources */,
 				DFAB11DA2AB0478D0005BC45 /* BearerAuthenticator.swift in Sources */,
 				DFE93ED12A80217C00015E5C /* WelcomeCell.swift in Sources */,
 				DFDE71D62A754430007F0AAD /* MainView.swift in Sources */,

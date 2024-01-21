@@ -7,16 +7,6 @@ import CRest
 import Foundation
 import TMDBCore
 
-// MARK: DI
-final class MoviesServiceAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.recordService(MoviesService.self) { resolver in
-            MoviesService(io: resolver.concurrencyIO)
-        }
-    }
-}
-
 // MARK: Requests
 private extension Request {
     
@@ -50,13 +40,29 @@ private extension Request {
     }
 }
 
-// MARK: Service
-actor MoviesService: BusinessLogicService {
+// MARK: - Contract
+@Contract protocol MoviesService: BusinessLogicService, AutoResolve {
+    
+    func fetchNowPlaying(_ page: Int) async throws -> MoviesList
+    
+    func fetchPopular(_ page: Int) async throws -> MoviesList
+    
+    func fetchTopRated(_ page: Int) async throws -> MoviesList
+    
+    func fetchUpcoming(_ page: Int) async throws -> MoviesList
+}
+
+// MARK: Implementation
+private actor MoviesServiceImplementation: MoviesService {
     
     private let io: ConcurrencyIO
     
     init(io: ConcurrencyIO) {
         self.io = io
+    }
+    
+    init(_ resolver: DIResolver) {
+        self.io = resolver.concurrencyIO
     }
     
     func fetchNowPlaying(_ page: Int) async throws -> MoviesList {

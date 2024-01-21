@@ -73,7 +73,7 @@ final class ReviewsAssembly: LayoutModuleAssembly {
     func registerProvider(in container: DIContainer) {
         container.recordComponent(ReviewsProvider.self) { (resolver, presenter: ReviewsPresentationLogic) in
             ReviewsProvider(presenter: presenter,
-                            previewsService: resolver.unravelService(PreviewsService.self))
+                            previewsService: PreviewsServiceResolver(resolver).unravel())
         }
     }
     

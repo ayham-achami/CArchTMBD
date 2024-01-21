@@ -8,7 +8,7 @@ import CFoundation
 import CRest
 import Foundation
 
-// swiftlint:disable file_types_order
+// swiftlint:disable superfluous_disable_command file_types_order
 extension Logger: NetworkLogger {}
 
 @frozen public struct IOConfiguration: RestIOConfiguration {
@@ -117,4 +117,4 @@ public extension DIResolver {
         unravelEngine(AsyncAlamofireRestIO.self)
     }
 }
-// swiftlint:enable file_types_order
+// swiftlint:enable superfluous_disable_command file_types_order

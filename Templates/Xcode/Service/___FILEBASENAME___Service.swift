@@ -3,20 +3,19 @@
 //
 
 import CArch
+import CRest
 import Foundation
 
-// MARK: - DI
-final class ___VARIABLE_productName___ServiceAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.recordService(___VARIABLE_productName___Service.self) { _ in
-            ___VARIABLE_productName___Service()
-        }
-    }
-}
+// MARK: Requests
+private extension Request {}
 
-// MARK: - Service
-actor ___VARIABLE_productName___Service: BusinessLogicService {
+// MARK: - Contract
+@Contract protocol ___VARIABLE_productName___Service: BusinessLogicService, AutoResolve {}
+
+// MARK: - Implementation
+private actor ___VARIABLE_productName___ServiceImplementation: ___VARIABLE_productName___Service {
     
     init() {}
+    
+    init(_ resolver: DIResolver) {}
 }

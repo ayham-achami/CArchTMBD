@@ -9,7 +9,7 @@ import Foundation
 import TMDBCore
 import UIKit
 
-private final class MockSocialNavigatorAssembly: DIAssembly { // swiftlint:disable:this file_types_order
+private final class MockSocialNavigatorAssembly: DIAssembly {
     
     nonisolated init() {}
     

@@ -6,23 +6,23 @@ import CArch
 import Foundation
 import TMDBCore
 
-// MARK: - DI
-final class AuthServiceAssembly: DIAssembly {
+// MARK: - Contract
+@Contract protocol AuthService: BusinessLogicService, AutoResolve {
     
-    func assemble(container: DIContainer) {
-        container.recordService(AuthService.self) { resolver in
-            AuthService(jwtController: resolver.unravel(some: JWTController.self))
-        }
-    }
+    func login(_ login: String, _ password: String) async throws
 }
 
-// MARK: - Private
-actor AuthService: BusinessLogicService {
+// MARK: - Implementation
+private actor AuthServiceImplementation: AuthService {
     
     private let jwtController: JWTController
     
     init(jwtController: JWTController) {
         self.jwtController = jwtController
+    }
+    
+    init(_ resolver: DIResolver) {
+        self.jwtController = resolver.unravel(some: JWTController.self)
     }
     
     func login(_ login: String, _ password: String) async throws {

@@ -104,7 +104,7 @@ final class PersonAssembly: LayoutModuleAssembly {
     func registerProvider(in container: DIContainer) {
         container.recordComponent(PersonProvider.self) { (resolver, presenter: PersonPresentationLogic) in
             PersonProvider(presenter: presenter,
-                           personService: resolver.unravelService(PersonService.self))
+                           personService: PersonServiceResolver(resolver).unravel())
         }
     }
     

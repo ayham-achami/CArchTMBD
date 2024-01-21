@@ -71,6 +71,7 @@ private extension ReviewsRenderer {
     }
 }
 
+// MARK: - ReviewsRenderer + ASCollectionDataSource
 extension ReviewsRenderer: ASCollectionDataSource {
     
     func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
@@ -83,8 +84,8 @@ extension ReviewsRenderer: ASCollectionDataSource {
     }
 }
 
-extension ReviewsRenderer: ASCollectionDelegate {
-}
+// MARK: - ReviewsRenderer + ASCollectionDelegate
+extension ReviewsRenderer: ASCollectionDelegate {}
 
 #if DEBUG
 // MARK: - Preview
@@ -110,6 +111,9 @@ extension ReviewsRenderer: UIRendererPreview {
 }
 
 #Preview(String(describing: ReviewsRenderer.self)) {
-    ReviewsRenderer.preview().view
+    let vc = UIViewController()
+    let preview = ReviewsRenderer.preview()
+    // vc.view.addSubnode(preview)
+    return vc
 }
 #endif

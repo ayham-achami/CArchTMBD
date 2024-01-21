@@ -54,6 +54,9 @@
 				<string>Renderer</string>
 				<string>Agent</string>
 				<string>Service</string>
+				<string>Engine</string>
+				<string>Pool</string>
+				<string>Singleton</string>
 			</array>
 		</dict>
 	</array>

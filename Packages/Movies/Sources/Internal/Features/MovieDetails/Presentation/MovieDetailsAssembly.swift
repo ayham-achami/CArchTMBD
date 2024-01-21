@@ -105,7 +105,7 @@ final class MovieDetailsAssembly: LayoutModuleAssembly {
     func registerProvider(in container: DIContainer) {
         container.recordComponent(MovieDetailsProvider.self) { (resolver, presenter: MovieDetailsPresentationLogic) in
             MovieDetailsProvider(presenter: presenter,
-                                 movieDetailsService: resolver.unravelService(MovieDetailsService.self))
+                                 movieDetailsService: MovieDetailsServiceResolver(resolver).unravel())
         }
     }
     

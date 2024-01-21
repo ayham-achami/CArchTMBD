@@ -19,7 +19,7 @@ private final class MockAuthNavigatorAssembly: DIAssembly {
     }
 }
 
-private final class MockAuthNavigator: AuthNavigator { // swiftlint:disable:this file_types_order
+private final class MockAuthNavigator: AuthNavigator {
     
     nonisolated init() {}
     

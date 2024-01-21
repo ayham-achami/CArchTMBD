@@ -7,17 +7,6 @@ import CRest
 import Foundation
 import TMDBCore
 
-// MARK: - DI
-final class PreviewsServiceAssembly: DIAssembly {
-    
-    func assemble(container: DIContainer) {
-        container.recordService(PreviewsService.self) { resolver in
-            PreviewsService(io: resolver.concurrencyIO,
-                            jwtProvider: resolver.unravel(some: JWTProvider.self))
-        }
-    }
-}
-
 // MARK: Requests
 private extension Request {
     
@@ -36,8 +25,14 @@ private extension Request {
     }
 }
 
-// MARK: - Service
-actor PreviewsService: BusinessLogicService {
+// MARK: - Contract
+@Contract protocol PreviewsService: BusinessLogicService, AutoResolve {
+    
+    func fetchReviews(for id: Int) async throws -> Reviews
+}
+
+// MARK: - Implementation
+private actor PreviewsServiceImplementation: PreviewsService {
     
     private let io: ConcurrencyIO
     private let jwtProvider: JWTProvider
@@ -45,6 +40,11 @@ actor PreviewsService: BusinessLogicService {
     init(io: ConcurrencyIO, jwtProvider: JWTProvider) {
         self.io = io
         self.jwtProvider = jwtProvider
+    }
+    
+    init(_ resolver: DIResolver) {
+        self.io = resolver.concurrencyIO
+        self.jwtProvider = resolver.unravel(some: JWTController.self)
     }
     
     func fetchReviews(for id: Int) async throws -> Reviews {

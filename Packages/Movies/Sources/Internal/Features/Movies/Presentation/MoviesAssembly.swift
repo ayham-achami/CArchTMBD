@@ -129,7 +129,7 @@ final class MoviesAssembly: LayoutModuleAssembly {
     func registerProvider(in container: CArch.DIContainer) {
         container.recordComponent(MoviesProvider.self) { (resolver, presenter: MoviesPresentationLogic) in
             MoviesProvider(presenter: presenter,
-                           moviesService: resolver.unravel(some: MoviesService.self))
+                           moviesService: MoviesServiceResolver(resolver).unravel())
         }
     }
     

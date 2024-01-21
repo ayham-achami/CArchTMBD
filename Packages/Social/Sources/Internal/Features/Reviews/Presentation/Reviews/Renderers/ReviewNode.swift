@@ -67,10 +67,16 @@ final class ReviewNode: ASCellNode {
                                    content: "Oppenheimer is a true masterclass in how to build extreme tension and suspense through fast",
                                    createdAt: "08.08.08",
                                    updatedAt: "08.08.08"))
-    preview.displaysAsynchronously = false
-    ASDisplayNode.nonFatalErrorBlock = { error in
-        print(error)
-    }
-    return ASDKViewController(node: preview)
+    preview.backgroundColor = .red
+    let vc = UIViewController()
+    vc.view.backgroundColor = .red
+    // vc.view.addSubnode(preview)
+    NSLayoutConstraint.activate([
+        preview.view.topAnchor.constraint(equalTo: vc.view.topAnchor),
+        preview.view.bottomAnchor.constraint(equalTo: vc.view.bottomAnchor),
+        preview.view.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
+        preview.view.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor)
+    ])
+    return vc
 }
 #endif

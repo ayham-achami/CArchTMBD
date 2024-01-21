@@ -38,15 +38,7 @@ final class ReviewsViewController: UIViewController, ModuleLifeCycleOwner {
     override func viewDidLoad() {
         super.viewDidLoad()
         moduleDidLoad()
-        view.addSubview(renderer.view)
-        renderer.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            renderer.view.topAnchor.constraint(equalTo: view.topAnchor),
-            renderer.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            renderer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            renderer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-        
+        // view.addSubview(renderer.view)
         provider.obtainReviews(for: state.initial.id)
     }
     

@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "cuikit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CUIKit.git",
+      "state" : {
+        "branch" : "feature/v-3.0.0",
+        "revision" : "ef0f99ada42ce6461eadba2272aaa148547cb364"
+      }
+    },
+    {
       "identity" : "sourcekitten",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jpsim/SourceKitten.git",

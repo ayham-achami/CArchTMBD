@@ -20,7 +20,7 @@ let package = Package(
         .package(path: "../TMDBCore"),
         .package(path: "../TMDBUIKit"),
         .package(url: "https://github.com/realm/SwiftLint", branch: "main"),
-        .package(url: "https://github.com/shimastripe/Texture.git", from: "3.1.1"),
+        .package(url: "https://github.com/ayham-achami/CTexture.git", branch: "feature/V-1.1.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.2.0"),
         .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/v-3.0.0"),
         .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
@@ -34,7 +34,7 @@ let package = Package(
                 "TMDBUIKit",
                 "CArchSwinject",
                 "AlamofireImage",
-                .product(name: "AsyncDisplayKit", package: "Texture"),
+                .product(name: "AsyncDisplayKit", package: "CTexture"),
             ],
             swiftSettings: [
                 .define("DEBUG", .when(configuration: .debug))
@@ -52,5 +52,16 @@ let package = Package(
                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
+
+let defaultSettings: [SwiftSetting] = [.enableExperimentalFeature("StrictConcurrency=minimal")]
+package.targets.forEach { target in
+    if var settings = target.swiftSettings, !settings.isEmpty {
+        settings.append(contentsOf: defaultSettings)
+        target.swiftSettings = settings
+    } else {
+        target.swiftSettings = defaultSettings
+    }
+}
