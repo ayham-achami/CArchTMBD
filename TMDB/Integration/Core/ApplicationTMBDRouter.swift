@@ -11,27 +11,29 @@ import UIKit
 final class ApplicationTMBDRouterAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(ApplicationTMBDRouter.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: ApplicationTMBDRouter.self) { resolver in
             ApplicationTMBDRouter(resolver.unravel(some: FactoryProvider.self))
         }
-        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: ApplicationRouter.self) { resolver in
             resolver.unravel(some: ApplicationTMBDRouter.self)
         }
     }
 }
 
-@MainActor final class ApplicationTMBDRouter: ApplicationRouter {
+final class ApplicationTMBDRouter {
     
     private let factory: LayoutAssemblyFactory
     
-    private let secureRouter = SecureRouter()
-    private var secureQueue = Queue<CArchModule>()
-    
-    nonisolated init(_ provider: FactoryProvider) {
+    init(_ provider: FactoryProvider) {
         self.factory = provider.factory
     }
+}
+
+// MARK: - ApplicationTMBDRouter + ApplicationRouter
+extension ApplicationTMBDRouter: ApplicationRouter {
     
-    func show(_ destination: TMDBCore.Destination) {
+    @MainActor func show(_ destination: TMDBCore.Destination) {
+        let secureRouter = SecureRouter()
         switch destination.level {
         case .main:
             secureRouter.unlock(with: destination.module)
@@ -40,11 +42,11 @@ final class ApplicationTMBDRouterAssembly: DIAssembly {
         }
     }
     
-    func showWelcome() {
+    @MainActor func showWelcome() {
         show(.init(WelcomeModule.NavigationBuilder(factory).build(), .secure))
     }
     
-    func showMain() {
+    @MainActor func showMain() {
         show(.init(MainModule.Builder(factory).build(), .main))
     }
 }

@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CArch.git",
       "state" : {
-        "branch" : "feature/v-3.0.0",
-        "revision" : "83a371c874692ea199d442f1e4572a1aed1b80dc"
+        "revision" : "28f871c60c1fb54dfa3b612b623ccee023ed5c10",
+        "version" : "3.0.0"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CArchSwinject.git",
       "state" : {
-        "branch" : "feature/v-3.0.0",
-        "revision" : "1821c5c463b965a80ee77d91ee6476a426e1c9c0"
+        "revision" : "3d4a2938781f22323bcdef5ef0240e37b2b8f258",
+        "version" : "3.0.0"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CFoundation.git",
       "state" : {
-        "branch" : "feature/3.0.0",
-        "revision" : "5710b19b6683d626c97723777b53f1129ff7d5d8"
+        "revision" : "46e30186a0ae11ac9acce2280b3675427ddea628",
+        "version" : "3.0.0"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CUIKit.git",
       "state" : {
-        "branch" : "feature/v-3.0.0",
-        "revision" : "ef0f99ada42ce6461eadba2272aaa148547cb364"
+        "revision" : "f65d21f352c2226d93f9b31ec9fef1de639a5b20",
+        "version" : "3.1.0"
       }
     },
     {

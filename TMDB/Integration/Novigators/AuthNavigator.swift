@@ -11,19 +11,23 @@ import TMDBCore
 final class AuthNavigatorAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(AuthNavigator.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: AuthNavigator.self) { resolver in
             AuthNavigatorImplementation(resolver.unravel(some: FactoryProvider.self))
         }
     }
 }
 
-@MainActor final class AuthNavigatorImplementation: AuthNavigator {
+final class AuthNavigatorImplementation {
     
     private let factory: LayoutAssemblyFactory
     
-    nonisolated init(_ provider: FactoryProvider) {
+    init(_ provider: FactoryProvider) {
         self.factory = provider.factory
     }
+}
+
+// MARK: - AuthNavigatorImplementation + AuthNavigator
+extension AuthNavigatorImplementation: AuthNavigator {
     
     func destination(for bound: Auth.AuthBounds) -> TMDBCore.Destination {
         switch bound {

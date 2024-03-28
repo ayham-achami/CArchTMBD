@@ -34,6 +34,7 @@ final class ___VARIABLE_productName___ViewController: UIViewController, ModuleLi
         
         moduleDidLoad()
         
+        renderer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(renderer)
         NSLayoutConstraint.activate([
             renderer.topAnchor.constraint(equalTo: view.topAnchor),

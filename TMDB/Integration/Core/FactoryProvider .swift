@@ -17,7 +17,7 @@ final class AppFactoryProvider: FactoryProvider {
 final class AppFactoryProviderAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(FactoryProvider.self, inScope: .autoRelease, configuration: nil) { _ in
+        container.record(some: FactoryProvider.self) { _ in
             AppFactoryProvider()
         }
     }

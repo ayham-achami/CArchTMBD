@@ -13,21 +13,25 @@ protocol LoginRoutingLogic: RootRoutingLogic {
 }
 
 /// Объект содержаний логику переходов от модуля `Login` в другие модули
-final class LoginRouter: LoginRoutingLogic {
+final class LoginRouter {
     
     private let authNavigator: AuthNavigator
     private let appRouter: ApplicationRouter
     private unowned let transitionController: TransitionController
     
-    nonisolated init(transitionController: TransitionController,
-                     appRouter: ApplicationRouter,
-                     authNavigator: AuthNavigator) {
+    init(transitionController: TransitionController,
+         appRouter: ApplicationRouter,
+         authNavigator: AuthNavigator) {
         self.appRouter = appRouter
         self.authNavigator = authNavigator
         self.transitionController = transitionController
     }
+}
+
+// MARK: - LoginRouter + LoginRoutingLogic
+extension LoginRouter: LoginRoutingLogic {
     
-    func showMain() {
+    @MainActor func showMain() {
         appRouter.show(authNavigator.destination(for: .login))
     }
 }

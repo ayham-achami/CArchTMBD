@@ -71,7 +71,7 @@ attributes:
   always_on_same_line:
     ["@MainActor", "@objc", "@frozen", "@IBOutlet", "@IBAction", "@IBSegueAction", "@Contract"]
   always_on_line_above:
-    ["@available", "@discardableResult"]
+    ["@available", "@discardableResult", "@UIContactor", "@SyncAlias"]
 file_header:
   required_pattern: |
                     \/\/

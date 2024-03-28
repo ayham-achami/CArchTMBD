@@ -13,7 +13,7 @@ import UIKit
 private final class MockFactoryProviderAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(FactoryProvider.self, inScope: .autoRelease, configuration: nil) { _ in
+        container.record(some: FactoryProvider.self) { _ in
             MockFactoryProvider()
         }
     }
@@ -31,7 +31,7 @@ private final class MockMoviesNavigatorAssembly: DIAssembly {
     nonisolated init() {}
     
     func assemble(container: DIContainer) {
-        container.record(MoviesNavigator.self, inScope: .autoRelease, configuration: nil) { _ in
+        container.record(some: MoviesNavigator.self) { _ in
             MockMoviesNavigator()
         }
     }
@@ -47,7 +47,7 @@ private final class MockMoviesNavigator: MoviesNavigator {
 private final class MockApplicationRouterAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(ApplicationRouter.self, inScope: .autoRelease, configuration: nil) { _ in
+        container.record(some: ApplicationRouter.self) { _ in
             MockApplicationRouter()
         }
     }
@@ -65,10 +65,10 @@ private final class MockApplicationRouter: ApplicationRouter {
 private final class MockJWTControllerAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(JWTController.self, inScope: .autoRelease, configuration: nil) { _ in
+        container.record(some: JWTController.self) { _ in
             MockJWTController()
         }
-        container.record(JWTProvider.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: JWTProvider.self) { resolver in
             resolver.unravel(some: MockJWTController.self)
         }
     }
@@ -105,7 +105,7 @@ private struct MockServicesAssembly: DIAssemblyCollection {
 private final class MockBearerAuthenticatorAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(IOBearerAuthenticator.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: IOBearerAuthenticator.self) { resolver in
             MockBearerAuthenticator(provider: .init(credential: .init(access: resolver.unravel(some: JWTController.self).token.access)))
         }
     }

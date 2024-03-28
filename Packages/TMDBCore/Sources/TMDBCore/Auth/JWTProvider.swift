@@ -11,18 +11,18 @@ public enum AuthState {
     case unauthorized
 }
 
+public protocol JWTProvider {
+    
+    typealias JWT = (access: String, refresh: String)
+    
+    var token: JWT { get  }
+    
+    var state: AuthState { get }
+}
+
 public protocol JWTController: JWTProvider {
     
     func rest()
     
     func set(_ token: JWT) throws
-}
-
-public protocol JWTProvider: AnyObject {
-    
-    typealias JWT = (access: String, refresh: String)
-    
-    var token: JWT { get }
-    
-    var state: AuthState { get }
 }

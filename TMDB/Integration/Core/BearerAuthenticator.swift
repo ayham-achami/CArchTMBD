@@ -10,7 +10,7 @@ import Foundation
 final class BearerAuthenticatorAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(IOBearerAuthenticator.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: IOBearerAuthenticator.self) { resolver in
             BearerAuthenticator(provider: resolver.unravel(some: BearerCredentialProvider.self))
         }
     }

@@ -12,15 +12,19 @@ protocol PersonRoutingLogic: RootRoutingLogic {
 }
 
 /// Объект содержаний логику переходов от модуля `Person` в другие модули
-final class PersonRouter: PersonRoutingLogic {
+final class PersonRouter {
     
     private unowned let transitionController: TransitionController
     
-    nonisolated init(transitionController: TransitionController) {
+    init(transitionController: TransitionController) {
         self.transitionController = transitionController
     }
+}
+
+// MARK: - PersonRouter + PersonRoutingLogic
+extension PersonRouter: PersonRoutingLogic {
     
-    func closeModule() {
+    @MainActor func closeModule() {
         transitionController.dismiss()
     }
 }

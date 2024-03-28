@@ -14,7 +14,7 @@ protocol MovieDetailsPresentationLogic: RootPresentationLogic {
 
 /// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются MovieDetailsPresenter как `UIModel`
-final class MovieDetailsProvider: MovieDetailsProvisionLogic {
+final class MovieDetailsProvider {
     
     private let presenter: MovieDetailsPresentationLogic
     private let movieDetailsService: MovieDetailsService
@@ -22,11 +22,15 @@ final class MovieDetailsProvider: MovieDetailsProvisionLogic {
     /// Инициализация провайдера модуля `MovieDetails`
     /// - Parameter presenter: `MovieDetailsPresenter`
     /// - Parameter movieDetailsService: `MovieDetailsService`
-    nonisolated init(presenter: MovieDetailsPresentationLogic,
-                     movieDetailsService: MovieDetailsService) {
+    init(presenter: MovieDetailsPresentationLogic,
+         movieDetailsService: MovieDetailsService) {
         self.presenter = presenter
         self.movieDetailsService = movieDetailsService
     }
+}
+
+// MARK: - MovieDetailsProvider + MovieDetailsProvisionLogic
+extension MovieDetailsProvider: MovieDetailsProvisionLogic {
     
     func obtainMovieDetails(with id: Int) async throws {
         let response = try await (details: movieDetailsService.fetchDetails(with: id),

@@ -8,11 +8,14 @@ import CArch
 protocol MainRoutingLogic: RootRoutingLogic {}
 
 /// Объект содержаний логику переходов от модуля `Main` в другие модули
-final class MainRouter: MainRoutingLogic {
+final class MainRouter {
     
     private unowned let transitionController: TransitionController
     
-    nonisolated init(transitionController: TransitionController) {
+    init(transitionController: TransitionController) {
         self.transitionController = transitionController
     }
 }
+
+// MARK: - MainRouter + MainRoutingLogic
+extension MainRouter: MainRoutingLogic {}

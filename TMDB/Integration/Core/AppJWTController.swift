@@ -10,16 +10,16 @@ import TMDBCore
 final class AppJWTControllerAssembly: DIAssembly {
     
     func assemble(container: DIContainer) {
-        container.record(AppJWTController.self, inScope: .autoRelease, configuration: nil) { _ in
+        container.record(some: AppJWTController.self) { _ in
             AppJWTController()
         }
-        container.record(JWTController.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: JWTController.self) { resolver in
             resolver.unravel(some: AppJWTController.self)
         }
-        container.record(JWTProvider.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: JWTProvider.self) { resolver in
             resolver.unravel(some: AppJWTController.self)
         }
-        container.record(BearerCredentialProvider.self, inScope: .autoRelease, configuration: nil) { resolver in
+        container.record(some: BearerCredentialProvider.self) { resolver in
             resolver.unravel(some: AppJWTController.self)
         }
     }

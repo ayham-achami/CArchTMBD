@@ -38,7 +38,7 @@ final class ___VARIABLE_productName___Renderer: UIView, UIRenderer {
     func set(content: ___VARIABLE_productName___Renderer.ModelType) {}
 }
 
-// MARK: - Renderer + IBAction
+// MARK: - Renderer + Action
 private extension ___VARIABLE_productName___Renderer {}
 
 // MARK: - Private methods

@@ -3,6 +3,7 @@
 //
 
 import AlamofireImage
+import AVKit
 import CArch
 import CoreImage
 import TMDBUIKit
@@ -93,6 +94,23 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         return view
     }()
     
+    private lazy var playerView: CardView = {
+        let view = CardView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 12
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var playerViewController: AVPlayerViewController = {
+        let view = AVPlayerViewController()
+        return view
+    }()
+    
+    private lazy var playerCoordinator: PlayerViewControllerCoordinator = {
+        PlayerViewControllerCoordinator(playerViewController, delegate: self)
+    }()
+    
     private lazy var creditsView: CreditsView = {
         let view = CreditsView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -100,6 +118,7 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
     }()
     
     private var titleViewTopConstraint: NSLayoutConstraint?
+    private var contentOverlayViewKey: NSKeyValueObservation?
     
     // MARK: - Inits
     init(interactional: MovieDetailsRendererUserInteraction) {
@@ -128,6 +147,16 @@ final class MovieDetailsRenderer: UIScrollView, UIRenderer {
         overviewView.set(content: content.overview)
         aboutView.set(content: content.about)
         creditsView.set(content: content.credits)
+        
+        let lhs = URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4")!
+        let playItem = AVPlayerItem(url: lhs)
+        let player = AVPlayer(playerItem: playItem)
+        playerCoordinator.set(player)
+
+        contentOverlayViewKey = playerViewController.observe(\.contentOverlayView) { playerViewController, _ in
+            playerViewController.contentOverlayView?.layer.cornerRadius = 8
+            playerViewController.contentOverlayView?.clipsToBounds = true
+        }
     }
 }
 
@@ -145,6 +174,7 @@ private extension MovieDetailsRenderer {
         renderingTitleView()
         renderingOverviewView()
         renderingAboutView()
+        renderingPlayerView()
         renderingCreditsView()
     }
     
@@ -225,16 +255,42 @@ private extension MovieDetailsRenderer {
         ])
     }
     
+    func renderingPlayerView() {
+        contentView.addSubview(playerView)
+        NSLayoutConstraint.activate([
+            playerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 300),
+            playerView.topAnchor.constraint(equalTo: aboutView.bottomAnchor, constant: 16),
+            playerView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            playerView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8)
+        ])
+    
+        playerViewController.view.backgroundColor = .clear
+        playerCoordinator.embed(into: playerView)
+    }
+    
     func renderingCreditsView() {
         creditsView.contentInset = .init(top: 0, left: 8, bottom: 0, right: 8)
         contentView.addSubview(creditsView)
         NSLayoutConstraint.activate([
             creditsView.heightAnchor.constraint(equalToConstant: 250),
-            creditsView.topAnchor.constraint(equalTo: aboutView.bottomAnchor, constant: 16),
-            creditsView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            creditsView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
+            creditsView.topAnchor.constraint(equalTo: playerView.bottomAnchor, constant: 16),
+            creditsView.leadingAnchor.constraint(equalTo: playerView.safeAreaLayoutGuide.leadingAnchor),
+            creditsView.trailingAnchor.constraint(equalTo: playerView.safeAreaLayoutGuide.trailingAnchor),
             creditsView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
+    }
+}
+
+extension MovieDetailsRenderer: PlayerViewControllerCoordinatorDelegate {
+    
+    func playerViewControllerCoordinatorWillDismiss(_ coordinator: PlayerViewControllerCoordinator) {
+    }
+    
+    func playerViewControllerCoordinator(_ coordinator: PlayerViewControllerCoordinator, readyForDisplay play: AVPlayer) {
+    }
+    
+    func playerViewControllerCoordinator(_ coordinator: PlayerViewControllerCoordinator,
+                                         restoreUIForPIPStop completion: @escaping (Bool) -> Void) {
     }
 }
 
@@ -242,7 +298,7 @@ private extension MovieDetailsRenderer {
 // MARK: - Preview
 extension MovieDetailsRenderer: UIRendererPreview {
     
-    static func preview() -> Self {
+    static func preview() -> MovieDetailsRenderer {
         let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         let title = TitleView.Model(rating: 0.68,
@@ -303,6 +359,9 @@ extension MovieDetailsRenderer: CreditsViewDelegate {
         preview.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
         preview.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor)
     ])
+    preview.moduleLayoutSubviews()
     return vc
 }
 #endif
+
+var readyForDisplayObservation: NSKeyValueObservation?

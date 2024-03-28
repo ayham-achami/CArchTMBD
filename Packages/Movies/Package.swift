@@ -20,9 +20,9 @@ let package = Package(
         .package(path: "../TMDBCore"),
         .package(path: "../TMDBUIKit"),
         .package(url: "https://github.com/realm/SwiftLint", from: "0.54.0"),
+        .package(url: "https://github.com/ayham-achami/CRest.git", from: "3.0.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.3.0"),
-        .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/v-3.0.0"),
-        .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
+        .package(url: "https://github.com/ayham-achami/CArchSwinject.git", from: "3.0.0")
     ],
     targets: [
         .target(

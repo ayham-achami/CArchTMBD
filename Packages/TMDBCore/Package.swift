@@ -18,9 +18,9 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/realm/SwiftLint", branch: "main"),
-        .package(url: "https://github.com/ayham-achami/CRest.git", branch: "feature/v-3.0.0"),
-        .package(url: "https://github.com/ayham-achami/CFoundation.git", branch: "feature/3.0.0"),
-        .package(url: "https://github.com/ayham-achami/CArchSwinject.git", branch: "feature/v-3.0.0")
+        .package(url: "https://github.com/ayham-achami/CRest.git", from: "3.0.0"),
+        .package(url: "https://github.com/ayham-achami/CFoundation.git", from: "3.0.0"),
+        .package(url: "https://github.com/ayham-achami/CArchSwinject.git", from: "3.0.0")
     ],
     targets: [
         .target(

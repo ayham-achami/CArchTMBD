@@ -763,6 +763,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = arch.carch.TMDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -791,6 +792,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = arch.carch.TMDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -847,8 +849,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ayham-achami/CFoundation.git";
 			requirement = {
-				branch = feature/3.0.0;
-				kind = branch;
+				kind = exactVersion;
+				version = 3.0.0;
 			};
 		};
 		DF7DF2752AF558F2001B8867 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {

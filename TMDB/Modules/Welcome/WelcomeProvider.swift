@@ -12,15 +12,19 @@ protocol WelcomePresentationLogic: RootPresentationLogic {
 
 /// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются WelcomePresenter как `UIModel`
-final class WelcomeProvider: WelcomeProvisionLogic {
+final class WelcomeProvider {
     
     private let presenter: WelcomePresentationLogic
     
     /// Инициализация провайдера модуля `Welcome`
     /// - Parameter presenter: `WelcomePresenter`
-    nonisolated init(presenter: WelcomePresentationLogic) {
+    init(presenter: WelcomePresentationLogic) {
         self.presenter = presenter
     }
+}
+
+// MARK: - WelcomeProvider + WelcomeProvisionLogic
+extension WelcomeProvider: WelcomeProvisionLogic {
     
     func obtainPosters() async throws {
         let posters = [

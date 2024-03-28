@@ -5,26 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "3dc6a42c7727c49bf26508e29b0a0b35f9c7e1ad",
-        "version" : "5.8.1"
-      }
-    },
-    {
-      "identity" : "carch",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ayham-achami/CArch.git",
-      "state" : {
-        "branch" : "feature/v-3.0.0",
-        "revision" : "4d95179c88476f36e5a23fc3ed9a1ed1750f3434"
-      }
-    },
-    {
-      "identity" : "carchswinject",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ayham-achami/CArchSwinject.git",
-      "state" : {
-        "branch" : "feature/v-3.0.0",
-        "revision" : "e4a42d5a2df87beff0b4af705d150155711f3205"
+        "revision" : "723fa5a6c65812aec4a0d7cc432ee198883b6e00",
+        "version" : "5.9.0"
       }
     },
     {
@@ -32,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CFoundation.git",
       "state" : {
-        "branch" : "mainline",
-        "revision" : "1f2b721a29c9cba5202a3c4389a702033f7f7373"
+        "revision" : "46e30186a0ae11ac9acce2280b3675427ddea628",
+        "version" : "3.0.0"
       }
     },
     {
@@ -50,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CRest.git",
       "state" : {
-        "branch" : "feature/adapt",
-        "revision" : "c9b9c4c8600473d87714c152da2ad7d102aea4c3"
+        "revision" : "16794d3a738700fd8ed2f8214860b66c14a705df",
+        "version" : "3.0.0"
       }
     },
     {
@@ -61,6 +43,15 @@
       "state" : {
         "revision" : "32f641cf24fc7abc1c591a2025e9f2f572648b0f",
         "version" : "1.7.2"
+      }
+    },
+    {
+      "identity" : "cuikit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ayham-achami/CUIKit.git",
+      "state" : {
+        "revision" : "f65d21f352c2226d93f9b31ec9fef1de639a5b20",
+        "version" : "3.1.0"
       }
     },
     {

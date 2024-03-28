@@ -15,17 +15,21 @@ protocol MoviesRoutingLogic: RootRoutingLogic {
 }
 
 /// Объект содержаний логику переходов от модуля `Movies` в другие модули
-final class MoviesRouter: MoviesRoutingLogic {
+final class MoviesRouter {
 
     private let factoryProvider: FactoryProvider
     private unowned let transitionController: TransitionController
 
-    nonisolated init(transitionController: TransitionController, factoryProvider: FactoryProvider) {
+    init(transitionController: TransitionController, factoryProvider: FactoryProvider) {
         self.factoryProvider = factoryProvider
         self.transitionController = transitionController
     }
+}
+
+// MARK: - MoviesRouter + MoviesRoutingLogic
+extension MoviesRouter: MoviesRoutingLogic {
     
-    func showMovieDetails(_ initialState: MovieDetailsModuleState.InitialState) {
+    @MainActor func showMovieDetails(_ initialState: MovieDetailsModuleState.InitialState) {
         TransitionBuilder
             .with(transitionController)
             .with(state: initialState)

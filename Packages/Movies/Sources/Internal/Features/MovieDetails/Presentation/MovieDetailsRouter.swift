@@ -17,18 +17,22 @@ protocol MovieDetailsRoutingLogic: RootRoutingLogic {
 }
 
 /// Объект содержаний логику переходов от модуля `MovieDetails` в другие модули
-final class MovieDetailsRouter: MovieDetailsRoutingLogic {
+final class MovieDetailsRouter {
     
     private let factoryProvider: FactoryProvider
     private unowned let transitionController: TransitionController
     
-    nonisolated init(transitionController: TransitionController,
-                     factoryProvider: FactoryProvider) {
+    init(transitionController: TransitionController,
+         factoryProvider: FactoryProvider) {
         self.transitionController = transitionController
         self.factoryProvider = factoryProvider
     }
+}
+
+// MARK: - MovieDetailsRouter + MovieDetailsRoutingLogic
+extension MovieDetailsRouter: MovieDetailsRoutingLogic {
     
-    func showPersoneDetailes(_ initialState: PersonModuleState.InitialState) {
+    @MainActor func showPersoneDetailes(_ initialState: PersonModuleState.InitialState) {
         TransitionBuilder
             .with(transitionController)
             .with(state: initialState)
@@ -38,7 +42,7 @@ final class MovieDetailsRouter: MovieDetailsRoutingLogic {
             .commit()
     }
     
-    func closeModule() {
+    @MainActor func closeModule() {
         transitionController.dismiss()
     }
 }

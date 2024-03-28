@@ -9,10 +9,10 @@ import UIKit
 /// Протокол взаимодействия пользователя с модулем
 protocol WelcomeRendererUserInteraction: AnyUserInteraction {
     
-    /// <#Description#>
+    /// Вызвается при нажатии на кнопку войти
     func didRequestLogin()
     
-    /// <#Description#>
+    /// Вызвается при нажатии на кнопку демо
     func didRequestDemo()
 }
 
@@ -202,7 +202,7 @@ private extension WelcomeRenderer {
 // MARK: - Preview
 extension WelcomeRenderer: UIRendererPreview {
     
-    static func preview() -> Self {
+    static func preview() -> WelcomeRenderer {
         let preview = Self.init(interactional: InteractionalPreview.interactional)
         preview.moduleDidLoad()
         preview.moduleDidBecomeActive()

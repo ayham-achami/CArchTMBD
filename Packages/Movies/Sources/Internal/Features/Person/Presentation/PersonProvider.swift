@@ -16,7 +16,7 @@ protocol PersonPresentationLogic: RootPresentationLogic {
 
 /// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются PersonPresenter как `UIModel`
-final class PersonProvider: PersonProvisionLogic {
+final class PersonProvider {
     
     private let personService: PersonService
     private let presenter: PersonPresentationLogic
@@ -24,10 +24,14 @@ final class PersonProvider: PersonProvisionLogic {
     /// Инициализация провайдера модуля `Person`
     /// - Parameter presenter: `PersonPresenter`
     /// - Parameter personService: `PersonService`
-    nonisolated init(presenter: PersonPresentationLogic, personService: PersonService) {
+    init(presenter: PersonPresentationLogic, personService: PersonService) {
         self.presenter = presenter
         self.personService = personService
     }
+}
+
+// MARK: - PersonProvider + PersonProvisionLogic
+extension PersonProvider: PersonProvisionLogic {
     
     func obtainPerson(with id: Int) async throws {
         let person = try await (personService.fetchPerson(with: id),

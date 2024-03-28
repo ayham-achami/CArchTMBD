@@ -17,18 +17,22 @@ protocol WelcomeRoutingLogic: RootRoutingLogic {
 }
 
 /// Объект содержаний логику переходов от модуля `Welcome` в другие модули
-final class WelcomeRouter: WelcomeRoutingLogic {
+final class WelcomeRouter {
     
     private let factoryProvider: FactoryProvider
     private unowned let transitionController: TransitionController
     
-    nonisolated init(transitionController: TransitionController,
-                     factoryProvider: FactoryProvider) {
+    init(transitionController: TransitionController,
+         factoryProvider: FactoryProvider) {
         self.transitionController = transitionController
         self.factoryProvider = factoryProvider
     }
+}
+
+// MARK: - WelcomeRouter + WelcomeRoutingLogic
+extension WelcomeRouter: WelcomeRoutingLogic {
     
-    func showMain(_ initialState: MoviesModuleState.InitialState) {
+    @MainActor func showMain(_ initialState: MoviesModuleState.InitialState) {
         TransitionBuilder
             .with(transitionController)
             .with(hierarchy: .clear)
@@ -40,7 +44,7 @@ final class WelcomeRouter: WelcomeRoutingLogic {
             .commit()
     }
     
-    func showLogin(_ initialState: LoginModuleState.InitialState) {
+    @MainActor func showLogin(_ initialState: LoginModuleState.InitialState) {
         TransitionBuilder
             .with(transitionController)
             .with(hierarchy: .clear)

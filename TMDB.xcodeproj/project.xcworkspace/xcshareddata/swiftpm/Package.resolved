@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CArch.git",
       "state" : {
-        "branch" : "feature/v-3.0.0",
-        "revision" : "c8188cff4f0a22f9a4e3a94848332f5a68bc762c"
+        "revision" : "28f871c60c1fb54dfa3b612b623ccee023ed5c10",
+        "version" : "3.0.0"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CArchSwinject.git",
       "state" : {
-        "branch" : "feature/v-3.0.0",
-        "revision" : "aca1bf5bbd0b773194bc7eccf36f54e64b4dc46c"
+        "revision" : "3d4a2938781f22323bcdef5ef0240e37b2b8f258",
+        "version" : "3.0.0"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CFoundation.git",
       "state" : {
-        "branch" : "feature/3.0.0",
-        "revision" : "59a4bfcb7f63f43fecaefd445c135822b7dc2f34"
+        "revision" : "46e30186a0ae11ac9acce2280b3675427ddea628",
+        "version" : "3.0.0"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CTexture.git",
       "state" : {
-        "branch" : "feature/V-1.1.0",
-        "revision" : "09e89b55443170d631220c3a2fbf5082d813b724"
+        "revision" : "cab5b4b07d39d7d37d01c3eba9ce5e2565814faf",
+        "version" : "1.0.0"
       }
     },
     {
@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ayham-achami/CUIKit.git",
       "state" : {
-        "branch" : "feature/v-3.0.0",
-        "revision" : "ac688725fbd2f09dc92e5fbaf59e678471c285da"
+        "revision" : "f65d21f352c2226d93f9b31ec9fef1de639a5b20",
+        "version" : "3.1.0"
       }
     },
     {
@@ -168,7 +168,7 @@
       "location" : "https://github.com/realm/SwiftLint",
       "state" : {
         "branch" : "main",
-        "revision" : "443cbd7fce33cc9dc8868a472193d0dbd05de1da"
+        "revision" : "f0c1780b5355ddcd7048acb540946b2c5040d03a"
       }
     },
     {

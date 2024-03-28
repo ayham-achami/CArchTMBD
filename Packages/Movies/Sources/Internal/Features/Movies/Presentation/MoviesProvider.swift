@@ -15,7 +15,7 @@ protocol MoviesPresentationLogic: RootPresentationLogic {
 
 /// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются `MoviesPresenter` как `UIModel`
-final class MoviesProvider: MoviesProvisionLogic {
+final class MoviesProvider {
 
     private let presenter: MoviesPresentationLogic
     private let moviesService: MoviesService
@@ -23,11 +23,15 @@ final class MoviesProvider: MoviesProvisionLogic {
     /// Инициализация провайдера модуля `Movies`
     /// - Parameter presenter: `MoviesPresenter`
     /// - Parameter moviesService: `MoviesService`
-    nonisolated init(presenter: MoviesPresentationLogic,
-                     moviesService: MoviesService) {
+    init(presenter: MoviesPresentationLogic,
+         moviesService: MoviesService) {
         self.presenter = presenter
         self.moviesService = moviesService
     }
+}
+
+// MARK: - MoviesProvider + MoviesProvisionLogic
+extension MoviesProvider: MoviesProvisionLogic {
     
     func obtainMovies(of type: MoviesModuleState.MoviesType, at page: Int) async throws {
         let movies: MoviesList

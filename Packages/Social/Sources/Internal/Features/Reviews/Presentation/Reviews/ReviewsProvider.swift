@@ -12,7 +12,7 @@ protocol ReviewsPresentationLogic: RootPresentationLogic {
 
 /// Объект содержаний логику получения данных из слоя бизнес логики
 /// все типы данных передаются ReviewsPresenter как `UIModel`
-final class ReviewsProvider: ReviewsProvisionLogic {
+final class ReviewsProvider {
     
     private let previewsService: PreviewsService
     private let presenter: ReviewsPresentationLogic
@@ -20,11 +20,15 @@ final class ReviewsProvider: ReviewsProvisionLogic {
     /// Инициализация провайдера модуля `Reviews`
     /// - Parameter presenter: `ReviewsPresenter`
     /// - Parameter socialService: `SocialService`
-    nonisolated init(presenter: ReviewsPresentationLogic,
-                     previewsService: PreviewsService) {
+    init(presenter: ReviewsPresentationLogic,
+         previewsService: PreviewsService) {
         self.presenter = presenter
         self.previewsService = previewsService
     }
+}
+
+// MARK: - ReviewsProvider + ReviewsProvisionLogic
+extension ReviewsProvider: ReviewsProvisionLogic {
     
     func obtainReviews(for id: Int) async throws {
         let response = try await previewsService.fetchReviews(for: id)
